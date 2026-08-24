@@ -3,26 +3,24 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cardiocare-clinic-preview.skylietimm39.chatgpt.site'),
-  title: 'Olumaro Medical Specialist Clinic | Cardiology information and consultations',
+  title: 'Oluwarotimi Specialist Clinic & Diagnostic Centre | Cardiology information',
   description: 'Clear cardiology information and consultation guidance for patients and families.',
   openGraph: {
-    title: 'Olumaro Medical Specialist Clinic',
+    title: 'Oluwarotimi Specialist Clinic',
     description: 'Clear cardiology information and consultation guidance for patients and families.',
     type: 'website',
     images: [
       {
-        url: 'https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/og.png',
-        width: 1200,
-        height: 630,
-        alt: 'Olumaro Medical Specialist Clinic - Clear cardiology information',
+        url: 'https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/olumaro-clinic-logo.jpg',
+        alt: 'Oluwarotimi Specialist Clinic & Diagnostic Centre logo',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Olumaro Medical Specialist Clinic',
+    title: 'Oluwarotimi Specialist Clinic',
     description: 'Clear cardiology information and consultation guidance for patients and families.',
-    images: ['https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/og.png'],
+    images: ['https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/olumaro-clinic-logo.jpg'],
   },
 };
 

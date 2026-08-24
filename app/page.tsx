@@ -1,4 +1,5 @@
-const clinicName = 'Olumaro Medical Specialist Clinic';
+const clinicName = 'Oluwarotimi Specialist Clinic';
+const formalClinicName = 'Oluwarotimi Specialist Clinic & Diagnostic Centre';
 
 const learningPaths = [
   { number: '01', title: 'Understand your heart health', description: 'Start with a clear overview of common risk factors, symptoms and questions worth discussing at a consultation.', href: '#heart-health' },
@@ -38,7 +39,7 @@ export default function Home() {
         <div className="shell header-inner">
           <a className="brand" href="#top" aria-label={`${clinicName} home`}>
             <span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span>
-            <span><strong>Olumaro Medical Specialist Clinic</strong><small>Cardiology information &amp; consultations</small></span>
+            <span><strong>{clinicName}</strong><small>Cardiology information &amp; consultations</small></span>
           </a>
           <nav className="desktop-nav" aria-label="Main navigation">
             <a href="#heart-health">Heart health</a>
@@ -54,7 +55,7 @@ export default function Home() {
         <div className="shell hero-grid" id="main-content">
           <div className="hero-copy">
             <p className="eyebrow">CARDIOLOGY INFORMATION &amp; CONSULTATIONS</p>
-            <h1>Clear information for every step of your heart-health journey.</h1>
+              <h1>Clear information for every step of your cardiology journey.</h1>
             <p className="hero-intro">A calm place to understand common heart concerns, prepare for a cardiology consultation and find the next appropriate step.</p>
             <div className="hero-actions">
               <a className="button button--primary" href="#heart-health">Explore heart health</a>
@@ -62,12 +63,16 @@ export default function Home() {
             </div>
             <p className="hero-note">General information only. It does not replace personal medical advice.</p>
           </div>
-          <div className="hero-art" aria-label="A calm abstract heart-health illustration" role="img">
-            <div className="hero-art__ring hero-art__ring--one" />
-            <div className="hero-art__ring hero-art__ring--two" />
-            <div className="hero-art__heart" aria-hidden="true"><span /></div>
-            <div className="hero-art__caption"><span>Patient-first</span><strong>Cardiology care, explained clearly</strong></div>
-          </div>
+          <aside className="hero-panel" aria-label="Clinic information overview">
+            <p className="eyebrow">OLUWAROTIMI SPECIALIST CLINIC</p>
+            <h2>Cardiology information, in one place.</h2>
+            <p>Clear guidance for patients and families before a specialist consultation.</p>
+            <div className="hero-panel__list">
+              <div><span>01</span><strong>Understand your concerns</strong></div>
+              <div><span>02</span><strong>Prepare for a consultation</strong></div>
+              <div><span>03</span><strong>Contact the clinic</strong></div>
+            </div>
+            </aside>
         </div>
       </section>
 
@@ -153,10 +158,10 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="shell footer-top">
-          <a className="brand brand--footer" href="#top"><span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span><span><strong>Olumaro Medical Specialist Clinic</strong><small>Cardiology information &amp; consultations</small></span></a>
+          <a className="brand brand--footer" href="#top"><span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span><span><strong>{clinicName}</strong><small>Cardiology information &amp; consultations</small></span></a>
           <div className="footer-links"><a href="#heart-health">Heart health</a><a href="#conditions">Conditions</a><a href="#visit">Patient guide</a><a href="#contact">Contact</a></div>
         </div>
-        <div className="shell footer-bottom"><p>© 2026 Olumaro Medical Specialist Clinic. Draft website; clinic details to be confirmed.</p><p>General information only. Not for emergencies.</p></div>
+        <div className="shell footer-bottom"><p>© 2026 {formalClinicName}. Draft website; clinic details to be confirmed.</p><p>General information only. Not for emergencies.</p></div>
       </footer>
     </main>
   );
