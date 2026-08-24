@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cardiocare-clinic-preview.skylietimm39.chatgpt.site'),
   title: 'Olumaro Medical Specialist Clinic | Cardiology information and consultations',
   description: 'Clear cardiology information and consultation guidance for patients and families.',
   openGraph: {
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og.png',
+        url: 'https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/og.png',
         width: 1200,
         height: 630,
         alt: 'Olumaro Medical Specialist Clinic - Clear cardiology information',
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Olumaro Medical Specialist Clinic',
     description: 'Clear cardiology information and consultation guidance for patients and families.',
-    images: ['/og.png'],
+    images: ['https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/og.png'],
   },
 };
 
