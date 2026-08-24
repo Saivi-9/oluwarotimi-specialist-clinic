@@ -1,3 +1,5 @@
+const clinicName = 'Olumaro Medical Specialist Clinic';
+
 const learningPaths = [
   { number: '01', title: 'Understand your heart health', description: 'Start with a clear overview of common risk factors, symptoms and questions worth discussing at a consultation.', href: '#heart-health' },
   { number: '02', title: 'Explore heart conditions', description: 'Plain-language introductions to common heart concerns, arranged so patients can find a useful starting point.', href: '#conditions' },
@@ -34,9 +36,9 @@ export default function Home() {
 
       <header className="site-header">
         <div className="shell header-inner">
-          <a className="brand" href="#top" aria-label="CardioCare Clinic home">
-            <span className="brand-mark" aria-hidden="true">C</span>
-            <span><strong>CardioCare</strong><small>Cardiology clinic</small></span>
+          <a className="brand" href="#top" aria-label={`${clinicName} home`}>
+            <span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span>
+            <span><strong>Olumaro Medical Specialist Clinic</strong><small>Cardiology information &amp; consultations</small></span>
           </a>
           <nav className="desktop-nav" aria-label="Main navigation">
             <a href="#heart-health">Heart health</a>
@@ -151,10 +153,10 @@ export default function Home() {
 
       <footer className="site-footer">
         <div className="shell footer-top">
-          <a className="brand brand--footer" href="#top"><span className="brand-mark" aria-hidden="true">C</span><span><strong>CardioCare</strong><small>Cardiology clinic</small></span></a>
+          <a className="brand brand--footer" href="#top"><span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span><span><strong>Olumaro Medical Specialist Clinic</strong><small>Cardiology information &amp; consultations</small></span></a>
           <div className="footer-links"><a href="#heart-health">Heart health</a><a href="#conditions">Conditions</a><a href="#visit">Patient guide</a><a href="#contact">Contact</a></div>
         </div>
-        <div className="shell footer-bottom"><p>© 2026 CardioCare Clinic. Draft website; clinic details to be confirmed.</p><p>General information only. Not for emergencies.</p></div>
+        <div className="shell footer-bottom"><p>© 2026 Olumaro Medical Specialist Clinic. Draft website; clinic details to be confirmed.</p><p>General information only. Not for emergencies.</p></div>
       </footer>
     </main>
   );
