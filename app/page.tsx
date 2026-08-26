@@ -33,6 +33,53 @@ const faqs = [
   ['Can I come without a referral?', 'Yes. Patients may visit with or without a referral letter. Registration or consultation fees apply; please contact the clinic for current information.'],
 ];
 
+const heartHealthTips = [
+  {
+    number: '01',
+    label: 'EAT FOR YOUR HEART',
+    title: 'Build everyday meals around less-processed foods.',
+    text: 'Choose more vegetables, fruits, beans, whole grains and other fibre-rich foods. Limit salty, highly processed foods, sugary drinks and frequent processed meats where possible.',
+  },
+  {
+    number: '02',
+    label: 'MOVE REGULARLY',
+    title: 'Make movement a weekly habit.',
+    text: 'For most adults, the goal is at least 150 minutes of moderate activity a week, such as brisk walking. If you have symptoms, a medical condition or have been inactive, ask a health professional what is suitable for you.',
+  },
+  {
+    number: '03',
+    label: 'KNOW YOUR NUMBERS',
+    title: 'Check blood pressure even when you feel well.',
+    text: 'High blood pressure may have no warning signs. Ask about appropriate checks for blood pressure, blood sugar and cholesterol, especially if you have risk factors or a family history.',
+  },
+  {
+    number: '04',
+    label: 'TAKE MEDICINES SAFELY',
+    title: 'Use prescribed medicines exactly as discussed.',
+    text: 'Do not stop, share or change a prescribed medicine because you feel better or have read something online. Speak with your clinician or pharmacist first if you have concerns or side effects.',
+  },
+  {
+    number: '05',
+    label: 'AVOID TOBACCO',
+    title: 'Every step away from tobacco helps.',
+    text: 'Avoid smoking and other nicotine products where you can. If stopping feels difficult, a health professional can help you make a realistic plan.',
+  },
+  {
+    number: '06',
+    label: 'REST & RESET',
+    title: 'Protect your sleep and make room for recovery.',
+    text: 'Regular sleep, stress-management habits and social support are part of long-term cardiovascular wellbeing. Start with one realistic change you can repeat this week.',
+  },
+];
+
+const urgentSymptoms = [
+  'new or severe chest discomfort',
+  'trouble breathing',
+  'fainting or collapse',
+  'sudden weakness, numbness or trouble speaking',
+  'a severe or rapidly worsening symptom',
+];
+
 function getWhatsAppLink(message: string) {
   return `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(message)}`;
 }
@@ -43,6 +90,7 @@ export default function Home() {
   const [contactPreference, setContactPreference] = useState('WhatsApp message');
   const [message, setMessage] = useState('');
   const [formNote, setFormNote] = useState('');
+  const [tipIndex, setTipIndex] = useState(0);
 
   const whatsAppLink = useMemo(() => {
     const introduction = name.trim() ? `Hello, my name is ${name.trim()}.` : 'Hello.';
@@ -54,6 +102,8 @@ export default function Home() {
     event.preventDefault();
     setFormNote('Your WhatsApp message is ready. Select “Continue to WhatsApp” to send it to the clinic.');
   }
+
+  const featuredTip = heartHealthTips[tipIndex];
 
   return (
     <main>
@@ -76,6 +126,7 @@ export default function Home() {
             <a href="#services">Services</a>
             <a href="#consultant">Consultant</a>
             <a href="#visit">Your visit</a>
+            <a href="#heart-health">Heart health</a>
             <a href="#faq">FAQs</a>
           </nav>
           <a className="header-cta" href="#request">Book a visit</a>
@@ -190,6 +241,61 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="heart-guide-section" id="heart-health" aria-labelledby="heart-guide-heading">
+        <div className="shell">
+          <div className="section-heading section-heading--wide heart-guide-heading">
+            <p className="eyebrow">HEART HEALTH GUIDE</p>
+            <h2 id="heart-guide-heading">Practical habits for a healthier heart.</h2>
+            <p>These tips are for general education. They are not a diagnosis or a personal treatment plan. Your medical history, medicines, pregnancy status and symptoms can change what is right for you.</p>
+          </div>
+
+          <div className="tip-spotlight" aria-live="polite">
+            <div className="tip-spotlight__number">{featuredTip.number}</div>
+            <div className="tip-spotlight__copy">
+              <p className="eyebrow">{featuredTip.label}</p>
+              <h3>{featuredTip.title}</h3>
+              <p>{featuredTip.text}</p>
+            </div>
+            <button className="tip-next" type="button" onClick={() => setTipIndex((current) => (current + 1) % heartHealthTips.length)}>
+              Another tip <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+          <div className="health-tip-grid" aria-label="Heart health tips">
+            {heartHealthTips.map((tip, index) => (
+              <article className="health-tip-card" key={tip.number}>
+                <span>{tip.number}</span>
+                <p className="health-tip-card__label">{tip.label}</p>
+                <h3>{tip.title}</h3>
+                <p>{tip.text}</p>
+                <button className="health-tip-card__action" type="button" onClick={() => setTipIndex(index)}>Read this tip <span aria-hidden="true">→</span></button>
+              </article>
+            ))}
+          </div>
+
+          <div className="safety-grid">
+            <aside className="urgent-guide" aria-labelledby="urgent-guide-heading">
+              <p className="eyebrow">DO NOT WAIT FOR A ROUTINE APPOINTMENT</p>
+              <h3 id="urgent-guide-heading">For urgent symptoms, seek emergency care.</h3>
+              <p>If you or someone near you has any of the following, go to the nearest emergency hospital. Do not rely on this website, a WhatsApp message or an online search.</p>
+              <ul>
+                {urgentSymptoms.map((symptom) => <li key={symptom}>{symptom}</li>)}
+              </ul>
+            </aside>
+            <div className="source-guide">
+              <p className="eyebrow">LEARN FROM TRUSTED SOURCES</p>
+              <h3>Want to read more?</h3>
+              <p>Our patient education is informed by recognised public-health guidance. These links are a good starting point for reliable general information.</p>
+              <div className="source-links">
+                <a href="https://www.heart.org/en/healthy-living/healthy-lifestyle/lifes-essential-8" target="_blank" rel="noreferrer">American Heart Association: Life&apos;s Essential 8 <span aria-hidden="true">↗</span></a>
+                <a href="https://www.who.int/health-topics/noncommunicable-diseases/physical-activity" target="_blank" rel="noreferrer">World Health Organization: Physical activity <span aria-hidden="true">↗</span></a>
+                <a href="https://www.cdc.gov/high-blood-pressure/prevention/index.html" target="_blank" rel="noreferrer">CDC: Preventing high blood pressure <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="faq-section" id="faq">
         <div className="shell faq-layout">
           <div className="section-heading">
@@ -258,7 +364,7 @@ export default function Home() {
       <footer className="site-footer">
         <div className="shell footer-top">
           <a className="brand brand--footer" href="#top"><span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic logo" /></span><span><strong>{clinicName}</strong><small>Health is Wealth</small></span></a>
-          <div className="footer-links"><a href="#services">Services</a><a href="#consultant">Consultant</a><a href="#faq">FAQs</a><a href="#request">Contact</a></div>
+          <div className="footer-links"><a href="#services">Services</a><a href="#consultant">Consultant</a><a href="#heart-health">Heart health</a><a href="#faq">FAQs</a><a href="#request">Contact</a></div>
         </div>
         <div className="shell footer-bottom"><p>© 2026 {formalClinicName}. All rights reserved.</p><p>General information only. Not an emergency service.</p></div>
       </footer>
