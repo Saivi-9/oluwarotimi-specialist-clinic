@@ -1,29 +1,60 @@
+'use client';
+
+import { FormEvent, useMemo, useState } from 'react';
+
 const clinicName = 'Oluwarotimi Specialist Clinic';
 const formalClinicName = 'Oluwarotimi Specialist Clinic & Diagnostic Centre';
+const phone = '+234 803 410 6928';
+const whatsAppNumber = '2348034106928';
+const email = 'folorunsooluwarotimi@gmail.com';
+const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Oluwarotimi+Specialist+Diagnostic+Centre%2C+Promised+Land+Estate%2C+Alagbaka+Extension+2%2C+Akure%2C+Ondo+State%2C+Nigeria';
 
-const learningPaths = [
-  { number: '01', title: 'Understand your heart health', description: 'Start with a clear overview of common risk factors, symptoms and questions worth discussing at a consultation.', href: '#heart-health' },
-  { number: '02', title: 'Explore heart conditions', description: 'Plain-language introductions to common heart concerns, arranged so patients can find a useful starting point.', href: '#conditions' },
-  { number: '03', title: 'Learn about tests', description: 'Know what a cardiology assessment may involve and how to arrive prepared for an informed conversation.', href: '#tests' },
-  { number: '04', title: 'Prepare for your visit', description: 'A short checklist for bringing previous results, medication information and the questions that matter to you.', href: '#visit' },
-];
-
-const conditionTopics = [
-  ['Heart rhythm concerns', 'Palpitations, irregular rhythms and questions about atrial fibrillation.'],
-  ['Blood pressure', 'Understanding high blood pressure and its relationship with heart health.'],
-  ['Chest discomfort', 'When symptoms need assessment and why urgent symptoms need urgent help.'],
-  ['Coronary artery disease', 'Information on risk, prevention and the questions patients commonly ask.'],
-  ['Heart valve conditions', 'A patient-friendly starting point for learning about valve problems.'],
-  ['Heart failure', 'General information for patients and families navigating a diagnosis.'],
+const services = [
+  { label: 'Cardiology consultation', text: 'A focused conversation about symptoms, history, existing results and the next appropriate step.' },
+  { label: 'Blood pressure & risk assessment', text: 'Assessment for hypertension and cardiovascular risk factors, including diabetes-related concerns.' },
+  { label: 'ECG', text: 'Electrocardiogram testing is available at the clinic when clinically appropriate.' },
+  { label: 'Echocardiogram', text: 'Echocardiography is available as part of the clinic’s diagnostic services.' },
+  { label: 'Holter monitoring', text: 'Holter monitoring is available for patients whose assessment requires it.' },
+  { label: 'Laboratory investigations', text: 'Laboratory testing can be arranged as part of a diagnostic work-up.' },
 ];
 
 const visitSteps = [
-  ['Bring a medication list', 'Include prescriptions, supplements and doses if possible.'],
-  ['Bring previous results', 'ECGs, scans, blood-test results, discharge notes and referral letters can help.'],
-  ['Write down your questions', 'Note symptoms, when they happen and what you want to understand.'],
+  ['Contact the clinic', 'Call, send a WhatsApp message, walk in, or come with a referral.'],
+  ['Prepare for your visit', 'Bring your registration or consultation fee, and any previous reports or referral letter if you have them.'],
+  ['Agree the next step', 'The team will explain the consultation, tests, follow-up or service arrangement that is appropriate for you.'],
 ];
 
+const faqs = [
+  ['Do you attend to children?', 'Yes. Please call the clinic before coming so the team can confirm the appropriate consultation arrangement.'],
+  ['Do you attend to pregnant patients?', 'Yes. Please contact the clinic before your visit so the team can discuss the appropriate arrangement.'],
+  ['Are online consultations available?', 'Online services may be available after an appropriate agreement with the clinic. Contact the team to discuss your needs.'],
+  ['Are home services available?', 'Home services may be available after an appropriate agreement with the clinic. Please contact the team first.'],
+  ['Do you give special attention to elderly patients?', 'Yes. Care for older adults is an important focus for the clinic.'],
+  ['Can I come without a referral?', 'Yes. Patients may visit with or without a referral letter. Registration or consultation fees apply; please contact the clinic for current information.'],
+];
+
+function getWhatsAppLink(message: string) {
+  return `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(message)}`;
+}
+
 export default function Home() {
+  const [name, setName] = useState('');
+  const [visitType, setVisitType] = useState('Cardiology consultation');
+  const [contactPreference, setContactPreference] = useState('WhatsApp message');
+  const [message, setMessage] = useState('');
+  const [formNote, setFormNote] = useState('');
+
+  const whatsAppLink = useMemo(() => {
+    const introduction = name.trim() ? `Hello, my name is ${name.trim()}.` : 'Hello.';
+    const details = message.trim() ? ` I would like to share: ${message.trim()}` : '';
+    return getWhatsAppLink(`${introduction} I would like to ask about a ${visitType}. My preferred contact is ${contactPreference}.${details}`);
+  }, [name, visitType, contactPreference, message]);
+
+  function handleRequest(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setFormNote('Your WhatsApp message is ready. Select “Continue to WhatsApp” to send it to the clinic.');
+  }
+
   return (
     <main>
       <a className="skip-link" href="#main-content">Skip to content</a>
@@ -31,137 +62,205 @@ export default function Home() {
       <div className="urgent-bar">
         <div className="shell urgent-bar__inner">
           <span className="urgent-dot" aria-hidden="true" />
-          <p><strong>Emergency notice:</strong> If you think you may be having a medical emergency, contact local emergency services immediately. This website is not an emergency service.</p>
+          <p><strong>Urgent symptoms:</strong> for severe, sudden or worsening symptoms, do not wait for online guidance or a routine visit. Seek emergency care at the nearest hospital.</p>
         </div>
       </div>
 
       <header className="site-header">
         <div className="shell header-inner">
           <a className="brand" href="#top" aria-label={`${clinicName} home`}>
-            <span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span>
-            <span><strong>{clinicName}</strong><small>Cardiology information &amp; consultations</small></span>
+            <span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic logo" /></span>
+            <span><strong>{clinicName}</strong><small>Cardiology &amp; diagnostic care in Akure</small></span>
           </a>
           <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="#heart-health">Heart health</a>
-            <a href="#conditions">Conditions</a>
-            <a href="#tests">Tests &amp; visits</a>
-            <a href="#about">About the consultant</a>
+            <a href="#services">Services</a>
+            <a href="#consultant">Consultant</a>
+            <a href="#visit">Your visit</a>
+            <a href="#faq">FAQs</a>
           </nav>
-          <a className="header-cta" href="#contact">Contact the clinic</a>
+          <a className="header-cta" href="#request">Book a visit</a>
         </div>
       </header>
 
       <section className="hero" id="top">
         <div className="shell hero-grid" id="main-content">
           <div className="hero-copy">
-            <p className="eyebrow">CARDIOLOGY INFORMATION &amp; CONSULTATIONS</p>
-              <h1>Clear information for every step of your cardiology journey.</h1>
-            <p className="hero-intro">A calm place to understand common heart concerns, prepare for a cardiology consultation and find the next appropriate step.</p>
+            <p className="eyebrow">CONSULTANT PHYSICIAN &amp; CARDIOLOGY CARE</p>
+            <h1>Cardiology care that starts with listening.</h1>
+            <p className="hero-intro">{formalClinicName} is an Akure-based clinic for thoughtful cardiovascular assessment, diagnostic testing and clear next steps for patients and families.</p>
             <div className="hero-actions">
-              <a className="button button--primary" href="#heart-health">Explore heart health</a>
-              <a className="text-link" href="#contact">Contact the clinic <span aria-hidden="true">→</span></a>
+              <a className="button button--primary" href="#request">Request a visit</a>
+              <a className="text-link" href={`tel:${phone.replace(/\s/g, '')}`}>Call {phone} <span aria-hidden="true">→</span></a>
             </div>
-            <p className="hero-note">General information only. It does not replace personal medical advice.</p>
+            <p className="hero-note">General information only. The clinic will discuss individual concerns during an appropriate consultation.</p>
           </div>
-          <aside className="hero-panel" aria-label="Clinic information overview">
-            <p className="eyebrow">OLUWAROTIMI SPECIALIST CLINIC</p>
-            <h2>Cardiology information, in one place.</h2>
-            <p>Clear guidance for patients and families before a specialist consultation.</p>
-            <div className="hero-panel__list">
-              <div><span>01</span><strong>Understand your concerns</strong></div>
-              <div><span>02</span><strong>Prepare for a consultation</strong></div>
-              <div><span>03</span><strong>Contact the clinic</strong></div>
+
+          <aside className="hero-panel" aria-label="Clinic contact overview">
+            <p className="eyebrow">VISIT THE CLINIC</p>
+            <h2>Clear contact details. A simple route to care.</h2>
+            <div className="hero-panel__details">
+              <div><span>LOCATION</span><strong>Promised Land Estate, Alagbaka Extension 2, behind SIB Police Headquarters, Akure, Ondo State.</strong></div>
+              <div><span>HOURS</span><strong>Monday to Saturday from 8:00 AM. Sunday: no routine consultations.</strong></div>
+              <div><span>CONTACT</span><a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a></div>
             </div>
-            </aside>
+            <div className="hero-panel__actions">
+              <a className="button button--dark" href={getWhatsAppLink('Hello, I would like to contact Oluwarotimi Specialist Clinic.')} target="_blank" rel="noreferrer">Message on WhatsApp</a>
+              <a className="inline-link" href={mapsUrl} target="_blank" rel="noreferrer">Get directions <span aria-hidden="true">↗</span></a>
+            </div>
+          </aside>
         </div>
       </section>
 
-      <section className="pathways-section" id="heart-health">
+      <section className="proof-strip" aria-label="Clinic highlights">
+        <div className="shell proof-strip__grid">
+          <div><strong>Specialist focus</strong><span>Cardiology, heart failure &amp; CRT</span></div>
+          <div><strong>On-site diagnostics</strong><span>ECG, echocardiogram, Holter &amp; laboratory investigations</span></div>
+          <div><strong>How to book</strong><span>Call, WhatsApp, walk in or come with a referral</span></div>
+        </div>
+      </section>
+
+      <section className="services-section" id="services">
         <div className="shell">
-          <div className="section-heading split-heading">
-            <div><p className="eyebrow">START HERE</p><h2>Find the information that helps you move forward.</h2></div>
-            <p>Built around the questions people ask before, during and after a cardiology consultation.</p>
+          <div className="section-heading section-heading--wide">
+            <p className="eyebrow">CARE &amp; DIAGNOSTICS</p>
+            <h2>Focused cardiovascular care, with the diagnostic support to move forward.</h2>
+            <p>Services are discussed in the context of your individual needs. The clinic can confirm availability and the appropriate arrangements when you contact the team.</p>
           </div>
-          <div className="pathways-grid">
-            {learningPaths.map((path) => (
-              <a className="pathway-card" href={path.href} key={path.number}>
-                <span className="pathway-card__number">{path.number}</span><h3>{path.title}</h3><p>{path.description}</p><span className="card-arrow" aria-hidden="true">→</span>
-              </a>
+          <div className="services-grid">
+            {services.map((service, index) => (
+              <article className="service-card" key={service.label}>
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{service.label}</h3>
+                <p>{service.text}</p>
+                <a href="#request">Ask about this service <span aria-hidden="true">→</span></a>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="conditions-section" id="conditions">
-        <div className="shell conditions-layout">
-          <div className="section-heading">
-            <p className="eyebrow">HEART CONDITIONS</p><h2>Useful information, in plain language.</h2>
-            <p>These are general educational starting points. Final clinic content should be reviewed and approved by the consultant before publication.</p>
-            <a className="text-link" href="#contact">Ask about a consultation <span aria-hidden="true">→</span></a>
+      <section className="consultant-section" id="consultant">
+        <div className="shell consultant-grid">
+          <div className="consultant-card">
+            <p className="eyebrow">MEDICAL DIRECTOR</p>
+            <h2>Folorunso Timothy Oluwarotimi</h2>
+            <p className="consultant-role">Consultant Physician &amp; Cardiologist</p>
+            <div className="credential-list">
+              <div><span>QUALIFICATIONS</span><strong>MB ChB, FMCP, MBA, Interventional Cardiology</strong></div>
+              <div><span>CLINICAL FOCUS</span><strong>Hypertension, diabetes, heart failure and heart diseases</strong></div>
+              <div><span>PROFESSIONAL MEMBERSHIP</span><strong>Nigerian Cardiac Society and PASCAR</strong></div>
+            </div>
           </div>
-          <div className="condition-list">
-            {conditionTopics.map(([title, description]) => (
-              <details className="condition-item" key={title}>
-                <summary><span>{title}</span><span className="summary-icon" aria-hidden="true">+</span></summary>
-                <p>{description}</p><a href="#contact">Discuss this with the clinic</a>
-              </details>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="tests-section" id="tests">
-        <div className="shell tests-layout">
-          <div className="tests-card">
-            <p className="eyebrow">BEFORE A CARDIOLOGY VISIT</p><h2>Good preparation makes space for better questions.</h2>
-            <p>Every appointment is different. The clinic can confirm what is relevant for your consultation when you get in touch.</p>
-            <a className="button button--light" href="#visit">See the preparation checklist</a>
-          </div>
-          <div className="tests-list">
-            <div><span className="large-number">01</span><h3>Consultation</h3><p>Discuss your concerns, health history and the most suitable next steps with a cardiologist.</p></div>
-            <div><span className="large-number">02</span><h3>Assessment</h3><p>Some patients may need an examination, review of existing results or further assessment.</p></div>
-            <div><span className="large-number">03</span><h3>Follow-up</h3><p>Leave with a clearer understanding of the plan and how to arrange next steps where needed.</p></div>
+          <div className="consultant-copy">
+            <p className="eyebrow">ABOUT THE CLINIC</p>
+            <h2>Clinical acumen, diagnostic capability and a team that stays focused on the patient.</h2>
+            <p>Our approach combines careful assessment with modern diagnostic facilities, dedicated staff and a commitment to clear, respectful communication.</p>
+            <p>Research and training are part of the clinic’s culture, alongside a practical goal: helping each patient understand the next appropriate step for their health.</p>
+            <a className="text-link" href="#visit">How to prepare for your visit <span aria-hidden="true">→</span></a>
           </div>
         </div>
       </section>
 
       <section className="visit-section" id="visit">
         <div className="shell">
-          <div className="section-heading centered-heading"><p className="eyebrow">PREPARE FOR YOUR VISIT</p><h2>A few things to bring along.</h2></div>
+          <div className="section-heading split-heading">
+            <div><p className="eyebrow">YOUR VISIT</p><h2>A calmer, better-prepared consultation.</h2></div>
+            <p>Whether you are coming for a first consultation, a follow-up or a test, the team can explain the right arrangements before you arrive.</p>
+          </div>
           <div className="visit-grid">
             {visitSteps.map(([title, description], index) => (
               <article className="visit-card" key={title}><span>{String(index + 1).padStart(2, '0')}</span><h3>{title}</h3><p>{description}</p></article>
             ))}
           </div>
-          <div className="visit-note"><strong>Tip:</strong> If your symptoms become severe, sudden or worrying, do not wait for a routine appointment. Contact local emergency services.</div>
+          <div className="visit-note"><strong>Good to know:</strong> Previous reports, a list of medicines and a referral letter can be helpful, but patients may visit with or without a referral.</div>
         </div>
       </section>
 
-      <section className="consultant-section" id="about">
-        <div className="shell consultant-grid">
-          <div className="consultant-image" aria-label="Placeholder for consultant portrait" role="img"><div className="consultant-image__silhouette" aria-hidden="true" /><p>Consultant portrait<br />to be added</p></div>
-          <div className="consultant-copy">
-            <p className="eyebrow">ABOUT THE CONSULTANT</p><h2>Personal specialist care starts with a good conversation.</h2>
-            <p>This section will introduce Dr. [Name], including professional qualifications, areas of cardiology expertise, clinic approach and languages spoken.</p>
-            <p>Add only verified credentials, an approved biography and a high-quality professional portrait before launch.</p>
-            <a className="text-link" href="#contact">Contact the clinic <span aria-hidden="true">→</span></a>
+      <section className="health-section" aria-labelledby="health-heading">
+        <div className="shell health-layout">
+          <div>
+            <p className="eyebrow">REGULAR MEDICAL CHECKS</p>
+            <h2 id="health-heading">Make space for the checks that matter.</h2>
+            <p>Regular review can help you discuss blood pressure, diabetes, heart symptoms and everyday risk factors before they become harder to manage.</p>
+            <a className="button button--light" href="#request">Talk to the clinic</a>
+          </div>
+          <div className="health-topics" aria-label="Topics the clinic can discuss">
+            <span>Hypertension</span><span>Diabetes</span><span>Heart failure</span><span>Heart diseases</span><span>Routine medical checks</span>
           </div>
         </div>
       </section>
 
-      <section className="contact-section" id="contact">
-        <div className="shell contact-card">
-          <div><p className="eyebrow">CONTACT THE CLINIC</p><h2>Ready to speak with the team?</h2><p>Clinic phone number, address, hours and appointment instructions will be confirmed here.</p></div>
-          <div className="contact-actions"><a className="button button--coral" href="mailto:clinic@example.com">Email the clinic</a><span>Phone number to be added</span></div>
+      <section className="faq-section" id="faq">
+        <div className="shell faq-layout">
+          <div className="section-heading">
+            <p className="eyebrow">PATIENT QUESTIONS</p>
+            <h2>Helpful answers before you contact us.</h2>
+            <p>For anything specific to you or a family member, please call or send a WhatsApp message. Do not send sensitive medical information through this website.</p>
+          </div>
+          <div className="faq-list">
+            {faqs.map(([question, answer]) => (
+              <details className="faq-item" key={question}>
+                <summary><span>{question}</span><span className="summary-icon" aria-hidden="true">+</span></summary>
+                <p>{answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="request-section" id="request">
+        <div className="shell request-grid">
+          <div className="request-copy">
+            <p className="eyebrow">VISIT REQUEST TOOL</p>
+            <h2>Prepare a message for the clinic in under a minute.</h2>
+            <p>This tool does not store your details. It simply creates a pre-filled WhatsApp message for the clinic team, so you can begin your request clearly.</p>
+            <div className="contact-list">
+              <a href={`tel:${phone.replace(/\s/g, '')}`}><span>CALL</span>{phone}</a>
+              <a href={`mailto:${email}`}><span>EMAIL</span>{email}</a>
+              <a href={mapsUrl} target="_blank" rel="noreferrer"><span>ADDRESS</span>Akure, Ondo State <b aria-hidden="true">↗</b></a>
+            </div>
+          </div>
+          <form className="request-form" onSubmit={handleRequest}>
+            <label>
+              Your name <span>(optional)</span>
+              <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" placeholder="Your name" />
+            </label>
+            <label>
+              What do you need?
+              <select value={visitType} onChange={(event) => setVisitType(event.target.value)}>
+                <option>Cardiology consultation</option>
+                <option>Blood pressure / risk assessment</option>
+                <option>ECG</option>
+                <option>Echocardiogram</option>
+                <option>Holter monitoring</option>
+                <option>General enquiry</option>
+              </select>
+            </label>
+            <label>
+              Preferred contact
+              <select value={contactPreference} onChange={(event) => setContactPreference(event.target.value)}>
+                <option>WhatsApp message</option>
+                <option>Phone call</option>
+                <option>Clinic visit</option>
+              </select>
+            </label>
+            <label>
+              Brief note <span>(optional)</span>
+              <textarea value={message} onChange={(event) => setMessage(event.target.value)} placeholder="For example: I would like to ask about available appointment times." rows={3} />
+            </label>
+            <p className="form-note">Please do not include private medical records or urgent emergency information here.</p>
+            <button className="button button--primary" type="submit">Prepare my message</button>
+            {formNote && <div className="request-ready" role="status"><p>{formNote}</p><a className="button button--dark" href={whatsAppLink} target="_blank" rel="noreferrer">Continue to WhatsApp <span aria-hidden="true">↗</span></a></div>}
+          </form>
         </div>
       </section>
 
       <footer className="site-footer">
         <div className="shell footer-top">
-          <a className="brand brand--footer" href="#top"><span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="" /></span><span><strong>{clinicName}</strong><small>Cardiology information &amp; consultations</small></span></a>
-          <div className="footer-links"><a href="#heart-health">Heart health</a><a href="#conditions">Conditions</a><a href="#visit">Patient guide</a><a href="#contact">Contact</a></div>
+          <a className="brand brand--footer" href="#top"><span className="brand-logo"><img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic logo" /></span><span><strong>{clinicName}</strong><small>Health is Wealth</small></span></a>
+          <div className="footer-links"><a href="#services">Services</a><a href="#consultant">Consultant</a><a href="#faq">FAQs</a><a href="#request">Contact</a></div>
         </div>
-        <div className="shell footer-bottom"><p>© 2026 {formalClinicName}. Draft website; clinic details to be confirmed.</p><p>General information only. Not for emergencies.</p></div>
+        <div className="shell footer-bottom"><p>© 2026 {formalClinicName}. All rights reserved.</p><p>General information only. Not an emergency service.</p></div>
       </footer>
     </main>
   );

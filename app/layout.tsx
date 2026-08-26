@@ -3,11 +3,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cardiocare-clinic-preview.skylietimm39.chatgpt.site'),
-  title: 'Oluwarotimi Specialist Clinic & Diagnostic Centre | Cardiology information',
-  description: 'Clear cardiology information and consultation guidance for patients and families.',
+  title: 'Oluwarotimi Specialist Clinic & Diagnostic Centre | Cardiology care in Akure',
+  description: 'Consultant cardiology care, diagnostic testing and clear appointment guidance in Akure, Ondo State.',
   openGraph: {
     title: 'Oluwarotimi Specialist Clinic',
-    description: 'Clear cardiology information and consultation guidance for patients and families.',
+    description: 'Consultant cardiology care, diagnostic testing and appointment guidance in Akure, Ondo State.',
     type: 'website',
     images: [
       {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Oluwarotimi Specialist Clinic',
-    description: 'Clear cardiology information and consultation guidance for patients and families.',
+    description: 'Consultant cardiology care, diagnostic testing and appointment guidance in Akure, Ondo State.',
     images: ['https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/olumaro-clinic-logo.jpg'],
   },
 };
