@@ -101,31 +101,37 @@ const faqs = [
 const tips = [
   {
     label: 'Eat for your heart',
+    summary: 'Everyday food choices',
     title: 'Build everyday meals around less-processed foods.',
     body: 'Choose more vegetables, fruits, beans, whole grains and other fibre-rich foods where possible. Reduce salty, highly processed foods, sugary drinks and frequent processed meats.',
   },
   {
     label: 'Move regularly',
+    summary: 'Your weekly rhythm',
     title: 'Make movement a weekly habit.',
     body: 'For most adults, 150 minutes of moderate activity a week is a useful goal. If you have symptoms, a medical condition or have been inactive, ask a clinician what is suitable for you.',
   },
   {
     label: 'Know your numbers',
+    summary: 'Blood pressure and more',
     title: 'Blood pressure is worth checking.',
     body: 'High blood pressure may have no warning signs. Ask about appropriate checks for blood pressure, blood sugar and cholesterol, especially if you have risk factors or a family history.',
   },
   {
     label: 'Avoid tobacco',
+    summary: 'A healthier next step',
     title: 'Every step away from tobacco helps.',
     body: 'Avoid smoking and other nicotine products where you can. If stopping feels difficult, a health professional can help you make a realistic plan.',
   },
   {
     label: 'Take medicines safely',
+    summary: 'Use them as agreed',
     title: 'Use prescribed medicines exactly as discussed.',
     body: 'Do not stop, share or change a prescribed medicine because you feel better or have read something online. Speak with your clinician or pharmacist first if you have concerns or side effects.',
   },
   {
     label: 'Rest and reset',
+    summary: 'Sleep and recovery',
     title: 'Protect your sleep and make room for recovery.',
     body: 'Regular sleep, stress-management habits and social support are part of long-term wellbeing. Start with one realistic change you can repeat this week.',
   },
@@ -133,13 +139,13 @@ const tips = [
 
 function Logo({ inverse = false }: { inverse?: boolean }) {
   return (
-    <a href="#top" className="flex items-center gap-3" data-testid="link-logo-home" aria-label="Oluwarotimi Clinic home">
-      <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px] border border-[#d9d3c6] bg-[#f8f1e5] p-1 shadow-[0_4px_12px_rgba(33,67,72,.1)]">
-        <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" className="h-full w-full rounded-[10px] object-cover" data-testid="img-clinic-logo" />
+    <a href="#top" className={`clinic-logo ${inverse ? 'clinic-logo--inverse' : ''}`} data-testid="link-logo-home" aria-label="Oluwarotimi Clinic home">
+      <span className="clinic-logo__seal">
+        <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" data-testid="img-clinic-logo" />
       </span>
-      <span className="leading-tight">
-        <span className={`block font-label text-[11px] font-bold tracking-[.08em] ${inverse ? 'text-[#f7f2e7]' : 'text-[#214348]'}`}>OLUWAROTIMI</span>
-        <span className={`block font-label text-[9px] tracking-[.08em] ${inverse ? 'text-[#8fa9a3]' : 'text-[#61777a]'}`}>SPECIALIST CLINIC</span>
+      <span className="clinic-logo__wordmark">
+        <span className="clinic-logo__name">Oluwarotimi</span>
+        <span className="clinic-logo__descriptor">Specialist Clinic &amp; Diagnostic Centre</span>
       </span>
     </a>
   );
@@ -185,27 +191,27 @@ function App() {
       <header className={`site-header sticky top-0 z-40 ${scrolled ? 'is-scrolled' : 'bg-[#f7f2e7]'}`} data-testid="header-site-navigation">
         <div className="container-clinic flex h-[78px] items-center justify-between">
           <Logo />
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+          <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
             <a href="#care" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-care">Our care</a>
             <a href="#consultant" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-consultant">Consultant</a>
             <a href="#approach" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-approach">Your visit</a>
             <a href="#learn" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-learn">Heart health</a>
             <a href="#faqs" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-faqs">FAQs</a>
-            <a href="#request" className="cta-on-dark rounded-full bg-[#214348] px-5 py-3 text-sm font-bold transition-transform hover:-translate-y-0.5" data-testid="link-nav-request">Request a visit <ArrowRight className="ml-1 inline h-4 w-4" /></a>
+            <a href="#request" className="button-interactive cta-on-dark rounded-full bg-[#214348] px-5 py-3 text-sm font-bold" data-testid="link-nav-request">Request a visit <ArrowRight className="ml-1 inline h-4 w-4" /></a>
           </nav>
-          <button type="button" onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 text-[#214348] md:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} data-testid="button-mobile-menu">
+          <button type="button" onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 text-[#214348] lg:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} data-testid="button-mobile-menu">
             {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
         {menuOpen && (
-          <nav className="border-t border-[#d9d3c6] bg-[#f7f2e7] px-5 py-5 md:hidden" aria-label="Mobile navigation">
+          <nav className="border-t border-[#d9d3c6] bg-[#f7f2e7] px-5 py-5 lg:hidden" aria-label="Mobile navigation">
             <div className="container-clinic flex flex-col gap-4">
               <a href="#care" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-care">Our care</a>
               <a href="#consultant" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-consultant">Consultant</a>
               <a href="#approach" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-approach">Your visit</a>
               <a href="#learn" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-learn">Heart health</a>
               <a href="#faqs" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-faqs">FAQs</a>
-              <a href="#request" onClick={closeMenu} className="cta-on-dark mt-1 inline-flex w-fit items-center rounded-full bg-[#214348] px-5 py-3 text-sm font-bold" data-testid="link-mobile-request">Request a visit <ArrowRight className="ml-1 h-4 w-4" /></a>
+              <a href="#request" onClick={closeMenu} className="button-interactive cta-on-dark mt-1 inline-flex w-fit items-center rounded-full bg-[#214348] px-5 py-3 text-sm font-bold" data-testid="link-mobile-request">Request a visit <ArrowRight className="ml-1 h-4 w-4" /></a>
             </div>
           </nav>
         )}
@@ -223,10 +229,10 @@ function App() {
                 Oluwarotimi Specialist Clinic &amp; Diagnostic Centre is a cardiology-focused family clinic in Akure, for thoughtful assessment, clear answers, and a next step that feels manageable.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a href="#request" className="cta-on-dark inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold shadow-[0_12px_25px_rgba(33,67,72,.15)] transition-transform hover:-translate-y-1" data-testid="link-hero-request">
+                <a href="#request" className="button-interactive cta-on-dark inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold" data-testid="link-hero-request">
                   Request a visit <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
-                <a href="#care" className="inline-flex items-center justify-center rounded-full px-5 py-4 text-sm font-bold text-[#214348] transition-colors hover:bg-[#ece3d3]" data-testid="link-hero-care">Explore our care <ArrowDownRight className="ml-2 h-4 w-4" /></a>
+                <a href="#care" className="button-interactive button-interactive--quiet inline-flex items-center justify-center rounded-full px-5 py-4 text-sm font-bold text-[#214348]" data-testid="link-hero-care">Explore our care <ArrowDownRight className="ml-2 h-4 w-4" /></a>
               </div>
               <div className="mt-10 flex items-center gap-3 text-xs text-[#6b7c7d]">
                 <ShieldCheck className="h-5 w-5 text-[#4e8d84]" />
@@ -322,7 +328,7 @@ function App() {
               <p className="eyebrow text-[#bb6659]">Your visit, made simple</p>
               <h2 id="approach-heading" className="mt-4 max-w-[480px] font-display text-5xl leading-[.97] tracking-[-.04em] text-[#214348] md:text-6xl">No perfect words required.</h2>
               <p className="mt-6 max-w-[440px] text-base leading-7 text-[#617071]">A clinic visit can feel like a lot when you are carrying a worry. We keep the first step clear and human.</p>
-              <a href="#request" className="mt-8 inline-flex items-center rounded-full border border-[#214348] px-5 py-3 text-sm font-bold text-[#214348] transition-colors hover:bg-[#214348] hover:text-[#f7f2e7]" data-testid="link-approach-request">Begin a visit request <ArrowRight className="ml-2 h-4 w-4" /></a>
+              <a href="#request" className="button-interactive button-interactive--outline mt-8 inline-flex items-center rounded-full border border-[#214348] px-5 py-3 text-sm font-bold text-[#214348]" data-testid="link-approach-request">Begin a visit request <ArrowRight className="ml-2 h-4 w-4" /></a>
             </div>
             <div className="relative">
               <div className="absolute left-[27px] top-7 bottom-7 w-px bg-[#c2ae96]" aria-hidden="true" />
@@ -351,10 +357,12 @@ function App() {
               <p className="eyebrow text-[#bb6659]">A little clarity</p>
               <h2 id="learn-heading" className="mt-4 max-w-[400px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Heart health is a conversation.</h2>
               <p className="mt-6 max-w-[420px] text-base leading-7 text-[#607273]">There is no need to diagnose yourself before asking for help. Use these gentle prompts to notice what you may want to discuss.</p>
-              <div className="mt-9 flex flex-wrap gap-2" aria-label="Heart health prompts">
+              <div className="heart-guide mt-9" aria-label="Heart health guide">
                 {tips.map((tip, index) => (
-                  <button type="button" key={tip.label} onClick={() => setActiveTip(index)} className={`rounded-full px-4 py-2.5 text-xs font-bold transition-colors ${activeTip === index ? 'bg-[#214348] text-[#f7f2e7]' : 'border border-[#d8d0c2] text-[#627374] hover:border-[#214348] hover:text-[#214348]'}`} aria-pressed={activeTip === index} data-testid={`button-tip-${index}`}>
-                    {tip.label}
+                  <button type="button" key={tip.label} onClick={() => setActiveTip(index)} className={`heart-guide__item ${activeTip === index ? 'is-active' : ''}`} aria-pressed={activeTip === index} data-testid={`button-tip-${index}`}>
+                    <span className="heart-guide__number">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="heart-guide__copy"><strong>{tip.label}</strong><small>{tip.summary}</small></span>
+                    <ArrowDownRight className="heart-guide__arrow h-4 w-4" aria-hidden="true" />
                   </button>
                 ))}
               </div>
@@ -428,7 +436,7 @@ function App() {
                   <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#dce9e2] text-[#4e8d84]"><MessageCircle className="h-7 w-7" /></div>
                   <h3 className="mt-6 font-display text-4xl">Your request is ready.</h3>
                   <p className="mt-3 max-w-[340px] text-sm leading-6 text-[#647576]" data-testid="status-request-sent">WhatsApp has opened with your details. The clinic team can follow up from there.</p>
-                  <button type="button" onClick={() => { setFormSent(false); setForm({ name: '', phone: '', reason: '' }); }} className="mt-7 rounded-full border border-[#cfc8ba] px-5 py-3 text-sm font-bold text-[#214348] hover:bg-[#ece3d3]" data-testid="button-new-request">Make another request</button>
+                  <button type="button" onClick={() => { setFormSent(false); setForm({ name: '', phone: '', reason: '' }); }} className="button-interactive button-interactive--outline mt-7 rounded-full border border-[#cfc8ba] px-5 py-3 text-sm font-bold text-[#214348]" data-testid="button-new-request">Make another request</button>
                 </div>
               ) : (
                 <>
@@ -441,7 +449,7 @@ function App() {
                     <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Phone number</span><input required type="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="+234..." data-testid="input-request-phone" /></label>
                     <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">What would you like help with?</span><textarea required rows={3} value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} className="w-full resize-none rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="A test, appointment question or a brief non-urgent concern..." data-testid="textarea-request-reason" /></label>
                   </div>
-                  <button type="submit" className="mt-7 flex w-full items-center justify-center rounded-full bg-[#e68b76] px-5 py-4 text-sm font-bold text-[#214348] transition-transform hover:-translate-y-0.5" data-testid="button-submit-request">Continue on WhatsApp <ArrowRight className="ml-2 h-4 w-4" /></button>
+                  <button type="submit" className="button-interactive button-interactive--coral mt-7 flex w-full items-center justify-center rounded-full bg-[#e68b76] px-5 py-4 text-sm font-bold text-[#214348]" data-testid="button-submit-request">Continue on WhatsApp <ArrowRight className="ml-2 h-4 w-4" /></button>
                   <p className="mt-4 text-center text-[11px] leading-5 text-[#7b8580]">When you continue, these details are sent through WhatsApp. Do not include medical records, payment details or urgent information. For urgent symptoms, seek emergency care immediately rather than waiting for a reply.</p>
                 </>
               )}

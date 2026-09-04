@@ -39,6 +39,43 @@ img { max-width: 100%; display: block; }
 
 .cta-on-dark { color: var(--paper); }
 
+/* A distinctive clinic wordmark makes the formal name easy to recognise at a glance. */
+.clinic-logo { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+.clinic-logo__seal { display: grid; flex: 0 0 auto; width: 46px; height: 46px; padding: 3px; overflow: hidden; border: 1px solid #d9d3c6; border-radius: 15px; background: #f8f1e5; box-shadow: 0 5px 15px rgba(23,59,58,.12); transition: transform .24s ease, box-shadow .24s ease; }
+.clinic-logo:hover .clinic-logo__seal { transform: rotate(-3deg) translateY(-2px); box-shadow: 0 10px 20px rgba(23,59,58,.18); }
+.clinic-logo__seal img { width: 100%; height: 100%; border-radius: 10px; object-fit: cover; }
+.clinic-logo__wordmark { display: grid; min-width: 0; gap: 3px; line-height: 1; }
+.clinic-logo__name { color: #173b3a; font-family: Georgia, 'Times New Roman', serif; font-size: 1.12rem; font-weight: 700; letter-spacing: -.055em; }
+.clinic-logo__descriptor { display: flex; align-items: center; gap: 6px; color: #61777a; font-family: Manrope, Arial, sans-serif; font-size: .55rem; font-weight: 800; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase; white-space: nowrap; }
+.clinic-logo__descriptor::before { width: 16px; height: 1px; background: #bb6659; content: ''; }
+.clinic-logo--inverse .clinic-logo__seal { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.93); }
+.clinic-logo--inverse .clinic-logo__name { color: #f7f2e7; }
+.clinic-logo--inverse .clinic-logo__descriptor { color: #a7c9be; }
+
+/* Primary actions use a subtle lift and halo, with a keyboard-equivalent focus state. */
+.button-interactive { position: relative; isolation: isolate; box-shadow: 0 7px 14px rgba(23,59,58,.12); transition: transform .22s ease, box-shadow .22s ease, filter .22s ease, background-color .22s ease, color .22s ease; }
+.button-interactive:hover { transform: translateY(-3px); box-shadow: 0 15px 28px rgba(23,59,58,.2), 0 0 0 4px rgba(78,141,132,.13); filter: brightness(1.045); }
+.button-interactive:focus-visible { transform: translateY(-2px); box-shadow: 0 15px 28px rgba(23,59,58,.2), 0 0 0 4px rgba(237,115,89,.32); }
+.button-interactive--quiet { box-shadow: none; }
+.button-interactive--quiet:hover { background: #ece3d3; box-shadow: 0 10px 22px rgba(23,59,58,.1), 0 0 0 4px rgba(78,141,132,.08); }
+.button-interactive--outline { box-shadow: none; }
+.button-interactive--outline:hover { background: #214348; color: #f7f2e7; box-shadow: 0 14px 26px rgba(23,59,58,.18), 0 0 0 4px rgba(78,141,132,.11); }
+.button-interactive--coral:hover { box-shadow: 0 15px 28px rgba(187,102,89,.28), 0 0 0 4px rgba(230,139,118,.16); }
+
+.heart-guide { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.heart-guide__item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 11px; min-height: 94px; padding: 15px 14px; border: 1px solid #d8d0c2; border-radius: 18px; background: rgba(255,255,255,.42); color: #214348; text-align: left; transition: transform .22s ease, background-color .22s ease, border-color .22s ease, box-shadow .22s ease; }
+.heart-guide__number { color: #bb6659; font-family: Manrope, Arial, sans-serif; font-size: .62rem; font-weight: 800; letter-spacing: .1em; }
+.heart-guide__copy { display: grid; gap: 4px; min-width: 0; }
+.heart-guide__copy strong { font-family: Manrope, Arial, sans-serif; font-size: .75rem; line-height: 1.18; }
+.heart-guide__copy small { color: #718181; font-size: .65rem; line-height: 1.22; }
+.heart-guide__arrow { color: #4e8d84; transition: transform .22s ease; }
+.heart-guide__item:hover { transform: translateY(-2px); border-color: #8fb8aa; background: #edf4ef; box-shadow: 0 12px 20px rgba(23,59,58,.09); }
+.heart-guide__item:hover .heart-guide__arrow { transform: translate(2px, 2px); }
+.heart-guide__item.is-active { border-color: #214348; background: #214348; box-shadow: 0 14px 28px rgba(23,59,58,.18); color: #f7f2e7; }
+.heart-guide__item.is-active .heart-guide__number { color: #e6a18b; }
+.heart-guide__item.is-active .heart-guide__copy small { color: #b8d2c5; }
+.heart-guide__item.is-active .heart-guide__arrow { color: #f0c695; }
+
 .shell { width: min(1160px, calc(100% - 64px)); margin: 0 auto; }
 .skip-link { position: fixed; z-index: 30; top: -80px; left: 18px; padding: 12px 18px; border-radius: 10px; background: var(--ink); color: var(--white); transition: top .2s ease; }
 .skip-link:focus { top: 18px; }
@@ -293,6 +330,11 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 
 @media (max-width: 700px) {
   .container-clinic { width: min(100% - 40px, 540px); }
+  .clinic-logo__seal { width: 43px; height: 43px; border-radius: 14px; }
+  .clinic-logo__name { font-size: 1.02rem; }
+  .clinic-logo__descriptor { font-size: .51rem; letter-spacing: .055em; }
+  .heart-guide { grid-template-columns: 1fr; }
+  .heart-guide__item { min-height: 78px; }
   .shell { width: min(100% - 36px, 540px); }
   .urgent-bar__inner { min-height: 50px; flex-wrap: wrap; justify-content: flex-start; gap: 3px 12px; padding: 9px 0; }
   .urgent-bar__signal { width: 100%; }
@@ -354,6 +396,7 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 
 @media (max-width: 390px) {
   .container-clinic { width: min(100% - 32px, 540px); }
+  .clinic-logo__descriptor { font-size: .48rem; }
   .shell { width: min(100% - 28px, 540px); }
   .header-cta { font-size: .67rem; }
   .hero-card__content h2 { font-size: 2.35rem; }
