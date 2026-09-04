@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState, type FormEvent } from 'react';
 import {
   Activity,
@@ -8,7 +10,6 @@ import {
   Clock3,
   Cross,
   HeartPulse,
-  Home,
   Mail,
   MapPin,
   Menu,
@@ -81,25 +82,52 @@ const faqs = [
   },
   {
     question: 'Where is the clinic located?',
-    answer: 'Oluwarotimi Specialist Clinic & Diagnostic Centre is in Akure, at Promised Land Estate, Alagbaka Extension 2.',
+    answer: 'Oluwarotimi Specialist Clinic & Diagnostic Centre is at Promised Land Estate, Alagbaka Extension 2, behind SIB Police Headquarters, Akure, Ondo State.',
+  },
+  {
+    question: 'Do you attend to children or pregnant patients?',
+    answer: 'Yes. Please call the clinic before coming so the team can confirm the appropriate consultation arrangement.',
+  },
+  {
+    question: 'Are online consultations or home services available?',
+    answer: 'They may be available after an appropriate agreement with the clinic. Please contact the team first to discuss your needs.',
+  },
+  {
+    question: 'When can I visit?',
+    answer: 'The clinic opens Monday to Saturday from 8:00 AM. There are no routine Sunday consultations; contact the clinic if you have an urgent concern.',
   },
 ];
 
 const tips = [
   {
+    label: 'Eat for your heart',
+    title: 'Build everyday meals around less-processed foods.',
+    body: 'Choose more vegetables, fruits, beans, whole grains and other fibre-rich foods where possible. Reduce salty, highly processed foods, sugary drinks and frequent processed meats.',
+  },
+  {
+    label: 'Move regularly',
+    title: 'Make movement a weekly habit.',
+    body: 'For most adults, 150 minutes of moderate activity a week is a useful goal. If you have symptoms, a medical condition or have been inactive, ask a clinician what is suitable for you.',
+  },
+  {
     label: 'Know your numbers',
     title: 'Blood pressure is worth checking.',
-    body: 'If you have concerns about your blood pressure or heart health, a conversation with a clinician is a practical place to start.',
+    body: 'High blood pressure may have no warning signs. Ask about appropriate checks for blood pressure, blood sugar and cholesterol, especially if you have risk factors or a family history.',
   },
   {
-    label: 'Notice changes',
-    title: 'Pay attention to what feels different.',
-    body: 'A clear account of when symptoms begin, what they feel like, and what changes them can help your clinician understand your concern.',
+    label: 'Avoid tobacco',
+    title: 'Every step away from tobacco helps.',
+    body: 'Avoid smoking and other nicotine products where you can. If stopping feels difficult, a health professional can help you make a realistic plan.',
   },
   {
-    label: 'Ask early',
-    title: 'You do not need to have all the answers first.',
-    body: 'Bring your questions. The first appointment can help turn uncertainty into a considered next step.',
+    label: 'Take medicines safely',
+    title: 'Use prescribed medicines exactly as discussed.',
+    body: 'Do not stop, share or change a prescribed medicine because you feel better or have read something online. Speak with your clinician or pharmacist first if you have concerns or side effects.',
+  },
+  {
+    label: 'Rest and reset',
+    title: 'Protect your sleep and make room for recovery.',
+    body: 'Regular sleep, stress-management habits and social support are part of long-term wellbeing. Start with one realistic change you can repeat this week.',
   },
 ];
 
@@ -133,9 +161,15 @@ function App() {
 
   const handleRequest = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const message = `Hello Oluwarotimi Clinic, I would like to request a visit.%0A%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AWhat I would like help with: ${encodeURIComponent(form.reason)}`;
+    const message = [
+      'Hello Oluwarotimi Clinic, I would like to request a visit.',
+      '',
+      `Name: ${form.name}`,
+      `Phone: ${form.phone}`,
+      `What I would like help with: ${form.reason}`,
+    ].join('\n');
     setFormSent(true);
-    window.open(`https://wa.me/2348034106928?text=${message}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/2348034106928?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
   };
 
   const closeMenu = () => setMenuOpen(false);
@@ -153,6 +187,7 @@ function App() {
           <Logo />
           <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
             <a href="#care" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-care">Our care</a>
+            <a href="#consultant" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-consultant">Consultant</a>
             <a href="#approach" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-approach">Your visit</a>
             <a href="#learn" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-learn">Heart health</a>
             <a href="#faqs" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-faqs">FAQs</a>
@@ -166,6 +201,7 @@ function App() {
           <nav className="border-t border-[#d9d3c6] bg-[#f7f2e7] px-5 py-5 md:hidden" aria-label="Mobile navigation">
             <div className="container-clinic flex flex-col gap-4">
               <a href="#care" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-care">Our care</a>
+              <a href="#consultant" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-consultant">Consultant</a>
               <a href="#approach" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-approach">Your visit</a>
               <a href="#learn" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-learn">Heart health</a>
               <a href="#faqs" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-faqs">FAQs</a>
@@ -264,6 +300,22 @@ function App() {
           </div>
         </section>
 
+        <section id="consultant" className="scroll-mt-20 bg-[#dce9e2] py-20 md:py-28" aria-labelledby="consultant-heading">
+          <div className="container-clinic grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-24">
+            <div>
+              <p className="eyebrow text-[#557975]">Medical director</p>
+              <h2 id="consultant-heading" className="mt-4 max-w-[460px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Folorunso Timothy Oluwarotimi</h2>
+              <p className="mt-5 text-lg leading-8 text-[#557975]">Consultant Physician &amp; Cardiologist</p>
+            </div>
+            <div className="grid gap-px overflow-hidden rounded-[24px] border border-[#b8d2c5] bg-[#b8d2c5] sm:grid-cols-2">
+              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Qualifications</p><p className="font-display text-2xl leading-tight text-[#214348]">MB ChB, FMCP, MBA, Interventional Cardiology</p></div>
+              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Clinical focus</p><p className="font-display text-2xl leading-tight text-[#214348]">Hypertension, diabetes, heart failure and heart diseases</p></div>
+              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Professional membership</p><p className="font-display text-2xl leading-tight text-[#214348]">Nigerian Cardiac Society and PASCAR</p></div>
+              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Care approach</p><p className="font-display text-2xl leading-tight text-[#214348]">Careful assessment, diagnostic support and clear next steps</p></div>
+            </div>
+          </div>
+        </section>
+
         <section id="approach" className="scroll-mt-20 bg-[#e9d8c4] py-20 md:py-28" aria-labelledby="approach-heading">
           <div className="container-clinic grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
             <div>
@@ -299,9 +351,9 @@ function App() {
               <p className="eyebrow text-[#bb6659]">A little clarity</p>
               <h2 id="learn-heading" className="mt-4 max-w-[400px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Heart health is a conversation.</h2>
               <p className="mt-6 max-w-[420px] text-base leading-7 text-[#607273]">There is no need to diagnose yourself before asking for help. Use these gentle prompts to notice what you may want to discuss.</p>
-              <div className="mt-9 flex flex-wrap gap-2" role="tablist" aria-label="Heart health prompts">
+              <div className="mt-9 flex flex-wrap gap-2" aria-label="Heart health prompts">
                 {tips.map((tip, index) => (
-                  <button type="button" key={tip.label} onClick={() => setActiveTip(index)} className={`rounded-full px-4 py-2.5 text-xs font-bold transition-colors ${activeTip === index ? 'bg-[#214348] text-[#f7f2e7]' : 'border border-[#d8d0c2] text-[#627374] hover:border-[#214348] hover:text-[#214348]'}`} role="tab" aria-selected={activeTip === index} data-testid={`button-tip-${index}`}>
+                  <button type="button" key={tip.label} onClick={() => setActiveTip(index)} className={`rounded-full px-4 py-2.5 text-xs font-bold transition-colors ${activeTip === index ? 'bg-[#214348] text-[#f7f2e7]' : 'border border-[#d8d0c2] text-[#627374] hover:border-[#214348] hover:text-[#214348]'}`} aria-pressed={activeTip === index} data-testid={`button-tip-${index}`}>
                     {tip.label}
                   </button>
                 ))}
@@ -311,11 +363,14 @@ function App() {
               <div className="absolute right-8 top-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#9fc2b5] text-[#4e8d84]">
                 <HeartPulse className="h-7 w-7" />
               </div>
-              <span className="eyebrow text-[#557975]">Prompt {String(activeTip + 1).padStart(2, '0')} / 03</span>
+              <span className="eyebrow text-[#557975]">Heart-health tip {String(activeTip + 1).padStart(2, '0')} / {String(tips.length).padStart(2, '0')}</span>
               <h3 className="mt-24 max-w-[480px] font-display text-4xl leading-[1.02] tracking-[-.03em] text-[#214348] md:text-5xl">{tips[activeTip].title}</h3>
               <p className="mt-5 max-w-[510px] text-base leading-7 text-[#5f7775]">{tips[activeTip].body}</p>
               <div className="absolute bottom-7 left-7 right-7 flex items-center gap-3 border-t border-[#b8d2c5] pt-4 text-xs text-[#5f7775] md:bottom-10 md:left-10 md:right-10"><Check className="h-4 w-4 text-[#4e8d84]" />A question is a good place to begin.</div>
             </div>
+          </div>
+          <div className="container-clinic mt-5 rounded-[20px] border border-[#ded7c9] bg-[#fbf8f1] p-6 text-sm leading-6 text-[#607273]">
+            <strong className="text-[#214348]">General education only.</strong> These pointers do not diagnose a condition or replace a consultation. For reliable general reading, visit the <a className="font-bold text-[#4e8d84] underline underline-offset-4" href="https://www.heart.org/en/healthy-living/healthy-lifestyle/lifes-essential-8" target="_blank" rel="noreferrer">American Heart Association</a>, <a className="font-bold text-[#4e8d84] underline underline-offset-4" href="https://www.who.int/health-topics/noncommunicable-diseases/physical-activity" target="_blank" rel="noreferrer">World Health Organization</a> or <a className="font-bold text-[#4e8d84] underline underline-offset-4" href="https://www.cdc.gov/high-blood-pressure/prevention/index.html" target="_blank" rel="noreferrer">CDC</a>.
           </div>
         </section>
 
@@ -329,8 +384,7 @@ function App() {
               </div>
             </div>
             <div>
-              <p className="max-w-[660px] text-base leading-7 text-[#fff0df]">If you have severe chest pain, difficulty breathing, sudden weakness, fainting, or other urgent symptoms, seek emergency care immediately. Do not wait for a WhatsApp reply or a clinic appointment.</p>
-              <a href="tel:+2348034106928" className="mt-5 inline-flex items-center text-sm font-bold underline underline-offset-4" data-testid="link-urgent-phone">Call the clinic: +234 803 410 6928 <Phone className="ml-2 h-4 w-4" /></a>
+              <p className="max-w-[660px] text-base leading-7 text-[#fff0df]">If you have severe chest pain, difficulty breathing, sudden weakness, fainting, or other urgent symptoms, go to the nearest emergency hospital immediately. Do not wait for a WhatsApp reply, an online search or a clinic appointment.</p>
             </div>
           </div>
         </section>
@@ -365,7 +419,7 @@ function App() {
               <div className="mt-10 space-y-5 text-sm">
                 <a href="tel:+2348034106928" className="flex items-center gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-phone"><span className="rounded-full bg-[#42666a] p-2"><Phone className="h-4 w-4" /></span>+234 803 410 6928</a>
                 <a href="mailto:folorunsooluwarotimi@gmail.com" className="flex items-center gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-email"><span className="rounded-full bg-[#42666a] p-2"><Mail className="h-4 w-4" /></span>folorunsooluwarotimi@gmail.com</a>
-                <a href="https://www.google.com/maps/search/?api=1&query=Promised+Land+Estate+Alagbaka+Extension+2+Akure+Nigeria" target="_blank" rel="noreferrer" className="flex items-start gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-maps"><span className="rounded-full bg-[#42666a] p-2"><MapPin className="h-4 w-4" /></span><span>Promised Land Estate,<br />Alagbaka Extension 2, Akure</span></a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Oluwarotimi+Specialist+Diagnostic+Centre%2C+Promised+Land+Estate%2C+Alagbaka+Extension+2%2C+Akure%2C+Ondo+State%2C+Nigeria" target="_blank" rel="noreferrer" className="flex items-start gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-maps"><span className="rounded-full bg-[#42666a] p-2"><MapPin className="h-4 w-4" /></span><span>Promised Land Estate, Alagbaka Extension 2,<br />behind SIB Police Headquarters, Akure</span></a>
               </div>
             </div>
             <form onSubmit={handleRequest} className="rounded-[28px] bg-[#f7f2e7] p-6 text-[#214348] shadow-[0_20px_60px_rgba(12,37,40,.2)] md:p-9" data-testid="form-visit-request">
@@ -383,12 +437,12 @@ function App() {
                     <MessageCircle className="h-7 w-7 text-[#4e8d84]" />
                   </div>
                   <div className="mt-7 space-y-5">
-                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Your name</span><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="How should we address you?" data-testid="input-request-name" /></label>
-                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Phone number</span><input required type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="+234..." data-testid="input-request-phone" /></label>
-                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">What would you like help with?</span><textarea required rows={3} value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} className="w-full resize-none rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="A symptom, a test, or a question..." data-testid="textarea-request-reason" /></label>
+                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Your name</span><input required autoComplete="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="How should we address you?" data-testid="input-request-name" /></label>
+                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Phone number</span><input required type="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="+234..." data-testid="input-request-phone" /></label>
+                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">What would you like help with?</span><textarea required rows={3} value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} className="w-full resize-none rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="A test, appointment question or a brief non-urgent concern..." data-testid="textarea-request-reason" /></label>
                   </div>
                   <button type="submit" className="mt-7 flex w-full items-center justify-center rounded-full bg-[#e68b76] px-5 py-4 text-sm font-bold text-[#214348] transition-transform hover:-translate-y-0.5" data-testid="button-submit-request">Continue on WhatsApp <ArrowRight className="ml-2 h-4 w-4" /></button>
-                  <p className="mt-4 text-center text-[11px] leading-5 text-[#7b8580]">For urgent symptoms, please seek emergency care immediately rather than waiting for a reply.</p>
+                  <p className="mt-4 text-center text-[11px] leading-5 text-[#7b8580]">When you continue, these details are sent through WhatsApp. Do not include medical records, payment details or urgent information. For urgent symptoms, seek emergency care immediately rather than waiting for a reply.</p>
                 </>
               )}
             </form>
@@ -404,7 +458,7 @@ function App() {
           </div>
           <div className="flex flex-col gap-3 text-xs md:items-end">
             <a href="#top" className="font-bold text-[#f7f2e7] hover:text-[#e6a18b]" data-testid="link-footer-home">Back to top <ArrowRight className="ml-1 inline h-3 w-3 -rotate-90" /></a>
-            <span className="text-[#8fa9a3]">Promised Land Estate, Alagbaka Extension 2, Akure</span>
+            <span className="text-[#8fa9a3]">Promised Land Estate, Alagbaka Extension 2, behind SIB Police Headquarters, Akure</span>
             <span className="text-[#8fa9a3]">© {new Date().getFullYear()} Oluwarotimi Clinic</span>
           </div>
         </div>
