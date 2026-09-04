@@ -325,9 +325,9 @@ function App() {
               <p className="mt-5 text-lg leading-8 text-[#386864]">Consultant Physician &amp; Cardiologist</p>
               <div className="mt-7 max-w-[510px] border-t border-[#aecbbd] pt-5">
                 <p className="eyebrow text-[#557975]">Professional background</p>
-                <p className="mt-3 text-base leading-7 text-[#426a67]">Trained in Internal Medicine with specialist training in Cardiology, and a subspecialty focus in heart failure and cardiac resynchronisation therapy (CRT).</p>
+                <p className="mt-3 text-base font-medium leading-7 text-[#426a67]"><strong className="font-semibold text-[#214348]">Training and focus.</strong> Trained in Internal Medicine with specialist training in Cardiology, he has a subspecialty focus in heart failure and cardiac resynchronisation therapy (CRT).</p>
               </div>
-              <p className="mt-5 max-w-[510px] text-sm leading-6 text-[#587a75]">Care at the clinic is shaped by careful clinical assessment, modern diagnostic support, a dedicated team and ongoing learning—so each patient can leave with a clearer next step.</p>
+              <p className="mt-4 max-w-[510px] text-base leading-7 text-[#587a75]">Care at the clinic is shaped by careful clinical assessment, modern diagnostic support, a dedicated team and ongoing learning—so each patient can leave with a clearer next step.</p>
             </div>
             <div className="grid gap-px overflow-hidden rounded-[24px] border border-[#b8d2c5] bg-[#b8d2c5] sm:grid-cols-2">
               <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Qualifications</p><p className="font-display text-2xl leading-tight text-[#214348]">MB ChB, FMCP, MBA, Interventional Cardiology</p></div>
