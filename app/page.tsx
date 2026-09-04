@@ -70,11 +70,11 @@ const services = [
 const faqs = [
   {
     question: 'Do I need a referral to visit the clinic?',
-    answer: 'You can begin by requesting a visit directly. Share what you are concerned about and the clinic team can guide the next step.',
+    answer: 'You can request a visit by phone or WhatsApp, walk in, or come with a referral. Share what you are concerned about and the clinic team can guide the next step.',
   },
   {
     question: 'What should I bring to my first visit?',
-    answer: 'Bring any previous test results, a list of medicines you take, and the details of any symptoms or questions you want to discuss.',
+    answer: 'Bring any previous test results, a list of medicines you take, and the details of any symptoms or questions you want to discuss. Bring a referral letter if one was given. Registration or consultation fees may apply, so contact the clinic for current guidance.',
   },
   {
     question: 'Can I request an ECG or echocardiogram?',
@@ -94,7 +94,15 @@ const faqs = [
   },
   {
     question: 'When can I visit?',
-    answer: 'The clinic opens Monday to Saturday from 8:00 AM. There are no routine Sunday consultations; contact the clinic if you have an urgent concern.',
+    answer: 'The clinic opens Monday to Saturday from 8:00 AM. There are no routine Sunday consultations. If you have urgent symptoms, seek emergency hospital care immediately rather than waiting for a clinic reply.',
+  },
+  {
+    question: 'Which services are not offered at the clinic?',
+    answer: 'The clinic is focused on cardiovascular care and diagnostics. Gynaecological services and major surgeries are not offered on site; the team can advise on an appropriate referral when needed.',
+  },
+  {
+    question: 'Can I ask about fees or insurance arrangements?',
+    answer: 'We do not publish a price list online and no HMO or insurance arrangements are currently listed. Please contact the clinic directly for current registration, consultation or payment guidance.',
   },
 ];
 
@@ -113,9 +121,9 @@ const tips = [
   },
   {
     label: 'Know your numbers',
-    summary: 'Blood pressure and more',
+    summary: 'Routine checks matter',
     title: 'Blood pressure is worth checking.',
-    body: 'High blood pressure may have no warning signs. Ask about appropriate checks for blood pressure, blood sugar and cholesterol, especially if you have risk factors or a family history.',
+    body: 'High blood pressure may have no warning signs. Regular checks for blood pressure, blood sugar and cholesterol can help you discuss risk factors or a family history with a clinician.',
   },
   {
     label: 'Avoid tobacco',
@@ -226,7 +234,7 @@ function App() {
                 A calmer way to begin looking after your <em className="text-[#bb6659]">heart.</em>
               </h1>
               <p className="mt-7 max-w-[540px] text-[17px] leading-8 text-[#5d7071]">
-                Oluwarotimi Specialist Clinic &amp; Diagnostic Centre is a cardiology-focused family clinic in Akure, for thoughtful assessment, clear answers, and a next step that feels manageable.
+                Oluwarotimi Specialist Clinic &amp; Diagnostic Centre is a cardiology-focused family clinic in Akure, bringing cardiovascular care, diagnostic support and a clear next step closer to home.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a href="#request" className="button-interactive cta-on-dark inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold" data-testid="link-hero-request">
@@ -283,7 +291,7 @@ function App() {
                 <h2 id="care-heading" className="mt-4 max-w-[330px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Care that looks at the whole picture.</h2>
               </div>
               <div className="md:pt-10">
-                <p className="max-w-[580px] text-lg leading-8 text-[#607273]">Your concern might begin with a single symptom, a blood pressure reading, or a question you cannot put down. Our care brings conversation and diagnostic support together.</p>
+                <p className="max-w-[580px] text-lg leading-8 text-[#607273]">Your concern might begin with a single symptom, a blood pressure reading, or a question you cannot put down. Our care brings careful clinical assessment, modern diagnostic support and patient-focused follow-up together. Older adults are an important focus of our care.</p>
               </div>
             </div>
             <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -312,6 +320,8 @@ function App() {
               <p className="eyebrow text-[#557975]">Medical director</p>
               <h2 id="consultant-heading" className="mt-4 max-w-[460px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Folorunso Timothy Oluwarotimi</h2>
               <p className="mt-5 text-lg leading-8 text-[#557975]">Consultant Physician &amp; Cardiologist</p>
+              <p className="mt-6 max-w-[440px] text-base leading-7 text-[#4f716d]">Training in Internal Medicine, with specialty training in Cardiology and a subspecialty focus in heart failure and cardiac resynchronisation therapy (CRT).</p>
+              <p className="mt-4 max-w-[440px] text-sm leading-6 text-[#587a75]">The clinic combines painstaking clinical assessment, diagnostic technology, dedicated staff, and ongoing research and training in pursuit of patient satisfaction and good health outcomes.</p>
             </div>
             <div className="grid gap-px overflow-hidden rounded-[24px] border border-[#b8d2c5] bg-[#b8d2c5] sm:grid-cols-2">
               <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Qualifications</p><p className="font-display text-2xl leading-tight text-[#214348]">MB ChB, FMCP, MBA, Interventional Cardiology</p></div>
@@ -327,7 +337,7 @@ function App() {
             <div>
               <p className="eyebrow text-[#bb6659]">Your visit, made simple</p>
               <h2 id="approach-heading" className="mt-4 max-w-[480px] font-display text-5xl leading-[.97] tracking-[-.04em] text-[#214348] md:text-6xl">No perfect words required.</h2>
-              <p className="mt-6 max-w-[440px] text-base leading-7 text-[#617071]">A clinic visit can feel like a lot when you are carrying a worry. We keep the first step clear and human.</p>
+              <p className="mt-6 max-w-[440px] text-base leading-7 text-[#617071]">A clinic visit can feel like a lot when you are carrying a worry. We keep the first step clear and human. You can call, send a WhatsApp message, walk in, or come with a referral.</p>
               <a href="#request" className="button-interactive button-interactive--outline mt-8 inline-flex items-center rounded-full border border-[#214348] px-5 py-3 text-sm font-bold text-[#214348]" data-testid="link-approach-request">Begin a visit request <ArrowRight className="ml-2 h-4 w-4" /></a>
             </div>
             <div className="relative">
@@ -335,7 +345,7 @@ function App() {
               <div className="space-y-8">
                 {[
                   ['01', 'Tell us what is on your mind', 'Request a visit by WhatsApp, phone, or email. A short note is enough.'],
-                  ['02', 'Have a considered conversation', 'Bring your questions, history, and any previous results you have.'],
+                  ['02', 'Have a considered conversation', 'Bring your questions, history, any previous results and a referral letter if you have one.'],
                   ['03', 'Leave with a next step', 'Your clinician will guide the assessment or diagnostic support that fits your concern.'],
                 ].map(([number, title, copy]) => (
                   <div className="relative flex gap-6" key={number} data-testid={`step-visit-${number}`}>
@@ -356,7 +366,7 @@ function App() {
             <div>
               <p className="eyebrow text-[#bb6659]">A little clarity</p>
               <h2 id="learn-heading" className="mt-4 max-w-[400px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Heart health is a conversation.</h2>
-              <p className="mt-6 max-w-[420px] text-base leading-7 text-[#607273]">There is no need to diagnose yourself before asking for help. Use these gentle prompts to notice what you may want to discuss.</p>
+              <p className="mt-6 max-w-[420px] text-base leading-7 text-[#607273]">There is no need to diagnose yourself before asking for help. Use these gentle prompts to notice what you may want to discuss, including hypertension, diabetes, heart disease and routine medical checks.</p>
               <div className="heart-guide mt-9" aria-label="Heart health guide">
                 {tips.map((tip, index) => (
                   <button type="button" key={tip.label} onClick={() => setActiveTip(index)} className={`heart-guide__item ${activeTip === index ? 'is-active' : ''}`} aria-pressed={activeTip === index} data-testid={`button-tip-${index}`}>
@@ -391,8 +401,9 @@ function App() {
                 <h2 id="urgent-heading" className="mt-2 font-display text-4xl leading-none">When it feels urgent</h2>
               </div>
             </div>
-            <div>
-              <p className="max-w-[660px] text-base leading-7 text-[#fff0df]">If you have severe chest pain, difficulty breathing, sudden weakness, fainting, or other urgent symptoms, go to the nearest emergency hospital immediately. Do not wait for a WhatsApp reply, an online search or a clinic appointment.</p>
+            <div className="space-y-3">
+              <p className="max-w-[660px] text-base leading-7 text-[#fff0df]">Go to the nearest emergency hospital immediately for chest pain, severe or worsening breathlessness, fainting, sudden weakness, a sudden severe headache, significant bleeding, or palpitations with chest pain, breathlessness, dizziness or fainting. Do not wait for a WhatsApp reply, an online search or a clinic appointment.</p>
+              <p className="max-w-[660px] text-sm leading-6 text-[#f9ddcf]">New leg or foot swelling, palpitations without the warning signs above, or cramp-like leg pain brought on by walking should be assessed promptly by a clinician.</p>
             </div>
           </div>
         </section>
@@ -463,6 +474,7 @@ function App() {
           <div>
             <Logo inverse />
             <p className="mt-4 max-w-[330px] text-xs leading-6 text-[#8fa9a3]">Oluwarotimi Specialist Clinic &amp; Diagnostic Centre<br />Cardiology-focused family care in Akure.</p>
+            <p className="mt-3 font-display text-lg italic text-[#f0c695]">Health is Wealth</p>
           </div>
           <div className="flex flex-col gap-3 text-xs md:items-end">
             <a href="#top" className="font-bold text-[#f7f2e7] hover:text-[#e6a18b]" data-testid="link-footer-home">Back to top <ArrowRight className="ml-1 inline h-3 w-3 -rotate-90" /></a>
