@@ -191,7 +191,7 @@ function App() {
             <a href="#approach" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-approach">Your visit</a>
             <a href="#learn" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-learn">Heart health</a>
             <a href="#faqs" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-faqs">FAQs</a>
-            <a href="#request" className="rounded-full bg-[#214348] px-5 py-3 text-sm font-bold text-[#f8f1e5] transition-transform hover:-translate-y-0.5" data-testid="link-nav-request">Request a visit <ArrowRight className="ml-1 inline h-4 w-4" /></a>
+            <a href="#request" className="cta-on-dark rounded-full bg-[#214348] px-5 py-3 text-sm font-bold transition-transform hover:-translate-y-0.5" data-testid="link-nav-request">Request a visit <ArrowRight className="ml-1 inline h-4 w-4" /></a>
           </nav>
           <button type="button" onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 text-[#214348] md:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} data-testid="button-mobile-menu">
             {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -205,7 +205,7 @@ function App() {
               <a href="#approach" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-approach">Your visit</a>
               <a href="#learn" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-learn">Heart health</a>
               <a href="#faqs" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-faqs">FAQs</a>
-              <a href="#request" onClick={closeMenu} className="mt-1 inline-flex w-fit items-center rounded-full bg-[#214348] px-5 py-3 text-sm font-bold text-[#f8f1e5]" data-testid="link-mobile-request">Request a visit <ArrowRight className="ml-1 h-4 w-4" /></a>
+              <a href="#request" onClick={closeMenu} className="cta-on-dark mt-1 inline-flex w-fit items-center rounded-full bg-[#214348] px-5 py-3 text-sm font-bold" data-testid="link-mobile-request">Request a visit <ArrowRight className="ml-1 h-4 w-4" /></a>
             </div>
           </nav>
         )}
@@ -223,7 +223,7 @@ function App() {
                 Oluwarotimi Specialist Clinic &amp; Diagnostic Centre is a cardiology-focused family clinic in Akure, for thoughtful assessment, clear answers, and a next step that feels manageable.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a href="#request" className="inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold text-[#f8f1e5] shadow-[0_12px_25px_rgba(33,67,72,.15)] transition-transform hover:-translate-y-1" data-testid="link-hero-request">
+                <a href="#request" className="cta-on-dark inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold shadow-[0_12px_25px_rgba(33,67,72,.15)] transition-transform hover:-translate-y-1" data-testid="link-hero-request">
                   Request a visit <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
                 <a href="#care" className="inline-flex items-center justify-center rounded-full px-5 py-4 text-sm font-bold text-[#214348] transition-colors hover:bg-[#ece3d3]" data-testid="link-hero-care">Explore our care <ArrowDownRight className="ml-2 h-4 w-4" /></a>
@@ -284,7 +284,7 @@ function App() {
               {services.map((service) => {
                 const Icon = service.icon;
                 return (
-                  <article key={service.id} className={`group flex min-h-[230px] flex-col justify-between rounded-[24px] border p-6 transition-transform hover:-translate-y-1 ${service.featured ? 'border-[#214348] bg-[#214348] text-[#f7f2e7] lg:col-span-2' : 'border-[#ded7c9] bg-[#fbf8f1] text-[#214348]'}`} data-testid={`card-service-${service.id}`}>
+                  <article key={service.id} className={`group flex min-h-[230px] flex-col justify-between rounded-[24px] border p-6 transition-transform hover:-translate-y-1 ${service.featured ? 'border-[#214348] bg-[#214348] text-[#f7f2e7]' : 'border-[#ded7c9] bg-[#fbf8f1] text-[#214348]'}`} data-testid={`card-service-${service.id}`}>
                     <div className="flex items-start justify-between">
                       <span className={`font-label text-[11px] font-bold tracking-[.14em] ${service.featured ? 'text-[#a7c9be]' : 'text-[#bb6659]'}`}>{service.number}</span>
                       <span className={`rounded-full p-2.5 ${service.featured ? 'bg-[#42666a] text-[#d9eee5]' : 'bg-[#edf1e9] text-[#4e8d84]'}`}><Icon className="h-5 w-5" /></span>

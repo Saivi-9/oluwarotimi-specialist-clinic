@@ -31,6 +31,14 @@ img { max-width: 100%; display: block; }
 ::selection { background: var(--yellow); color: var(--ink); }
 :focus-visible { outline: 3px solid var(--coral); outline-offset: 4px; }
 
+/* Shared page gutters keep cards, headings and rules off the viewport edge. */
+.container-clinic {
+  width: min(1180px, calc(100% - 64px));
+  margin-inline: auto;
+}
+
+.cta-on-dark { color: var(--paper); }
+
 .shell { width: min(1160px, calc(100% - 64px)); margin: 0 auto; }
 .skip-link { position: fixed; z-index: 30; top: -80px; left: 18px; padding: 12px 18px; border-radius: 10px; background: var(--ink); color: var(--white); transition: top .2s ease; }
 .skip-link:focus { top: 18px; }
@@ -43,7 +51,13 @@ img { max-width: 100%; display: block; }
 .urgent-bar__signal { display: inline-flex; align-items: center; gap: 7px; color: var(--mint); font-size: .7rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
 .signal-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 4px rgba(237,115,89,.15); }
 
-.site-header { position: relative; z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); }
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+}
 .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; font-family: Manrope, sans-serif; color: var(--ink); }
 .brand strong { display: block; font-size: .97rem; letter-spacing: -.03em; line-height: 1.1; }
@@ -278,6 +292,7 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 }
 
 @media (max-width: 700px) {
+  .container-clinic { width: min(100% - 40px, 540px); }
   .shell { width: min(100% - 36px, 540px); }
   .urgent-bar__inner { min-height: 50px; flex-wrap: wrap; justify-content: flex-start; gap: 3px 12px; padding: 9px 0; }
   .urgent-bar__signal { width: 100%; }
@@ -338,6 +353,7 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 }
 
 @media (max-width: 390px) {
+  .container-clinic { width: min(100% - 32px, 540px); }
   .shell { width: min(100% - 28px, 540px); }
   .header-cta { font-size: .67rem; }
   .hero-card__content h2 { font-size: 2.35rem; }
