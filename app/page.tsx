@@ -1,195 +1,416 @@
-'use client';
-
-import { FormEvent, useMemo, useState } from 'react';
-
-type IconName = 'heart' | 'pulse' | 'activity' | 'shield' | 'calendar' | 'arrow' | 'phone' | 'message' | 'pin' | 'clock' | 'check' | 'quote' | 'menu';
-
-const formalClinicName = 'Oluwarotimi Specialist Clinic & Diagnostic Centre';
-const phone = '+234 803 410 6928';
-const whatsAppNumber = '2348034106928';
-const email = 'folorunsooluwarotimi@gmail.com';
-const mapsUrl = 'https://www.google.com/maps/search/?api=1&query=Oluwarotimi+Specialist+Diagnostic+Centre%2C+Promised+Land+Estate%2C+Alagbaka+Extension+2%2C+Akure%2C+Ondo+State%2C+Nigeria';
+import { useEffect, useState, type FormEvent } from 'react';
+import {
+  Activity,
+  ArrowDownRight,
+  ArrowRight,
+  Check,
+  ChevronDown,
+  Clock3,
+  Cross,
+  HeartPulse,
+  Home,
+  Mail,
+  MapPin,
+  Menu,
+  MessageCircle,
+  Phone,
+  ShieldCheck,
+  Stethoscope,
+  Syringe,
+  X,
+} from 'lucide-react';
 
 const services = [
-  { number: '01', icon: 'heart' as IconName, label: 'Cardiology consultation', text: 'A focused conversation about symptoms, history, existing results and the next appropriate step.' },
-  { number: '02', icon: 'pulse' as IconName, label: 'Blood pressure & risk assessment', text: 'Assessment for hypertension and cardiovascular risk factors, including diabetes-related concerns.' },
-  { number: '03', icon: 'activity' as IconName, label: 'ECG', text: 'Electrocardiogram testing is available at the clinic when clinically appropriate.' },
-  { number: '04', icon: 'activity' as IconName, label: 'Echocardiogram', text: 'Echocardiography is available as part of the clinic’s diagnostic services.' },
-  { number: '05', icon: 'pulse' as IconName, label: 'Holter monitoring', text: 'Holter monitoring is available for patients whose assessment requires it.' },
-  { number: '06', icon: 'shield' as IconName, label: 'Laboratory investigations', text: 'Laboratory testing can be arranged as part of a diagnostic work-up.' },
-];
-
-const visitSteps = [
-  ['01', 'Contact the clinic', 'Call, send a WhatsApp message, walk in, or come with a referral.'],
-  ['02', 'Prepare for your visit', 'Bring your registration or consultation fee, plus previous reports or a referral letter if you have them.'],
-  ['03', 'Agree the next step', 'The team will explain the consultation, tests, follow-up or service arrangement appropriate for you.'],
+  {
+    id: 'consultation',
+    number: '01',
+    title: 'Cardiology consultation',
+    description: 'A careful conversation about what you are feeling, your history, and the questions you want answered.',
+    icon: Stethoscope,
+    featured: true,
+  },
+  {
+    id: 'assessment',
+    number: '02',
+    title: 'Blood pressure & risk assessment',
+    description: 'A measured first look at blood pressure and cardiovascular risk factors.',
+    icon: Activity,
+  },
+  {
+    id: 'ecg',
+    number: '03',
+    title: 'ECG',
+    description: 'An electrocardiogram to support your clinical assessment.',
+    icon: HeartPulse,
+  },
+  {
+    id: 'echo',
+    number: '04',
+    title: 'Echocardiogram',
+    description: 'Ultrasound imaging of the heart, arranged as part of your care.',
+    icon: Cross,
+  },
+  {
+    id: 'holter',
+    number: '05',
+    title: 'Holter monitoring',
+    description: 'Heart rhythm monitoring over time when it is needed.',
+    icon: Clock3,
+  },
+  {
+    id: 'laboratory',
+    number: '06',
+    title: 'Laboratory investigations',
+    description: 'Laboratory support to help your clinician understand the full picture.',
+    icon: Syringe,
+  },
 ];
 
 const faqs = [
-  ['Do you attend to children?', 'Yes. Please call the clinic before coming so the team can confirm the appropriate consultation arrangement.'],
-  ['Do you attend to pregnant patients?', 'Yes. Please contact the clinic before your visit so the team can discuss the appropriate arrangement.'],
-  ['Are online consultations available?', 'Online services may be available after an appropriate agreement with the clinic. Contact the team to discuss your needs.'],
-  ['Are home services available?', 'Home services may be available after an appropriate agreement with the clinic. Please contact the team first.'],
-  ['Can I come without a referral?', 'Yes. Patients may visit with or without a referral letter. Registration or consultation fees apply; please contact the clinic for current information.'],
+  {
+    question: 'Do I need a referral to visit the clinic?',
+    answer: 'You can begin by requesting a visit directly. Share what you are concerned about and the clinic team can guide the next step.',
+  },
+  {
+    question: 'What should I bring to my first visit?',
+    answer: 'Bring any previous test results, a list of medicines you take, and the details of any symptoms or questions you want to discuss.',
+  },
+  {
+    question: 'Can I request an ECG or echocardiogram?',
+    answer: 'Yes. You can mention the investigation you are asking about in your visit request. The clinician will advise what is appropriate for your situation.',
+  },
+  {
+    question: 'Where is the clinic located?',
+    answer: 'Oluwarotimi Specialist Clinic & Diagnostic Centre is in Akure, at Promised Land Estate, Alagbaka Extension 2.',
+  },
 ];
 
-const heartHealthTips = [
-  { number: '01', label: 'EAT FOR YOUR HEART', title: 'Build everyday meals around less-processed foods.', text: 'Choose more vegetables, fruits, beans, whole grains and other fibre-rich foods. Limit salty, highly processed foods, sugary drinks and frequent processed meats where possible.' },
-  { number: '02', label: 'MOVE REGULARLY', title: 'Make movement a weekly habit.', text: 'For most adults, the goal is at least 150 minutes of moderate activity a week, such as brisk walking. If you have symptoms, a medical condition or have been inactive, ask a health professional what is suitable for you.' },
-  { number: '03', label: 'KNOW YOUR NUMBERS', title: 'Check blood pressure even when you feel well.', text: 'High blood pressure may have no warning signs. Ask about appropriate checks for blood pressure, blood sugar and cholesterol, especially if you have risk factors or a family history.' },
-  { number: '04', label: 'TAKE MEDICINES SAFELY', title: 'Use prescribed medicines exactly as discussed.', text: 'Do not stop, share or change a prescribed medicine because you feel better or have read something online. Speak with your clinician or pharmacist first if you have concerns or side effects.' },
-  { number: '05', label: 'AVOID TOBACCO', title: 'Every step away from tobacco helps.', text: 'Avoid smoking and other nicotine products where you can. If stopping feels difficult, a health professional can help you make a realistic plan.' },
-  { number: '06', label: 'REST & RESET', title: 'Protect your sleep and make room for recovery.', text: 'Regular sleep, stress-management habits and social support are part of long-term cardiovascular wellbeing. Start with one realistic change you can repeat this week.' },
+const tips = [
+  {
+    label: 'Know your numbers',
+    title: 'Blood pressure is worth checking.',
+    body: 'If you have concerns about your blood pressure or heart health, a conversation with a clinician is a practical place to start.',
+  },
+  {
+    label: 'Notice changes',
+    title: 'Pay attention to what feels different.',
+    body: 'A clear account of when symptoms begin, what they feel like, and what changes them can help your clinician understand your concern.',
+  },
+  {
+    label: 'Ask early',
+    title: 'You do not need to have all the answers first.',
+    body: 'Bring your questions. The first appointment can help turn uncertainty into a considered next step.',
+  },
 ];
 
-const urgentSymptoms = [
-  'new or severe chest discomfort',
-  'trouble breathing',
-  'fainting or collapse',
-  'sudden weakness, numbness or trouble speaking',
-  'a severe or rapidly worsening symptom',
-];
-
-function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
-  const props = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const, 'aria-hidden': true };
-  switch (name) {
-    case 'heart': return <svg {...props}><path d="M20.8 8.7c0 5.4-8.8 10.1-8.8 10.1S3.2 14.1 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3Z" /><path d="M7 9.5h2l1.2-2.2 2.1 5 1.2-2.8H17" /></svg>;
-    case 'pulse': return <svg {...props}><path d="M3 12h3.5l2-5 3.4 10 2.3-6 1.4 1H21" /></svg>;
-    case 'activity': return <svg {...props}><circle cx="12" cy="12" r="8.5" /><path d="M3.5 12h3l1.5-3.2 2.8 6.4 1.8-4.1 1.2.9h3.7" /></svg>;
-    case 'shield': return <svg {...props}><path d="M12 3.2 19 6v5.1c0 4.3-2.8 7.8-7 9.7-4.2-1.9-7-5.4-7-9.7V6l7-2.8Z" /><path d="m8.5 12 2.2 2.2 4.8-5" /></svg>;
-    case 'calendar': return <svg {...props}><rect x="3.5" y="5" width="17" height="15.5" rx="2" /><path d="M7.5 3.5v3M16.5 3.5v3M3.5 9h17" /></svg>;
-    case 'arrow': return <svg {...props}><path d="M5 12h13M13 6l6 6-6 6" /></svg>;
-    case 'phone': return <svg {...props}><path d="M6.5 3.8 9 3l1.6 4-2 1.5a15 15 0 0 0 6.9 6.9l1.5-2 4 1.6-.8 2.5a2 2 0 0 1-2.1 1.4C10.7 18 6 13.3 4.9 6a2 2 0 0 1 1.6-2.2Z" /></svg>;
-    case 'message': return <svg {...props}><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 8.6 8.6 0 0 1-3.3-.7L4 19.7l1.4-3.7A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z" /><path d="M8.5 11.8h.1M12 11.8h.1M15.5 11.8h.1" /></svg>;
-    case 'pin': return <svg {...props}><path d="M19 10.2c0 5-7 10.3-7 10.3s-7-5.3-7-10.3a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10.2" r="2.2" /></svg>;
-    case 'clock': return <svg {...props}><circle cx="12" cy="12" r="8.5" /><path d="M12 7v5l3.2 2" /></svg>;
-    case 'check': return <svg {...props}><path d="m5 12.5 4.2 4.2L19 7" /></svg>;
-    case 'quote': return <svg {...props}><path d="M9.5 7.2A4.7 4.7 0 0 0 5 12v5h5v-5H7.8a2.4 2.4 0 0 1 1.7-2.3V7.2ZM19 7.2a4.7 4.7 0 0 0-4.5 4.8v5h5v-5h-2.2A2.4 2.4 0 0 1 19 9.7V7.2Z" /></svg>;
-    default: return <svg {...props}><path d="M5 7h14M5 12h14M5 17h14" /></svg>;
-  }
-}
-
-function getWhatsAppLink(message: string) {
-  return 'https://wa.me/' + whatsAppNumber + '?text=' + encodeURIComponent(message);
-}
-
-export default function Home() {
-  const [tipIndex, setTipIndex] = useState(0);
-  const [name, setName] = useState('');
-  const [visitType, setVisitType] = useState('Cardiology consultation');
-  const [contactPreference, setContactPreference] = useState('WhatsApp message');
-  const [details, setDetails] = useState('');
-  const [formNote, setFormNote] = useState('');
-
-  const whatsAppLink = useMemo(() => {
-    const introduction = name.trim() ? 'Hello, my name is ' + name.trim() + '.' : 'Hello, I would like to make an enquiry.';
-    const context = details.trim() ? ' A little more context: ' + details.trim() : '';
-    return getWhatsAppLink(introduction + ' I would like to ask about a ' + visitType.toLowerCase() + '. My preferred contact is ' + contactPreference.toLowerCase() + '.' + context);
-  }, [name, visitType, contactPreference, details]);
-
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setFormNote('Your message is ready. Continue to WhatsApp to send it to the clinic team.');
-  }
-
-  const featuredTip = heartHealthTips[tipIndex];
-
+function Logo({ inverse = false }: { inverse?: boolean }) {
   return (
-    <>
-      <a className="skip-link" href="#main-content">Skip to content</a>
-      <div className="urgent-bar">
-        <div className="shell urgent-bar__inner">
-          <span className="urgent-bar__signal"><span className="signal-dot" /> Patient guidance</span>
-          <p><strong>Urgent symptoms?</strong> This website is not an emergency service.</p>
-          <a href="#urgent-care">Know what to do <Icon name="arrow" size={15} /></a>
-        </div>
-      </div>
-
-      <header className="site-header">
-        <div className="shell header-inner">
-          <a className="brand" href="#top" aria-label="Oluwarotimi Specialist Clinic home">
-            <span className="brand-mark"><img src="/olumaro-clinic-logo.jpg" alt="" /></span>
-            <span><strong>Oluwarotimi</strong><small>Specialist Clinic</small></span>
-          </a>
-          <nav className="desktop-nav" aria-label="Main navigation">
-            <a href="#care">Our care</a>
-            <a href="#journey">Your visit</a>
-            <a href="#heart-health">Heart health</a>
-            <a href="#faq">FAQs</a>
-          </nav>
-          <a className="button button--small button--coral header-cta" href="#request"><Icon name="calendar" size={16} /> Request a visit</a>
-        </div>
-      </header>
-
-      <main id="main-content">
-        <section className="hero" id="top">
-          <div className="shell hero-grid">
-            <div className="hero-copy">
-              <p className="eyebrow eyebrow--coral"><span /> CARDIOLOGY & DIAGNOSTIC CARE IN AKURE</p>
-              <h1>Heart care with <em>clarity</em>, close to home.</h1>
-              <p className="hero-lead">Thoughtful consultations, useful diagnostics and a calm next step for you and your family.</p>
-              <div className="hero-actions">
-                <a className="button button--dark" href="#request">Start a conversation <Icon name="arrow" size={18} /></a>
-                <a className="text-link" href={'tel:' + phone.replaceAll(' ', '')}><span className="icon-circle"><Icon name="phone" size={16} /></span> Call {phone}</a>
-              </div>
-              <div className="hero-reassurance"><span className="reassurance-icon"><Icon name="shield" size={19} /></span><span><strong>A more informed first step.</strong><br />Bring your questions. We will help you understand what comes next.</span></div>
-            </div>
-            <div className="hero-visual" aria-label="Clinic information">
-              <div className="hero-orbit hero-orbit--one" />
-              <div className="hero-orbit hero-orbit--two" />
-              <div className="hero-card">
-                <div className="hero-card__top"><span className="status-pill"><span /> Care starts with a conversation</span><span className="hero-card__index">01—06</span></div>
-                <div className="hero-card__logo"><img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre" /></div>
-                <div className="hero-card__content"><p className="eyebrow">A PATIENT-FIRST APPROACH</p><h2>Listen carefully.<br /><span>Guide clearly.</span></h2><p>Consultant-led care and diagnostic support, with the information you need to make your next decision.</p></div>
-                <div className="hero-card__footer"><span>Akure, Ondo State</span><a href={mapsUrl} target="_blank" rel="noreferrer">Get directions <Icon name="arrow" size={14} /></a></div>
-              </div>
-              <div className="floating-note floating-note--top"><span className="floating-note__icon"><Icon name="heart" size={18} /></span><span><strong>Heart-focused care</strong><small>With practical guidance</small></span></div>
-              <div className="floating-note floating-note--bottom"><span className="floating-note__number">24/7</span><span><strong>Emergency reminder</strong><small>Know when to seek urgent care</small></span></div>
-            </div>
-          </div>
-        </section>
-
-        <section className="trust-rail" aria-label="Clinic strengths">
-          <div className="shell trust-rail__grid">
-            <div><span className="trust-number">01</span><span><strong>Consultant-led</strong><small>Thoughtful, focused consultations</small></span></div>
-            <div><span className="trust-number">02</span><span><strong>Diagnostic support</strong><small>ECG, echo and monitoring</small></span></div>
-            <div><span className="trust-number">03</span><span><strong>Clear next steps</strong><small>Understand your care pathway</small></span></div>
-            <div className="trust-rail__note"><Icon name="pin" size={18} /><span>Promised Land Estate<br />Alagbaka Extension 2, Akure</span></div>
-          </div>
-        </section>
-
-        <section className="section services-section" id="care">
-          <div className="shell">
-            <div className="section-heading section-heading--split"><div><p className="eyebrow">OUR CARE</p><h2>Specialist attention for the things that matter.</h2></div><p>From your first question to the next appropriate step, our care is designed to make cardiovascular health feel easier to navigate.</p></div>
-            <div className="services-grid">
-              {services.map((service) => <article className="service-card" key={service.label}><div className="service-card__top"><span className="service-card__number">{service.number}</span><span className="service-icon"><Icon name={service.icon} size={23} /></span></div><h3>{service.label}</h3><p>{service.text}</p><a href="#request" aria-label={'Ask about ' + service.label}>Ask about this <Icon name="arrow" size={15} /></a></article>)}
-            </div>
-          </div>
-        </section>
-
-        <section className="section consultant-section" id="consultant">
-          <div className="shell consultant-grid">
-            <div className="portrait-panel"><div className="portrait-panel__ring" /><div className="portrait-panel__content"><span className="portrait-panel__quote"><Icon name="quote" size={30} /></span><p>Good care begins when a patient feels heard, informed and involved.</p><span className="portrait-panel__line" /></div><span className="portrait-panel__label">CARE, WITH CONTEXT</span></div>
-            <div className="consultant-copy"><p className="eyebrow eyebrow--coral">THE EXPERIENCE WE AIM FOR</p><h2>Medicine is personal. The website should feel that way too.</h2><p className="large-copy">A clinic visit can come with uncertainty. This space is here to give you a clear place to begin, simple language to work from and a direct way to reach the team.</p><div className="check-list"><div><span><Icon name="check" size={15} /></span><p><strong>Start with your questions</strong><small>Share what brought you here and what you need to understand.</small></p></div><div><span><Icon name="check" size={15} /></span><p><strong>Bring the useful context</strong><small>Previous reports and referral letters can help shape the conversation.</small></p></div><div><span><Icon name="check" size={15} /></span><p><strong>Leave with a next step</strong><small>The team will explain the appropriate consultation, test or follow-up.</small></p></div></div><a className="text-link text-link--dark" href="#journey">See how a visit works <Icon name="arrow" size={17} /></a></div>
-          </div>
-        </section>
-
-        <section className="section journey-section" id="journey">
-          <div className="shell"><div className="section-heading section-heading--center"><p className="eyebrow">YOUR VISIT</p><h2>A simple path from question to clarity.</h2><p>Call, message or walk in. We will help you understand the most appropriate arrangement for your needs.</p></div><div className="journey-grid">{visitSteps.map(([number, title, text]) => <article className="journey-card" key={number}><span className="journey-card__number">{number}</span><div className="journey-card__line" /><h3>{title}</h3><p>{text}</p></article>)}</div><div className="journey-cta"><span><Icon name="calendar" size={19} /><strong>Ready to begin?</strong> Send a quick request and the clinic team can guide the next conversation.</span><a className="button button--coral" href="#request">Request a visit <Icon name="arrow" size={17} /></a></div></div>
-        </section>
-
-        <section className="section heart-section" id="heart-health">
-          <div className="shell"><div className="heart-section__head"><div><p className="eyebrow eyebrow--mint">HEART HEALTH GUIDE</p><h2>Small habits.<br /><em>Real momentum.</em></h2></div><p>Practical, general information for everyday cardiovascular wellbeing. Use it as a starting point—not a substitute for personal medical advice.</p></div><div className="tip-spotlight"><div className="tip-spotlight__index"><span>{featuredTip.number}</span><span> / 06</span></div><div className="tip-spotlight__body"><p className="tip-label">{featuredTip.label}</p><h3>{featuredTip.title}</h3><p>{featuredTip.text}</p></div><button type="button" className="round-arrow" onClick={() => setTipIndex((current) => (current + 1) % heartHealthTips.length)} aria-label="Show next heart health tip"><Icon name="arrow" size={20} /></button></div><div className="health-tip-grid">{heartHealthTips.map((tip, index) => <button type="button" className={'health-tip-card' + (index === tipIndex ? ' is-active' : '')} key={tip.number} onClick={() => setTipIndex(index)}><span>{tip.number}</span><strong>{tip.label}</strong><small>{index === tipIndex ? 'Currently featured' : 'Read guide'}</small></button>)}</div></div>
-        </section>
-
-        <section className="urgent-section" id="urgent-care"><div className="shell urgent-section__grid"><div><p className="eyebrow eyebrow--light">PLEASE READ</p><h2>Some symptoms need urgent care now.</h2><p>If you or someone near you has any of the following, go to the nearest emergency hospital. Do not rely on this website, a WhatsApp message or an online search.</p></div><div className="urgent-list">{urgentSymptoms.map((symptom) => <div key={symptom}><span><Icon name="check" size={15} /></span><strong>{symptom}</strong></div>)}</div></div></section>
-
-        <section className="section faq-section" id="faq"><div className="shell faq-layout"><div className="faq-intro"><p className="eyebrow">QUESTIONS, ANSWERED</p><h2>Useful before you arrive.</h2><p>For anything specific to you or a family member, please call or send a WhatsApp message. Do not send sensitive medical information through this website.</p><a className="text-link text-link--dark" href={'mailto:' + email}>Email the clinic <Icon name="arrow" size={17} /></a></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span>+</span></summary><p>{answer}</p></details>)}</div></div></section>
-
-        <section className="section request-section" id="request"><div className="shell request-grid"><div className="request-copy"><p className="eyebrow eyebrow--coral">START HERE</p><h2>Let’s make the first step easy.</h2><p>Tell the clinic team what you would like to ask about. This tool does not store your details; it prepares a WhatsApp message for you to review and send.</p><div className="contact-stack"><a href={'tel:' + phone.replaceAll(' ', '')}><span><Icon name="phone" size={18} /></span><small>CALL THE CLINIC</small><strong>{phone}</strong></a><a href={'mailto:' + email}><span><Icon name="message" size={18} /></span><small>EMAIL</small><strong>{email}</strong></a><a href={mapsUrl} target="_blank" rel="noreferrer"><span><Icon name="pin" size={18} /></span><small>FIND US IN AKURE</small><strong>Get directions <Icon name="arrow" size={15} /></strong></a></div></div><form className="request-form" onSubmit={handleSubmit}><div className="form-heading"><span className="form-heading__icon"><Icon name="message" size={21} /></span><div><p className="eyebrow">WHATSAPP REQUEST</p><h3>A few details to begin.</h3></div></div><label>Your name <span>Optional</span><input value={name} onChange={(event) => setName(event.target.value)} placeholder="How should the team address you?" /></label><label>What would you like to ask about?<select value={visitType} onChange={(event) => setVisitType(event.target.value)}><option>Cardiology consultation</option><option>Blood pressure / risk assessment</option><option>ECG</option><option>Echocardiogram</option><option>Holter monitoring</option><option>Laboratory investigations</option></select></label><label>Preferred contact <select value={contactPreference} onChange={(event) => setContactPreference(event.target.value)}><option>WhatsApp message</option><option>Phone call</option><option>Email</option></select></label><label>Anything else the team should know? <span>Optional</span><textarea value={details} onChange={(event) => setDetails(event.target.value)} placeholder="Keep it general—please do not include private medical records." rows={3} /></label><button className="button button--dark button--full" type="submit">Prepare WhatsApp message <Icon name="arrow" size={17} /></button><p className="form-note">Please do not include private medical records or urgent emergency information here.</p>{formNote && <div className="request-ready" role="status"><p>{formNote}</p><a className="button button--coral" href={whatsAppLink} target="_blank" rel="noreferrer">Continue to WhatsApp <Icon name="arrow" size={16} /></a></div>}</form></div></section>
-      </main>
-
-      <footer className="site-footer"><div className="shell footer-top"><a className="brand brand--footer" href="#top"><span className="brand-mark"><img src="/olumaro-clinic-logo.jpg" alt="" /></span><span><strong>Oluwarotimi</strong><small>Specialist Clinic</small></span></a><div className="footer-links"><a href="#care">Our care</a><a href="#consultant">Our approach</a><a href="#heart-health">Heart health</a><a href="#faq">FAQs</a><a href="#request">Contact</a></div></div><div className="shell footer-bottom"><p>© 2026 {formalClinicName}. All rights reserved.</p><p>General information only. Not an emergency service.</p></div></footer>
-    </>
+    <a href="#top" className="flex items-center gap-3" data-testid="link-logo-home" aria-label="Oluwarotimi Clinic home">
+      <span className="relative flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-[14px] border border-[#d9d3c6] bg-[#f8f1e5] p-1 shadow-[0_4px_12px_rgba(33,67,72,.1)]">
+        <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" className="h-full w-full rounded-[10px] object-cover" data-testid="img-clinic-logo" />
+      </span>
+      <span className="leading-tight">
+        <span className={`block font-label text-[11px] font-bold tracking-[.08em] ${inverse ? 'text-[#f7f2e7]' : 'text-[#214348]'}`}>OLUWAROTIMI</span>
+        <span className={`block font-label text-[9px] tracking-[.08em] ${inverse ? 'text-[#8fa9a3]' : 'text-[#61777a]'}`}>SPECIALIST CLINIC</span>
+      </span>
+    </a>
   );
 }
+
+function App() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeTip, setActiveTip] = useState(0);
+  const [formSent, setFormSent] = useState(false);
+  const [form, setForm] = useState({ name: '', phone: '', reason: '' });
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 18);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const handleRequest = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const message = `Hello Oluwarotimi Clinic, I would like to request a visit.%0A%0AName: ${encodeURIComponent(form.name)}%0APhone: ${encodeURIComponent(form.phone)}%0AWhat I would like help with: ${encodeURIComponent(form.reason)}`;
+    setFormSent(true);
+    window.open(`https://wa.me/2348034106928?text=${message}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const closeMenu = () => setMenuOpen(false);
+
+  return (
+    <div id="top" className="min-h-[100dvh] overflow-hidden">
+      <div className="bg-[#214348] px-5 py-2.5 text-center text-[11px] font-medium tracking-[.03em] text-[#f7efe1]" data-testid="status-emergency-banner">
+        <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#ef9a80] align-middle" />
+        If you have severe or urgent symptoms, please seek emergency care immediately.
+        <a href="#urgent" className="ml-2 font-bold underline underline-offset-4" data-testid="link-emergency-guidance">Read urgent-symptom guidance</a>
+      </div>
+
+      <header className={`site-header sticky top-0 z-40 ${scrolled ? 'is-scrolled' : 'bg-[#f7f2e7]'}`} data-testid="header-site-navigation">
+        <div className="container-clinic flex h-[78px] items-center justify-between">
+          <Logo />
+          <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+            <a href="#care" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-care">Our care</a>
+            <a href="#approach" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-approach">Your visit</a>
+            <a href="#learn" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-learn">Heart health</a>
+            <a href="#faqs" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-faqs">FAQs</a>
+            <a href="#request" className="rounded-full bg-[#214348] px-5 py-3 text-sm font-bold text-[#f8f1e5] transition-transform hover:-translate-y-0.5" data-testid="link-nav-request">Request a visit <ArrowRight className="ml-1 inline h-4 w-4" /></a>
+          </nav>
+          <button type="button" onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 text-[#214348] md:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} data-testid="button-mobile-menu">
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
+        </div>
+        {menuOpen && (
+          <nav className="border-t border-[#d9d3c6] bg-[#f7f2e7] px-5 py-5 md:hidden" aria-label="Mobile navigation">
+            <div className="container-clinic flex flex-col gap-4">
+              <a href="#care" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-care">Our care</a>
+              <a href="#approach" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-approach">Your visit</a>
+              <a href="#learn" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-learn">Heart health</a>
+              <a href="#faqs" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-faqs">FAQs</a>
+              <a href="#request" onClick={closeMenu} className="mt-1 inline-flex w-fit items-center rounded-full bg-[#214348] px-5 py-3 text-sm font-bold text-[#f8f1e5]" data-testid="link-mobile-request">Request a visit <ArrowRight className="ml-1 h-4 w-4" /></a>
+            </div>
+          </nav>
+        )}
+      </header>
+
+      <main>
+        <section className="relative bg-[#f7f2e7] pb-20 pt-14 md:pb-28 md:pt-20" aria-labelledby="hero-heading">
+          <div className="container-clinic grid items-center gap-14 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
+            <div className="reveal">
+              <p className="eyebrow mb-6 text-[#bb6659]">Care for the heart, close to home</p>
+              <h1 id="hero-heading" className="max-w-[650px] font-display text-[clamp(3.25rem,7vw,6.4rem)] leading-[.93] tracking-[-.055em] text-[#214348]">
+                A calmer way to begin looking after your <em className="text-[#bb6659]">heart.</em>
+              </h1>
+              <p className="mt-7 max-w-[540px] text-[17px] leading-8 text-[#5d7071]">
+                Oluwarotimi Specialist Clinic &amp; Diagnostic Centre is a cardiology-focused family clinic in Akure, for thoughtful assessment, clear answers, and a next step that feels manageable.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <a href="#request" className="inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold text-[#f8f1e5] shadow-[0_12px_25px_rgba(33,67,72,.15)] transition-transform hover:-translate-y-1" data-testid="link-hero-request">
+                  Request a visit <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+                <a href="#care" className="inline-flex items-center justify-center rounded-full px-5 py-4 text-sm font-bold text-[#214348] transition-colors hover:bg-[#ece3d3]" data-testid="link-hero-care">Explore our care <ArrowDownRight className="ml-2 h-4 w-4" /></a>
+              </div>
+              <div className="mt-10 flex items-center gap-3 text-xs text-[#6b7c7d]">
+                <ShieldCheck className="h-5 w-5 text-[#4e8d84]" />
+                <span>Family-centred care in Akure</span>
+                <span className="h-1 w-1 rounded-full bg-[#bb6659]" />
+                <span>Diagnostic support on site</span>
+              </div>
+            </div>
+
+            <div className="reveal reveal-delay-2 relative mx-auto w-full max-w-[530px]">
+              <div className="absolute -right-4 -top-7 h-28 w-28 rounded-full border border-[#e5b9a6] md:-right-10 md:-top-10 md:h-40 md:w-40" />
+              <div className="absolute -bottom-7 -left-6 h-24 w-24 rounded-full bg-[#e8d2b7]/70 md:-bottom-10 md:-left-10 md:h-32 md:w-32" />
+              <div className="relative overflow-hidden rounded-[32px] bg-[#dce9e2] p-5 shadow-[0_25px_60px_rgba(33,67,72,.13)] md:p-7">
+                <div className="flex items-start justify-between">
+                  <div>
+                    <p className="eyebrow text-[#557975]">A note from the clinic</p>
+                    <p className="mt-3 max-w-[240px] font-display text-2xl leading-tight text-[#214348]">Start with what you know. We will help with the rest.</p>
+                  </div>
+                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full border-4 border-[#f7f2e7] bg-[#f7f2e7] shadow-[0_5px_14px_rgba(33,67,72,.12)]">
+                    <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic seal" className="h-full w-full object-cover" data-testid="img-hero-clinic-seal" />
+                  </div>
+                </div>
+                <svg viewBox="0 0 540 205" className="mt-8 w-full" role="img" aria-label="A calm heart rhythm line">
+                  <path d="M0 138h115c15 0 17-52 30-52 16 0 18 69 32 69 19 0 17-99 33-99 18 0 18 82 38 82 16 0 16-33 29-33 18 0 17 33 35 33h228" fill="none" stroke="#4e8d84" strokeWidth="3" strokeLinecap="round" />
+                  <path d="M0 138h540" fill="none" stroke="#a7c9be" strokeWidth="1" strokeDasharray="4 8" />
+                  <circle cx="278" cy="105" r="7" fill="#e68b76" />
+                  <circle cx="278" cy="105" r="14" fill="none" stroke="#e68b76" strokeOpacity=".4" />
+                </svg>
+                <div className="flex items-end justify-between border-t border-[#bdd3c8] pt-4">
+                  <p className="max-w-[250px] text-xs leading-5 text-[#557975]">Consultation, assessment, ECG, echocardiogram, Holter monitoring and laboratory investigations.</p>
+                  <span className="font-label text-[10px] font-bold tracking-[.12em] text-[#557975]">AKURE / 06</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="container-clinic mt-16 flex items-center gap-4 border-t border-[#ded7c9] pt-5 text-xs text-[#728080]">
+            <span className="eyebrow text-[#bb6659]">Take the first step</span>
+            <span className="hidden h-px w-14 bg-[#d6cfc1] sm:block" />
+            <span>When you are unsure about your heart health, asking is enough reason to begin.</span>
+          </div>
+        </section>
+
+        <section id="care" className="scroll-mt-20 bg-[#f7f2e7] py-20 md:py-28" aria-labelledby="care-heading">
+          <div className="container-clinic">
+            <div className="grid gap-10 md:grid-cols-[.7fr_1.3fr] md:gap-20">
+              <div>
+                <p className="eyebrow text-[#bb6659]">What we offer</p>
+                <h2 id="care-heading" className="mt-4 max-w-[330px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Care that looks at the whole picture.</h2>
+              </div>
+              <div className="md:pt-10">
+                <p className="max-w-[580px] text-lg leading-8 text-[#607273]">Your concern might begin with a single symptom, a blood pressure reading, or a question you cannot put down. Our care brings conversation and diagnostic support together.</p>
+              </div>
+            </div>
+            <div className="mt-14 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service) => {
+                const Icon = service.icon;
+                return (
+                  <article key={service.id} className={`group flex min-h-[230px] flex-col justify-between rounded-[24px] border p-6 transition-transform hover:-translate-y-1 ${service.featured ? 'border-[#214348] bg-[#214348] text-[#f7f2e7] lg:col-span-2' : 'border-[#ded7c9] bg-[#fbf8f1] text-[#214348]'}`} data-testid={`card-service-${service.id}`}>
+                    <div className="flex items-start justify-between">
+                      <span className={`font-label text-[11px] font-bold tracking-[.14em] ${service.featured ? 'text-[#a7c9be]' : 'text-[#bb6659]'}`}>{service.number}</span>
+                      <span className={`rounded-full p-2.5 ${service.featured ? 'bg-[#42666a] text-[#d9eee5]' : 'bg-[#edf1e9] text-[#4e8d84]'}`}><Icon className="h-5 w-5" /></span>
+                    </div>
+                    <div className="mt-8">
+                      <h3 className="font-display text-2xl leading-tight">{service.title}</h3>
+                      <p className={`mt-3 max-w-[400px] text-sm leading-6 ${service.featured ? 'text-[#c7d9d1]' : 'text-[#667778]'}`}>{service.description}</p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section id="approach" className="scroll-mt-20 bg-[#e9d8c4] py-20 md:py-28" aria-labelledby="approach-heading">
+          <div className="container-clinic grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="eyebrow text-[#bb6659]">Your visit, made simple</p>
+              <h2 id="approach-heading" className="mt-4 max-w-[480px] font-display text-5xl leading-[.97] tracking-[-.04em] text-[#214348] md:text-6xl">No perfect words required.</h2>
+              <p className="mt-6 max-w-[440px] text-base leading-7 text-[#617071]">A clinic visit can feel like a lot when you are carrying a worry. We keep the first step clear and human.</p>
+              <a href="#request" className="mt-8 inline-flex items-center rounded-full border border-[#214348] px-5 py-3 text-sm font-bold text-[#214348] transition-colors hover:bg-[#214348] hover:text-[#f7f2e7]" data-testid="link-approach-request">Begin a visit request <ArrowRight className="ml-2 h-4 w-4" /></a>
+            </div>
+            <div className="relative">
+              <div className="absolute left-[27px] top-7 bottom-7 w-px bg-[#c2ae96]" aria-hidden="true" />
+              <div className="space-y-8">
+                {[
+                  ['01', 'Tell us what is on your mind', 'Request a visit by WhatsApp, phone, or email. A short note is enough.'],
+                  ['02', 'Have a considered conversation', 'Bring your questions, history, and any previous results you have.'],
+                  ['03', 'Leave with a next step', 'Your clinician will guide the assessment or diagnostic support that fits your concern.'],
+                ].map(([number, title, copy]) => (
+                  <div className="relative flex gap-6" key={number} data-testid={`step-visit-${number}`}>
+                    <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#c2ae96] bg-[#e9d8c4] font-label text-xs font-bold text-[#bb6659]">{number}</div>
+                    <div className="pt-1">
+                      <h3 className="font-display text-2xl text-[#214348]">{title}</h3>
+                      <p className="mt-2 max-w-[450px] text-sm leading-6 text-[#6a7673]">{copy}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="learn" className="scroll-mt-20 bg-[#f7f2e7] py-20 md:py-28" aria-labelledby="learn-heading">
+          <div className="container-clinic grid gap-12 lg:grid-cols-[.85fr_1.15fr] lg:gap-24">
+            <div>
+              <p className="eyebrow text-[#bb6659]">A little clarity</p>
+              <h2 id="learn-heading" className="mt-4 max-w-[400px] font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">Heart health is a conversation.</h2>
+              <p className="mt-6 max-w-[420px] text-base leading-7 text-[#607273]">There is no need to diagnose yourself before asking for help. Use these gentle prompts to notice what you may want to discuss.</p>
+              <div className="mt-9 flex flex-wrap gap-2" role="tablist" aria-label="Heart health prompts">
+                {tips.map((tip, index) => (
+                  <button type="button" key={tip.label} onClick={() => setActiveTip(index)} className={`rounded-full px-4 py-2.5 text-xs font-bold transition-colors ${activeTip === index ? 'bg-[#214348] text-[#f7f2e7]' : 'border border-[#d8d0c2] text-[#627374] hover:border-[#214348] hover:text-[#214348]'}`} role="tab" aria-selected={activeTip === index} data-testid={`button-tip-${index}`}>
+                    {tip.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="relative min-h-[330px] rounded-[28px] bg-[#dce9e2] p-7 md:p-10" data-testid="content-heart-health-tip">
+              <div className="absolute right-8 top-8 flex h-16 w-16 items-center justify-center rounded-full border border-[#9fc2b5] text-[#4e8d84]">
+                <HeartPulse className="h-7 w-7" />
+              </div>
+              <span className="eyebrow text-[#557975]">Prompt {String(activeTip + 1).padStart(2, '0')} / 03</span>
+              <h3 className="mt-24 max-w-[480px] font-display text-4xl leading-[1.02] tracking-[-.03em] text-[#214348] md:text-5xl">{tips[activeTip].title}</h3>
+              <p className="mt-5 max-w-[510px] text-base leading-7 text-[#5f7775]">{tips[activeTip].body}</p>
+              <div className="absolute bottom-7 left-7 right-7 flex items-center gap-3 border-t border-[#b8d2c5] pt-4 text-xs text-[#5f7775] md:bottom-10 md:left-10 md:right-10"><Check className="h-4 w-4 text-[#4e8d84]" />A question is a good place to begin.</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="urgent" className="scroll-mt-20 bg-[#bb6659] py-14 text-[#fff5e8] md:py-16" aria-labelledby="urgent-heading">
+          <div className="container-clinic grid gap-8 md:grid-cols-[.75fr_1.25fr] md:items-center">
+            <div className="flex items-start gap-4">
+              <div className="rounded-full border border-[#e2aa95] p-3"><Activity className="h-6 w-6" /></div>
+              <div>
+                <p className="eyebrow text-[#f4d7c6]">Please read</p>
+                <h2 id="urgent-heading" className="mt-2 font-display text-4xl leading-none">When it feels urgent</h2>
+              </div>
+            </div>
+            <div>
+              <p className="max-w-[660px] text-base leading-7 text-[#fff0df]">If you have severe chest pain, difficulty breathing, sudden weakness, fainting, or other urgent symptoms, seek emergency care immediately. Do not wait for a WhatsApp reply or a clinic appointment.</p>
+              <a href="tel:+2348034106928" className="mt-5 inline-flex items-center text-sm font-bold underline underline-offset-4" data-testid="link-urgent-phone">Call the clinic: +234 803 410 6928 <Phone className="ml-2 h-4 w-4" /></a>
+            </div>
+          </div>
+        </section>
+
+        <section id="faqs" className="scroll-mt-20 bg-[#f7f2e7] py-20 md:py-28" aria-labelledby="faq-heading">
+          <div className="container-clinic grid gap-12 lg:grid-cols-[.8fr_1.2fr] lg:gap-24">
+            <div>
+              <p className="eyebrow text-[#bb6659]">Questions, answered</p>
+              <h2 id="faq-heading" className="mt-4 font-display text-5xl leading-[.98] tracking-[-.04em] text-[#214348] md:text-6xl">A little more ease before you arrive.</h2>
+              <a href="#request" className="mt-8 inline-flex items-center text-sm font-bold text-[#4e8d84] underline decoration-[#a7c9be] decoration-2 underline-offset-4" data-testid="link-faq-request">Still unsure? Ask the clinic <ArrowRight className="ml-2 h-4 w-4" /></a>
+            </div>
+            <div className="divide-y divide-[#ded7c9] border-y border-[#ded7c9]">
+              {faqs.map((faq, index) => (
+                <details key={faq.question} className="group py-5" data-testid={`disclosure-faq-${index}`}>
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-5 text-base font-bold text-[#214348] [&::-webkit-details-marker]:hidden">
+                    {faq.question}
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#d3cabb] text-[#4e8d84] transition-transform group-open:rotate-180"><ChevronDown className="h-4 w-4" /></span>
+                  </summary>
+                  <p className="max-w-[590px] pt-4 text-sm leading-7 text-[#647576]" data-testid={`text-faq-answer-${index}`}>{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="request" className="scroll-mt-20 bg-[#214348] py-20 text-[#f7f2e7] md:py-28" aria-labelledby="request-heading">
+          <div className="container-clinic grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:gap-24">
+            <div>
+              <p className="eyebrow text-[#a7c9be]">Your first step</p>
+              <h2 id="request-heading" className="mt-4 max-w-[460px] font-display text-5xl leading-[.96] tracking-[-.04em] md:text-6xl">Tell us how we can help.</h2>
+              <p className="mt-6 max-w-[430px] text-base leading-7 text-[#c3d5ce]">Send a visit request on WhatsApp and the clinic team can follow up. You can also call or email directly.</p>
+              <div className="mt-10 space-y-5 text-sm">
+                <a href="tel:+2348034106928" className="flex items-center gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-phone"><span className="rounded-full bg-[#42666a] p-2"><Phone className="h-4 w-4" /></span>+234 803 410 6928</a>
+                <a href="mailto:folorunsooluwarotimi@gmail.com" className="flex items-center gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-email"><span className="rounded-full bg-[#42666a] p-2"><Mail className="h-4 w-4" /></span>folorunsooluwarotimi@gmail.com</a>
+                <a href="https://www.google.com/maps/search/?api=1&query=Promised+Land+Estate+Alagbaka+Extension+2+Akure+Nigeria" target="_blank" rel="noreferrer" className="flex items-start gap-3 text-[#f7f2e7] transition-colors hover:text-[#e6a18b]" data-testid="link-request-maps"><span className="rounded-full bg-[#42666a] p-2"><MapPin className="h-4 w-4" /></span><span>Promised Land Estate,<br />Alagbaka Extension 2, Akure</span></a>
+              </div>
+            </div>
+            <form onSubmit={handleRequest} className="rounded-[28px] bg-[#f7f2e7] p-6 text-[#214348] shadow-[0_20px_60px_rgba(12,37,40,.2)] md:p-9" data-testid="form-visit-request">
+              {formSent ? (
+                <div className="flex min-h-[360px] flex-col items-center justify-center text-center">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#dce9e2] text-[#4e8d84]"><MessageCircle className="h-7 w-7" /></div>
+                  <h3 className="mt-6 font-display text-4xl">Your request is ready.</h3>
+                  <p className="mt-3 max-w-[340px] text-sm leading-6 text-[#647576]" data-testid="status-request-sent">WhatsApp has opened with your details. The clinic team can follow up from there.</p>
+                  <button type="button" onClick={() => { setFormSent(false); setForm({ name: '', phone: '', reason: '' }); }} className="mt-7 rounded-full border border-[#cfc8ba] px-5 py-3 text-sm font-bold text-[#214348] hover:bg-[#ece3d3]" data-testid="button-new-request">Make another request</button>
+                </div>
+              ) : (
+                <>
+                  <div className="flex items-center justify-between border-b border-[#ded7c9] pb-5">
+                    <div><p className="eyebrow text-[#bb6659]">WhatsApp visit request</p><h3 className="mt-2 font-display text-3xl">A short note is enough.</h3></div>
+                    <MessageCircle className="h-7 w-7 text-[#4e8d84]" />
+                  </div>
+                  <div className="mt-7 space-y-5">
+                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Your name</span><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="How should we address you?" data-testid="input-request-name" /></label>
+                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">Phone number</span><input required type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="+234..." data-testid="input-request-phone" /></label>
+                    <label className="block"><span className="mb-2 block text-xs font-bold text-[#617273]">What would you like help with?</span><textarea required rows={3} value={form.reason} onChange={(e) => setForm({ ...form, reason: e.target.value })} className="w-full resize-none rounded-xl border border-[#d8d0c2] bg-[#fbf8f1] px-4 py-3.5 text-sm outline-none transition-colors focus:border-[#4e8d84] focus:ring-2 focus:ring-[#a7c9be]" placeholder="A symptom, a test, or a question..." data-testid="textarea-request-reason" /></label>
+                  </div>
+                  <button type="submit" className="mt-7 flex w-full items-center justify-center rounded-full bg-[#e68b76] px-5 py-4 text-sm font-bold text-[#214348] transition-transform hover:-translate-y-0.5" data-testid="button-submit-request">Continue on WhatsApp <ArrowRight className="ml-2 h-4 w-4" /></button>
+                  <p className="mt-4 text-center text-[11px] leading-5 text-[#7b8580]">For urgent symptoms, please seek emergency care immediately rather than waiting for a reply.</p>
+                </>
+              )}
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="bg-[#17363a] py-9 text-[#c3d5ce]">
+        <div className="container-clinic flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+          <div>
+            <Logo inverse />
+            <p className="mt-4 max-w-[330px] text-xs leading-6 text-[#8fa9a3]">Oluwarotimi Specialist Clinic &amp; Diagnostic Centre<br />Cardiology-focused family care in Akure.</p>
+          </div>
+          <div className="flex flex-col gap-3 text-xs md:items-end">
+            <a href="#top" className="font-bold text-[#f7f2e7] hover:text-[#e6a18b]" data-testid="link-footer-home">Back to top <ArrowRight className="ml-1 inline h-3 w-3 -rotate-90" /></a>
+            <span className="text-[#8fa9a3]">Promised Land Estate, Alagbaka Extension 2, Akure</span>
+            <span className="text-[#8fa9a3]">© {new Date().getFullYear()} Oluwarotimi Clinic</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
