@@ -3,24 +3,19 @@ import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://cardiocare-clinic-preview.skylietimm39.chatgpt.site'),
-  title: 'Oluwarotimi Specialist Clinic & Diagnostic Centre | Cardiology care in Akure',
-  description: 'Consultant cardiology care, diagnostic testing and clear appointment guidance in Akure, Ondo State.',
+  title: 'Oluwarotimi Specialist Clinic | Heart & Diagnostic Care in Akure',
+  description: 'Thoughtful cardiology consultations, diagnostic testing and clear appointment guidance from Oluwarotimi Specialist Clinic in Akure, Ondo State.',
   openGraph: {
     title: 'Oluwarotimi Specialist Clinic',
-    description: 'Consultant cardiology care, diagnostic testing and appointment guidance in Akure, Ondo State.',
+    description: 'Heart-focused care and diagnostic support in Akure, Ondo State.',
     type: 'website',
-    images: [
-      {
-        url: 'https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/olumaro-clinic-logo.jpg',
-        alt: 'Oluwarotimi Specialist Clinic & Diagnostic Centre logo',
-      },
-    ],
+    images: [{ url: '/olumaro-clinic-logo.jpg', alt: 'Oluwarotimi Specialist Clinic & Diagnostic Centre logo' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Oluwarotimi Specialist Clinic',
-    description: 'Consultant cardiology care, diagnostic testing and appointment guidance in Akure, Ondo State.',
-    images: ['https://cardiocare-clinic-preview.skylietimm39.chatgpt.site/olumaro-clinic-logo.jpg'],
+    description: 'Heart-focused care and diagnostic support in Akure, Ondo State.',
+    images: ['/olumaro-clinic-logo.jpg'],
   },
 };
 
