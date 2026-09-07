@@ -250,31 +250,22 @@ function App() {
               </div>
             </div>
 
-            <div className="reveal reveal-delay-2 relative mx-auto w-full max-w-[530px]">
-              <div className="absolute -right-4 -top-7 h-28 w-28 rounded-full border border-[#e5b9a6] md:-right-10 md:-top-10 md:h-40 md:w-40" />
-              <div className="absolute -bottom-7 -left-6 h-24 w-24 rounded-full bg-[#e8d2b7]/70 md:-bottom-10 md:-left-10 md:h-32 md:w-32" />
-              <div className="relative overflow-hidden rounded-[32px] bg-[#dce9e2] p-5 shadow-[0_25px_60px_rgba(33,67,72,.13)] md:p-7">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="eyebrow text-[#557975]">A note from the clinic</p>
-                    <p className="mt-3 max-w-[240px] font-display text-2xl leading-tight text-[#214348]">Start with what you know. We will help with the rest.</p>
-                  </div>
-                  <div className="h-14 w-14 shrink-0 overflow-hidden rounded-full border-4 border-[#f7f2e7] bg-[#f7f2e7] shadow-[0_5px_14px_rgba(33,67,72,.12)]">
-                    <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic seal" className="h-full w-full object-cover" data-testid="img-hero-clinic-seal" />
-                  </div>
-                </div>
-                <svg viewBox="0 0 540 205" className="mt-8 w-full" role="img" aria-label="A calm heart rhythm line">
-                  <path d="M0 138h115c15 0 17-52 30-52 16 0 18 69 32 69 19 0 17-99 33-99 18 0 18 82 38 82 16 0 16-33 29-33 18 0 17 33 35 33h228" fill="none" stroke="#4e8d84" strokeWidth="3" strokeLinecap="round" />
-                  <path d="M0 138h540" fill="none" stroke="#a7c9be" strokeWidth="1" strokeDasharray="4 8" />
-                  <circle cx="278" cy="105" r="7" fill="#e68b76" />
-                  <circle cx="278" cy="105" r="14" fill="none" stroke="#e68b76" strokeOpacity=".4" />
-                </svg>
-                <div className="flex items-end justify-between border-t border-[#bdd3c8] pt-4">
-                  <p className="max-w-[250px] text-xs leading-5 text-[#557975]">Consultation, assessment, ECG, echocardiogram, Holter monitoring and laboratory investigations.</p>
-                  <span className="font-label text-[10px] font-bold tracking-[.12em] text-[#557975]">AKURE / 06</span>
-                </div>
-              </div>
-            </div>
+            <figure className="reveal reveal-delay-2 mx-auto w-full max-w-[560px] overflow-hidden rounded-[28px] border border-[#ded7c9] bg-[#fbf8f1] shadow-[0_25px_60px_rgba(33,67,72,.12)]">
+              <img
+                src="/clinic-equipment.jpeg"
+                alt="Equipment, monitors and a patient table inside Oluwarotimi Specialist Clinic"
+                width={1448}
+                height={1086}
+                fetchPriority="high"
+                className="h-auto w-full"
+                data-testid="img-clinic-equipment"
+              />
+              <figcaption className="p-6 md:p-7">
+                <p className="eyebrow text-[#bb6659]">Inside our clinic · Akure</p>
+                <p className="mt-3 font-display text-2xl leading-tight text-[#214348]">Specialist care, close to home.</p>
+                <p className="mt-3 text-sm leading-6 text-[#557975]">Consultations and diagnostic support at Oluwarotimi Specialist Clinic &amp; Diagnostic Centre.</p>
+              </figcaption>
+            </figure>
           </div>
           <div className="container-clinic mt-16 flex items-center gap-4 border-t border-[#ded7c9] pt-5 text-xs text-[#728080]">
             <span className="eyebrow text-[#bb6659]">Take the first step</span>
@@ -315,11 +306,27 @@ function App() {
         </section>
 
         <section id="consultant" className="scroll-mt-20 bg-[#dce9e2] py-20 md:py-28" aria-labelledby="consultant-heading">
-          <div className="container-clinic grid gap-12 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 xl:gap-24">
-            <div>
+          <div className="container-clinic grid items-start gap-10 lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:gap-14 xl:gap-20">
+            <figure className="mx-auto w-full max-w-[420px] overflow-hidden rounded-[28px] border border-[#b8d2c5] bg-[#edf4ef] shadow-[0_20px_50px_rgba(33,67,72,.1)] lg:mx-0">
+              <img
+                src="/folorunso-oluwarotimi.jpeg"
+                alt="Folorunso Timothy Oluwarotimi, Consultant Physician and Cardiologist"
+                width={1122}
+                height={1402}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-full"
+                data-testid="img-medical-director"
+              />
+              <figcaption className="border-t border-[#b8d2c5] px-6 py-5">
+                <p className="font-display text-xl text-[#214348]">Folorunso Timothy Oluwarotimi</p>
+                <p className="mt-1 text-sm leading-6 text-[#426a67]">Medical Director</p>
+              </figcaption>
+            </figure>
+            <div className="min-w-0">
               <p className="eyebrow text-[#557975]">Medical director</p>
               <h2 id="consultant-heading" className="mt-4 max-w-[560px] font-display text-[clamp(2.55rem,4vw,3.3rem)] leading-[.94] tracking-[-.045em] text-[#214348]">
-                <span className="block whitespace-nowrap">Folorunso Timothy</span>
+                <span className="block">Folorunso Timothy</span>
                 <span className="block text-[#386864]">Oluwarotimi</span>
               </h2>
               <p className="mt-5 text-lg leading-8 text-[#386864]">Consultant Physician &amp; Cardiologist</p>
@@ -328,42 +335,58 @@ function App() {
                 <p className="mt-3 text-base font-medium leading-7 text-[#426a67]"><strong className="font-semibold text-[#214348]">Training and focus.</strong> Trained in Internal Medicine with specialist training in Cardiology, he has a subspecialty focus in heart failure and cardiac resynchronisation therapy (CRT).</p>
               </div>
               <p className="mt-4 max-w-[510px] text-base leading-7 text-[#587a75]">Care at the clinic is shaped by careful clinical assessment, modern diagnostic support, a dedicated team and ongoing learning—so each patient can leave with a clearer next step.</p>
-            </div>
-            <div className="grid gap-px overflow-hidden rounded-[24px] border border-[#b8d2c5] bg-[#b8d2c5] sm:grid-cols-2">
-              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Qualifications</p><p className="font-display text-2xl leading-tight text-[#214348]">MB ChB, FMCP, MBA, Interventional Cardiology</p></div>
-              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Clinical focus</p><p className="font-display text-2xl leading-tight text-[#214348]">Hypertension, diabetes, heart failure and other heart conditions</p></div>
-              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Professional membership</p><p className="font-display text-2xl leading-tight text-[#214348]">Nigerian Cardiac Society and PASCAR</p></div>
-              <div className="bg-[#edf4ef] p-6"><p className="eyebrow text-[#557975]">Care approach</p><p className="font-display text-2xl leading-tight text-[#214348]">Attentive assessment, diagnostic support and a clear plan</p></div>
+              <dl className="mt-8 grid gap-x-8 gap-y-6 border-t border-[#aecbbd] pt-6 sm:grid-cols-2">
+                <div><dt className="text-sm font-semibold text-[#426a67]">Qualifications</dt><dd className="mt-2 text-base leading-7 text-[#214348]">MB ChB, FMCP, MBA, Interventional Cardiology</dd></div>
+                <div><dt className="text-sm font-semibold text-[#426a67]">Clinical focus</dt><dd className="mt-2 text-base leading-7 text-[#214348]">Hypertension, diabetes, heart failure and other heart conditions</dd></div>
+                <div><dt className="text-sm font-semibold text-[#426a67]">Professional membership</dt><dd className="mt-2 text-base leading-7 text-[#214348]">Nigerian Cardiac Society and PASCAR</dd></div>
+                <div><dt className="text-sm font-semibold text-[#426a67]">Care approach</dt><dd className="mt-2 text-base leading-7 text-[#214348]">Attentive assessment, diagnostic support and a clear plan</dd></div>
+              </dl>
             </div>
           </div>
         </section>
 
         <section id="approach" className="scroll-mt-20 bg-[#e9d8c4] py-20 md:py-28" aria-labelledby="approach-heading">
-          <div className="container-clinic grid gap-14 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+          <div className="container-clinic grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,.8fr)] lg:items-center lg:gap-20">
             <div>
               <p className="eyebrow text-[#bb6659]">Your visit, made simple</p>
               <h2 id="approach-heading" className="mt-4 max-w-[480px] font-display text-5xl leading-[.97] tracking-[-.04em] text-[#214348] md:text-6xl">No perfect words required.</h2>
               <p className="mt-6 max-w-[440px] text-base leading-7 text-[#617071]">A clinic visit can feel like a lot when you are carrying a worry. We keep the first step clear and human. You can call, send a WhatsApp message, walk in, or come with a referral.</p>
+              <div className="relative mt-9">
+                <div className="absolute left-[27px] top-7 bottom-7 w-px bg-[#c2ae96]" aria-hidden="true" />
+                <div className="space-y-8">
+                  {[
+                    ['01', 'Tell us what is on your mind', 'Request a visit by WhatsApp, phone, or email. A short note is enough.'],
+                    ['02', 'Have a considered conversation', 'Bring your questions, history, any previous results and a referral letter if you have one.'],
+                    ['03', 'Leave with a next step', 'Your clinician will guide the assessment or diagnostic support that fits your concern.'],
+                  ].map(([number, title, copy]) => (
+                    <div className="relative flex gap-6" key={number} data-testid={`step-visit-${number}`}>
+                      <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#c2ae96] bg-[#e9d8c4] font-label text-xs font-bold text-[#bb6659]">{number}</div>
+                      <div className="pt-1">
+                        <h3 className="font-display text-2xl text-[#214348]">{title}</h3>
+                        <p className="mt-2 max-w-[450px] text-base leading-7 text-[#617071]">{copy}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
               <a href="#request" className="button-interactive button-interactive--outline mt-8 inline-flex items-center rounded-full border border-[#214348] px-5 py-3 text-sm font-bold text-[#214348]" data-testid="link-approach-request">Begin a visit request <ArrowRight className="ml-2 h-4 w-4" /></a>
             </div>
-            <div className="relative">
-              <div className="absolute left-[27px] top-7 bottom-7 w-px bg-[#c2ae96]" aria-hidden="true" />
-              <div className="space-y-8">
-                {[
-                  ['01', 'Tell us what is on your mind', 'Request a visit by WhatsApp, phone, or email. A short note is enough.'],
-                  ['02', 'Have a considered conversation', 'Bring your questions, history, any previous results and a referral letter if you have one.'],
-                  ['03', 'Leave with a next step', 'Your clinician will guide the assessment or diagnostic support that fits your concern.'],
-                ].map(([number, title, copy]) => (
-                  <div className="relative flex gap-6" key={number} data-testid={`step-visit-${number}`}>
-                    <div className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#c2ae96] bg-[#e9d8c4] font-label text-xs font-bold text-[#bb6659]">{number}</div>
-                    <div className="pt-1">
-                      <h3 className="font-display text-2xl text-[#214348]">{title}</h3>
-                      <p className="mt-2 max-w-[450px] text-sm leading-6 text-[#6a7673]">{copy}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <figure className="mx-auto w-full max-w-[390px] overflow-hidden rounded-[28px] border border-[#c2ae96] bg-[#f7f2e7] shadow-[0_20px_50px_rgba(71,55,40,.12)]">
+              <img
+                src="/clinic-reception.jpeg"
+                alt="Reception and waiting area at Oluwarotimi Specialist Clinic, viewed through the entrance"
+                width={780}
+                height={1040}
+                loading="lazy"
+                decoding="async"
+                className="h-auto w-full"
+                data-testid="img-clinic-reception"
+              />
+              <figcaption className="border-t border-[#d8c8b3] px-6 py-5">
+                <p className="font-display text-xl text-[#214348]">Your first stop when you arrive.</p>
+                <p className="mt-2 text-sm leading-6 text-[#617071]">The clinic’s reception and waiting area.</p>
+              </figcaption>
+            </figure>
           </div>
         </section>
 
