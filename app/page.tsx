@@ -149,11 +149,11 @@ function Logo({ inverse = false }: { inverse?: boolean }) {
   return (
     <a href="#top" className={`clinic-logo ${inverse ? 'clinic-logo--inverse' : ''}`} data-testid="link-logo-home" aria-label="Oluwarotimi Clinic home">
       <span className="clinic-logo__seal">
-        <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" data-testid="img-clinic-logo" />
+        <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" width={1045} height={1080} data-testid="img-clinic-logo" />
       </span>
       <span className="clinic-logo__wordmark">
         <span className="clinic-logo__name">Oluwarotimi</span>
-        <span className="clinic-logo__descriptor">Specialist Clinic &amp; Diagnostic Centre</span>
+        <span className="clinic-logo__descriptor"><span>Specialist Clinic</span><span>&amp; Diagnostic Centre</span></span>
       </span>
     </a>
   );
@@ -189,7 +189,7 @@ function App() {
   const closeMenu = () => setMenuOpen(false);
 
   return (
-    <div id="top" className="min-h-[100dvh] overflow-hidden">
+    <div id="top" className="min-h-[100dvh] overflow-x-clip">
       <div className="bg-[#214348] px-5 py-2.5 text-center text-[11px] font-medium tracking-[.03em] text-[#f7efe1]" data-testid="status-emergency-banner">
         <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#ef9a80] align-middle" />
         If you have severe or urgent symptoms, please seek emergency care immediately.
@@ -197,9 +197,9 @@ function App() {
       </div>
 
       <header className={`site-header sticky top-0 z-40 ${scrolled ? 'is-scrolled' : 'bg-[#f7f2e7]'}`} data-testid="header-site-navigation">
-        <div className="container-clinic flex h-[78px] items-center justify-between">
+        <div className="container-clinic flex min-h-[96px] items-center justify-between gap-5 py-3">
           <Logo />
-          <nav className="hidden items-center gap-8 lg:flex" aria-label="Main navigation">
+          <nav className="hidden shrink-0 items-center gap-5 lg:flex" aria-label="Main navigation">
             <a href="#care" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-care">Our care</a>
             <a href="#consultant" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-consultant">Consultant</a>
             <a href="#approach" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-approach">Your visit</a>
@@ -207,12 +207,12 @@ function App() {
             <a href="#faqs" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-faqs">FAQs</a>
             <a href="#request" className="button-interactive cta-on-dark rounded-full bg-[#214348] px-5 py-3 text-sm font-bold" data-testid="link-nav-request">Request a visit <ArrowRight className="ml-1 inline h-4 w-4" /></a>
           </nav>
-          <button type="button" onClick={() => setMenuOpen(!menuOpen)} className="rounded-full p-2 text-[#214348] lg:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} data-testid="button-mobile-menu">
+          <button type="button" onClick={() => setMenuOpen(!menuOpen)} className="shrink-0 rounded-full p-2 text-[#214348] lg:hidden" aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} aria-expanded={menuOpen} aria-controls="mobile-navigation" data-testid="button-mobile-menu">
             {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
         {menuOpen && (
-          <nav className="border-t border-[#d9d3c6] bg-[#f7f2e7] px-5 py-5 lg:hidden" aria-label="Mobile navigation">
+          <nav id="mobile-navigation" className="border-t border-[#d9d3c6] bg-[#f7f2e7] px-5 py-5 lg:hidden" aria-label="Mobile navigation">
             <div className="container-clinic flex flex-col gap-4">
               <a href="#care" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-care">Our care</a>
               <a href="#consultant" onClick={closeMenu} className="py-1 text-sm font-semibold" data-testid="link-mobile-consultant">Consultant</a>
@@ -228,13 +228,22 @@ function App() {
       <main>
         <section className="relative bg-[#f7f2e7] pb-20 pt-14 md:pb-28 md:pt-20" aria-labelledby="hero-heading">
           <div className="container-clinic grid items-center gap-14 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
-            <div className="reveal">
-              <p className="eyebrow mb-6 text-[#bb6659]">Care for the heart, close to home</p>
-              <h1 id="hero-heading" className="max-w-[650px] font-display text-[clamp(3.25rem,7vw,6.4rem)] leading-[.93] tracking-[-.055em] text-[#214348]">
-                A calmer way to begin looking after your <em className="text-[#bb6659]">heart.</em>
+            <div className="clinic-identity reveal">
+              <div className="clinic-identity__signature">
+                <span className="clinic-identity__seal"><img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic seal" width={1045} height={1080} /></span>
+                <div>
+                  <p className="clinic-identity__location">Akure, Ondo State</p>
+                  <p className="clinic-identity__motto">Health is Wealth</p>
+                </div>
+              </div>
+              <h1 id="hero-heading" className="clinic-identity__heading">
+                <span className="clinic-identity__name">Oluwarotimi</span>{' '}
+                <span className="clinic-identity__specialty">Specialist Clinic</span>{' '}
+                <span className="clinic-identity__diagnostics">&amp; Diagnostic Centre</span>
               </h1>
-              <p className="mt-7 max-w-[540px] text-[17px] leading-8 text-[#5d7071]">
-                Oluwarotimi Specialist Clinic &amp; Diagnostic Centre is a cardiology-focused family clinic in Akure, bringing cardiovascular care, diagnostic support and a clear next step closer to home.
+              <p className="mt-7 font-display text-2xl leading-tight text-[#214348]">Care for the heart, close to home.</p>
+              <p className="mt-4 max-w-[540px] text-[17px] leading-8 text-[#5d7071]">
+                Consultant-led cardiovascular care and diagnostic support in Akure, with a focus on careful assessment and clear next steps.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a href="#request" className="button-interactive cta-on-dark inline-flex items-center justify-center rounded-full bg-[#214348] px-6 py-4 text-sm font-bold" data-testid="link-hero-request">

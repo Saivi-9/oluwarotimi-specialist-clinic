@@ -39,18 +39,29 @@ img { max-width: 100%; display: block; }
 
 .cta-on-dark { color: var(--paper); }
 
-/* A distinctive clinic wordmark makes the formal name easy to recognise at a glance. */
-.clinic-logo { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
-.clinic-logo__seal { display: grid; flex: 0 0 auto; width: 46px; height: 46px; padding: 3px; overflow: hidden; border: 1px solid #d9d3c6; border-radius: 15px; background: #f8f1e5; box-shadow: 0 5px 15px rgba(23,59,58,.12); transition: transform .24s ease, box-shadow .24s ease; }
-.clinic-logo:hover .clinic-logo__seal { transform: rotate(-3deg) translateY(-2px); box-shadow: 0 10px 20px rgba(23,59,58,.18); }
-.clinic-logo__seal img { width: 100%; height: 100%; border-radius: 10px; object-fit: cover; }
-.clinic-logo__wordmark { display: grid; min-width: 0; gap: 3px; line-height: 1; }
-.clinic-logo__name { color: #173b3a; font-family: Georgia, 'Times New Roman', serif; font-size: 1.12rem; font-weight: 700; letter-spacing: -.055em; }
-.clinic-logo__descriptor { display: flex; align-items: center; gap: 6px; color: #61777a; font-family: Manrope, Arial, sans-serif; font-size: .55rem; font-weight: 800; letter-spacing: .08em; line-height: 1.25; text-transform: uppercase; white-space: nowrap; }
-.clinic-logo__descriptor::before { width: 16px; height: 1px; background: #bb6659; content: ''; }
+/* The full name anchors the homepage; compact branding stays legible in navigation. */
+.clinic-logo { display: inline-flex; align-items: center; gap: 13px; min-width: 0; }
+.clinic-logo__seal { display: grid; flex: 0 0 auto; width: 72px; height: 72px; padding: 4px; overflow: hidden; border: 1px solid #cfc2ac; border-radius: 18px; background: #f8f1e5; box-shadow: 0 5px 15px rgba(23,59,58,.12); transition: box-shadow .24s ease; }
+.clinic-logo:hover .clinic-logo__seal { box-shadow: 0 8px 22px rgba(23,59,58,.22); }
+.clinic-logo__seal img { width: 100%; height: 100%; object-fit: contain; }
+.clinic-logo__wordmark { display: grid; min-width: 0; gap: 6px; line-height: 1; }
+.clinic-logo__name { color: var(--ink-deep); font-family: Manrope, Arial, sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -.05em; }
+.clinic-logo__descriptor { display: grid; gap: 2px; color: var(--ink); font-family: Manrope, Arial, sans-serif; font-size: .75rem; font-weight: 800; letter-spacing: .035em; line-height: 1.3; text-transform: uppercase; }
 .clinic-logo--inverse .clinic-logo__seal { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.93); }
 .clinic-logo--inverse .clinic-logo__name { color: #f7f2e7; }
 .clinic-logo--inverse .clinic-logo__descriptor { color: #a7c9be; }
+
+.clinic-identity { min-width: 0; container-type: inline-size; }
+.clinic-identity__signature { display: flex; align-items: center; gap: 22px; }
+.clinic-identity__seal { display: grid; flex: 0 0 auto; width: 116px; height: 116px; padding: 6px; border: 1px solid #cfc2ac; border-radius: 24px; background: #f8f1e5; box-shadow: 0 12px 30px rgba(23,59,58,.13); }
+.clinic-identity__seal img { width: 100%; height: 100%; object-fit: contain; }
+.clinic-identity__location { font-family: Manrope, Arial, sans-serif; font-size: .875rem; font-weight: 800; letter-spacing: .075em; text-transform: uppercase; color: var(--ink); }
+.clinic-identity__motto { margin-top: 8px; font-family: Georgia, 'Times New Roman', serif; font-size: 1.5rem; font-style: italic; color: #9b4b3f; }
+.clinic-identity__heading { margin-top: 28px; color: var(--ink-deep); font-family: Manrope, Arial, sans-serif; font-weight: 800; }
+.clinic-identity__name { display: block; font-size: clamp(2rem, 12.2cqi, 4.5rem); line-height: 1.1; letter-spacing: -.065em; }
+.clinic-identity__specialty { display: block; margin-top: 10px; font-size: clamp(1.5rem, 7.3cqi, 2.65rem); line-height: 1.15; letter-spacing: -.045em; }
+.clinic-identity__diagnostics { display: block; margin-top: 12px; font-size: clamp(1.05rem, 4.6cqi, 1.55rem); line-height: 1.35; letter-spacing: -.015em; }
+#care, #consultant, #approach, #learn, #urgent, #faqs, #request { scroll-margin-top: 7.5rem; }
 
 /* Primary actions use a subtle lift and halo, with a keyboard-equivalent focus state. */
 .button-interactive { position: relative; isolation: isolate; box-shadow: 0 7px 14px rgba(23,59,58,.12); transition: transform .22s ease, box-shadow .22s ease, filter .22s ease, background-color .22s ease, color .22s ease; }
@@ -94,7 +105,9 @@ img { max-width: 100%; display: block; }
   z-index: 40;
   background: var(--paper);
   border-bottom: 1px solid var(--line);
+  transition: box-shadow .2s ease;
 }
+.site-header.is-scrolled { box-shadow: 0 8px 24px rgba(23,59,58,.12); }
 .header-inner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; gap: 30px; }
 .brand { display: inline-flex; align-items: center; gap: 11px; font-family: Manrope, sans-serif; color: var(--ink); }
 .brand strong { display: block; font-size: .97rem; letter-spacing: -.03em; line-height: 1.1; }
@@ -330,9 +343,14 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 
 @media (max-width: 700px) {
   .container-clinic { width: min(100% - 40px, 540px); }
-  .clinic-logo__seal { width: 43px; height: 43px; border-radius: 14px; }
-  .clinic-logo__name { font-size: 1.02rem; }
-  .clinic-logo__descriptor { font-size: .51rem; letter-spacing: .055em; }
+  .clinic-logo { gap: 10px; }
+  .clinic-logo__seal { width: 58px; height: 58px; border-radius: 15px; }
+  .clinic-logo__name { font-size: 1.35rem; }
+  .clinic-logo__descriptor { font-size: .6875rem; letter-spacing: .015em; }
+  .clinic-identity__signature { gap: 16px; }
+  .clinic-identity__seal { width: 96px; height: 96px; border-radius: 20px; }
+  .clinic-identity__location { letter-spacing: .025em; }
+  .clinic-identity__motto { font-size: 1.25rem; }
   .heart-guide { grid-template-columns: 1fr; }
   .heart-guide__item { min-height: 78px; }
   .shell { width: min(100% - 36px, 540px); }
@@ -396,7 +414,9 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 
 @media (max-width: 390px) {
   .container-clinic { width: min(100% - 32px, 540px); }
-  .clinic-logo__descriptor { font-size: .48rem; }
+  .site-header .clinic-logo__name { font-size: 1.1rem; }
+  .site-header .clinic-logo__seal { width: 52px; height: 56px; }
+  .site-header .clinic-logo__descriptor { font-size: .625rem; }
   .shell { width: min(100% - 28px, 540px); }
   .header-cta { font-size: .67rem; }
   .hero-card__content h2 { font-size: 2.35rem; }
