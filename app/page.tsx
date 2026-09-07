@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useId, useState, type FormEvent } from 'react';
 import {
   Activity,
   ArrowDownRight,
@@ -145,11 +145,28 @@ const tips = [
   },
 ];
 
+function ClinicSeal({ label }: { label: string }) {
+  const clipId = useId();
+
+  return (
+    <svg viewBox="0 0 1045 1080" role="img" aria-label={label} className="clinic-seal" data-testid="img-clinic-logo">
+      <title>{label}</title>
+      <defs>
+        <clipPath id={clipId}>
+          {/* Follow the photographed seal's outer edge without changing its lettering or artwork. */}
+          <path d="M 552 15 C 652 6 757 45 841 102 C 931 169 995 290 1016 405 C 1037 522 1018 650 983 731 C 943 842 848 950 730 1003 C 630 1055 525 1079 420 1065 C 270 1045 160 953 96 862 C 34 776 1 660 8 551 C 12 399 84 272 197 159 C 291 62 429 13 552 15 Z" />
+        </clipPath>
+      </defs>
+      <image href="/olumaro-clinic-logo.jpg" width="1045" height="1080" clipPath={`url(#${clipId})`} />
+    </svg>
+  );
+}
+
 function Logo({ inverse = false }: { inverse?: boolean }) {
   return (
     <a href="#top" className={`clinic-logo ${inverse ? 'clinic-logo--inverse' : ''}`} data-testid="link-logo-home" aria-label="Oluwarotimi Clinic home">
       <span className="clinic-logo__seal">
-        <img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" width={1045} height={1080} data-testid="img-clinic-logo" />
+        <ClinicSeal label="Oluwarotimi Specialist Clinic and Diagnostic Centre logo" />
       </span>
       <span className="clinic-logo__wordmark">
         <span className="clinic-logo__name">Oluwarotimi</span>
@@ -226,23 +243,25 @@ function App() {
       </header>
 
       <main>
-        <section className="relative bg-[#f7f2e7] pb-20 pt-14 md:pb-28 md:pt-20" aria-labelledby="hero-heading">
-          <div className="container-clinic grid items-center gap-14 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
-            <div className="clinic-identity reveal">
-              <div className="clinic-identity__signature">
-                <span className="clinic-identity__seal"><img src="/olumaro-clinic-logo.jpg" alt="Oluwarotimi Specialist Clinic seal" width={1045} height={1080} /></span>
-                <div>
-                  <p className="clinic-identity__location">Akure, Ondo State</p>
-                  <p className="clinic-identity__motto">Health is Wealth</p>
-                </div>
-              </div>
+        <section className="relative bg-[#f7f2e7] pb-20 pt-10 md:pb-28 md:pt-14" aria-labelledby="hero-heading">
+          <div className="container-clinic clinic-identity reveal">
+            <span className="clinic-identity__seal"><ClinicSeal label="Oluwarotimi Specialist Clinic seal" /></span>
+            <div className="clinic-identity__wordmark">
               <h1 id="hero-heading" className="clinic-identity__heading">
                 <span className="clinic-identity__name">Oluwarotimi</span>{' '}
-                <span className="clinic-identity__specialty">Specialist Clinic</span>{' '}
-                <span className="clinic-identity__diagnostics">&amp; Diagnostic Centre</span>
+                <span className="clinic-identity__descriptor"><span>Specialist Clinic</span>{' '}<span>&amp; Diagnostic Centre</span></span>
               </h1>
-              <p className="mt-7 font-display text-2xl leading-tight text-[#214348]">Care for the heart, close to home.</p>
-              <p className="mt-4 max-w-[540px] text-[17px] leading-8 text-[#5d7071]">
+              <div className="clinic-identity__details">
+                <p className="clinic-identity__location">Akure, Ondo State</p>
+                <span aria-hidden="true" />
+                <p className="clinic-identity__motto">Health is Wealth</p>
+              </div>
+            </div>
+          </div>
+          <div className="container-clinic mt-10 grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-20 md:mt-12">
+            <div className="reveal">
+              <h2 className="max-w-[540px] font-display text-[clamp(2.5rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-.035em] text-[#214348]">Care for the heart,<br />close to home.</h2>
+              <p className="mt-5 max-w-[510px] text-[17px] leading-8 text-[#5d7071]">
                 Consultant-led cardiovascular care and diagnostic support in Akure, with a focus on careful assessment and clear next steps.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">

@@ -40,27 +40,25 @@ img { max-width: 100%; display: block; }
 .cta-on-dark { color: var(--paper); }
 
 /* The full name anchors the homepage; compact branding stays legible in navigation. */
-.clinic-logo { display: inline-flex; align-items: center; gap: 13px; min-width: 0; }
-.clinic-logo__seal { display: grid; flex: 0 0 auto; width: 72px; height: 72px; padding: 4px; overflow: hidden; border: 1px solid #cfc2ac; border-radius: 18px; background: #f8f1e5; box-shadow: 0 5px 15px rgba(23,59,58,.12); transition: box-shadow .24s ease; }
-.clinic-logo:hover .clinic-logo__seal { box-shadow: 0 8px 22px rgba(23,59,58,.22); }
-.clinic-logo__seal img { width: 100%; height: 100%; object-fit: contain; }
+.clinic-logo { display: inline-flex; align-items: center; gap: 14px; min-width: 0; }
+.clinic-logo__seal { display: grid; flex: 0 0 auto; width: 72px; height: 72px; filter: drop-shadow(0 3px 4px rgba(23,59,58,.12)); }
+.clinic-seal { display: block; width: 100%; height: 100%; overflow: visible; }
 .clinic-logo__wordmark { display: grid; min-width: 0; gap: 6px; line-height: 1; }
-.clinic-logo__name { color: var(--ink-deep); font-family: Manrope, Arial, sans-serif; font-size: 1.6rem; font-weight: 800; letter-spacing: -.05em; }
-.clinic-logo__descriptor { display: grid; gap: 2px; color: var(--ink); font-family: Manrope, Arial, sans-serif; font-size: .75rem; font-weight: 800; letter-spacing: .035em; line-height: 1.3; text-transform: uppercase; }
-.clinic-logo--inverse .clinic-logo__seal { border-color: rgba(255,255,255,.18); background: rgba(255,255,255,.93); }
+.clinic-logo__name { color: var(--ink-deep); font-family: Georgia, 'Times New Roman', serif; font-size: 1.9rem; font-weight: 700; letter-spacing: -.045em; }
+.clinic-logo__descriptor { display: grid; gap: 2px; color: var(--ink); font-family: Manrope, Arial, sans-serif; font-size: .6875rem; font-weight: 800; letter-spacing: .065em; line-height: 1.4; text-transform: uppercase; }
 .clinic-logo--inverse .clinic-logo__name { color: #f7f2e7; }
 .clinic-logo--inverse .clinic-logo__descriptor { color: #a7c9be; }
 
-.clinic-identity { min-width: 0; container-type: inline-size; }
-.clinic-identity__signature { display: flex; align-items: center; gap: 22px; }
-.clinic-identity__seal { display: grid; flex: 0 0 auto; width: 116px; height: 116px; padding: 6px; border: 1px solid #cfc2ac; border-radius: 24px; background: #f8f1e5; box-shadow: 0 12px 30px rgba(23,59,58,.13); }
-.clinic-identity__seal img { width: 100%; height: 100%; object-fit: contain; }
-.clinic-identity__location { font-family: Manrope, Arial, sans-serif; font-size: .875rem; font-weight: 800; letter-spacing: .075em; text-transform: uppercase; color: var(--ink); }
-.clinic-identity__motto { margin-top: 8px; font-family: Georgia, 'Times New Roman', serif; font-size: 1.5rem; font-style: italic; color: #9b4b3f; }
-.clinic-identity__heading { margin-top: 28px; color: var(--ink-deep); font-family: Manrope, Arial, sans-serif; font-weight: 800; }
-.clinic-identity__name { display: block; font-size: clamp(2rem, 12.2cqi, 4.5rem); line-height: 1.1; letter-spacing: -.065em; }
-.clinic-identity__specialty { display: block; margin-top: 10px; font-size: clamp(1.5rem, 7.3cqi, 2.65rem); line-height: 1.15; letter-spacing: -.045em; }
-.clinic-identity__diagnostics { display: block; margin-top: 12px; font-size: clamp(1.05rem, 4.6cqi, 1.55rem); line-height: 1.35; letter-spacing: -.015em; }
+.clinic-identity { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 36px; padding-bottom: 36px; border-bottom: 1px solid #cec4b0; }
+.clinic-identity__seal { display: grid; width: 156px; height: 156px; filter: drop-shadow(0 6px 8px rgba(23,59,58,.13)); }
+.clinic-identity__wordmark { min-width: 0; container-type: inline-size; }
+.clinic-identity__heading { max-width: none; margin: 0; color: var(--ink-deep); font-family: Georgia, 'Times New Roman', serif; font-weight: 700; }
+.clinic-identity__name { display: block; font-size: clamp(2.5rem, 11.5cqi, 6.75rem); line-height: 1; letter-spacing: -.045em; }
+.clinic-identity__descriptor { display: flex; flex-wrap: wrap; gap: 0 .3em; margin-top: 14px; font-family: Manrope, Arial, sans-serif; font-size: clamp(1rem, 3.1cqi, 1.75rem); font-weight: 800; line-height: 1.4; letter-spacing: -.015em; }
+.clinic-identity__details { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 18px; }
+.clinic-identity__details > span { width: 38px; height: 1px; background: #ab8060; }
+.clinic-identity__location { margin: 0; font-family: Manrope, Arial, sans-serif; font-size: .8125rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #526e69; }
+.clinic-identity__motto { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 1.125rem; font-style: italic; color: #865440; }
 #care, #consultant, #approach, #learn, #urgent, #faqs, #request { scroll-margin-top: 7.5rem; }
 
 /* Primary actions use a subtle lift and halo, with a keyboard-equivalent focus state. */
@@ -344,13 +342,18 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 @media (max-width: 700px) {
   .container-clinic { width: min(100% - 40px, 540px); }
   .clinic-logo { gap: 10px; }
-  .clinic-logo__seal { width: 58px; height: 58px; border-radius: 15px; }
-  .clinic-logo__name { font-size: 1.35rem; }
+  .clinic-logo__seal { width: 58px; height: 58px; }
+  .clinic-logo__name { font-size: 1.6rem; }
   .clinic-logo__descriptor { font-size: .6875rem; letter-spacing: .015em; }
-  .clinic-identity__signature { gap: 16px; }
-  .clinic-identity__seal { width: 96px; height: 96px; border-radius: 20px; }
-  .clinic-identity__location { letter-spacing: .025em; }
-  .clinic-identity__motto { font-size: 1.25rem; }
+  .clinic-identity { grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 20px; padding-bottom: 28px; text-align: center; }
+  .clinic-identity__seal { width: 104px; height: 104px; }
+  .clinic-identity__wordmark { width: 100%; }
+  .clinic-identity__name { font-size: clamp(2.5rem, 12cqi, 4rem); }
+  .clinic-identity__descriptor { justify-content: center; column-gap: .3em; margin-top: 10px; font-size: clamp(1rem, 3.9cqi, 1.3125rem); }
+  .clinic-identity__details { justify-content: center; gap: 10px; }
+  .clinic-identity__details > span { width: 20px; }
+  .clinic-identity__location { font-size: .75rem; letter-spacing: .015em; }
+  .clinic-identity__motto { font-size: 1rem; }
   .heart-guide { grid-template-columns: 1fr; }
   .heart-guide__item { min-height: 78px; }
   .shell { width: min(100% - 36px, 540px); }
@@ -414,8 +417,8 @@ h1 em, h2 em { color: var(--coral); font-family: Georgia, serif; font-weight: 40
 
 @media (max-width: 390px) {
   .container-clinic { width: min(100% - 32px, 540px); }
-  .site-header .clinic-logo__name { font-size: 1.1rem; }
-  .site-header .clinic-logo__seal { width: 52px; height: 56px; }
+  .site-header .clinic-logo__name { font-size: 1.35rem; }
+  .site-header .clinic-logo__seal { width: 52px; height: 52px; }
   .site-header .clinic-logo__descriptor { font-size: .625rem; }
   .shell { width: min(100% - 28px, 540px); }
   .header-cta { font-size: .67rem; }
