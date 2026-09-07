@@ -56,12 +56,13 @@ a:hover { text-decoration-thickness: 2px; }
 .skip-link:focus { top: 12px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-/* A restrained typographic signature: one name, one descriptive line, no duplicate seal. */
-.wordmark { display: inline-flex; flex-direction: column; align-items: flex-start; width: fit-content; max-width: 100%; text-decoration: none; }
-.wordmark__name { display: flex; align-items: center; gap: 12px; font: 700 1.82rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.045em; }
-.wordmark__rule { width: 30px; height: 3px; background: currentColor; opacity: .75; position: relative; }
-.wordmark__rule::after { content: ''; position: absolute; right: 0; top: -5px; height: 13px; width: 3px; background: currentColor; }
-.wordmark__descriptor { margin-top: 7px; font-size: .78rem; font-weight: 600; line-height: 1.45; letter-spacing: -.015em; }
+/* The original seal anchors the identity; only its photographed outer edge is shown. */
+.wordmark { display: inline-flex; align-items: center; gap: 15px; width: fit-content; max-width: 100%; min-width: 0; text-decoration: none; }
+.wordmark__seal { display: block; flex: 0 0 auto; width: 70px; height: 72px; filter: drop-shadow(0 2px 3px #173b3a18); }
+.clinic-seal { display: block; width: 100%; height: 100%; overflow: visible; }
+.wordmark__copy { display: flex; flex-direction: column; min-width: 0; }
+.wordmark__name { display: block; font: 700 1.82rem/1.1 Georgia, 'Times New Roman', serif; letter-spacing: -.045em; }
+.wordmark__descriptor { display: flex; flex-direction: column; margin-top: 6px; font-size: .78rem; font-weight: 700; line-height: 1.4; letter-spacing: -.015em; }
 .clinic-header { position: sticky; top: 0; z-index: 20; background: #fcfaf5f5; border-bottom: 1px solid var(--line); backdrop-filter: blur(14px); }
 .header-main { display: flex; align-items: center; justify-content: space-between; gap: 28px; min-height: 104px; }
 .header-contact { display: flex; gap: 32px; align-items: center; }
@@ -109,6 +110,15 @@ a:hover { text-decoration-thickness: 2px; }
 .visit-facts a { display: inline-flex; align-items: center; min-height: 32px; }
 
 /* Calm, readable service and information sections. */
+.care-overview { display: grid; grid-template-columns: 1fr 1.1fr; align-items: center; gap: 80px; margin-bottom: 42px; }
+.care-overview__copy h2 { margin-bottom: 26px; max-width: 10em; }
+.care-overview__copy > p:not(.eyebrow) { color: var(--muted); max-width: 28rem; }
+.care-overview__copy .small-copy { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--line); }
+.care-overview__copy .text-link { margin-top: 14px; }
+.equipment-photo { overflow: hidden; border-radius: 12px; border: 1px solid var(--line); background: var(--sage); }
+.equipment-photo img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center; }
+.equipment-photo figcaption, .reception-photo figcaption { padding: 18px 22px; font-size: .88rem; color: var(--muted); }
+.equipment-photo figcaption > span, .reception-photo figcaption > span { display: block; margin-bottom: 4px; font-weight: 700; color: var(--ink); }
 .service-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
 .service-card { padding: 32px 28px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .service-card > svg { margin-bottom: 26px; width: 29px; height: 29px; stroke-width: 1.6; }
@@ -132,8 +142,7 @@ a:hover { text-decoration-thickness: 2px; }
 .visit-steps h3 { margin-bottom: 6px; }
 .visit-steps p { font-size: .95rem; color: var(--muted); }
 .reception-photo { border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: #f0eee6; }
-.reception-photo img { width: 100%; aspect-ratio: .82; object-fit: cover; object-position: 55% center; }
-.reception-photo figcaption { padding: 18px 22px; font-size: .88rem; }
+.reception-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 55% center; }
 .health-layout { display: grid; grid-template-columns: 1fr 1.15fr; gap: 36px; align-items: stretch; }
 .heart-guide { display: grid; gap: 9px; }
 .heart-guide__item { display: flex; align-items: center; justify-content: space-between; gap: 18px; min-height: 76px; padding: 15px 20px; border: 1px solid #aebfb2; border-radius: 7px; background: transparent; color: var(--ink); text-align: left; transition: background .2s, box-shadow .2s, transform .2s; }
@@ -218,6 +227,8 @@ a:hover { text-decoration-thickness: 2px; }
 .form-result > svg { margin-bottom: 12px; }
 .clinic-footer { background: #183b34; color: #edf3ee; padding-top: 60px; }
 .footer-grid { display: grid; grid-template-columns: 1.35fr 1.1fr 1.15fr .85fr; gap: 40px; }
+.footer-grid .wordmark { flex-direction: column; align-items: flex-start; gap: 14px; }
+.footer-grid .wordmark__seal { width: 60px; height: 62px; }
 .footer-grid .wordmark__name { font-size: 1.6rem; }
 .footer-grid .wordmark__descriptor { font-size: .78rem; }
 .footer-grid p, .footer-grid address { font-size: .87rem; color: #d6e4dc; }
@@ -237,6 +248,7 @@ a:hover { text-decoration-thickness: 2px; }
   h1 { font-size: 3rem; }
   .consultant-layout, .approach-layout, .urgent-layout, .request-layout, .faq-layout { gap: 46px; }
   .section-intro { gap: 46px; }
+  .care-overview { gap: 46px; }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 64px; }
 }
 @media (max-width: 900px) {
@@ -266,6 +278,7 @@ a:hover { text-decoration-thickness: 2px; }
   .hero { padding-top: 40px; padding-bottom: 0; }
   .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .consultant-layout, .approach-layout { gap: 36px; grid-template-columns: 1.1fr 1fr; }
+  .care-overview { gap: 32px; }
   .health-layout { gap: 20px; }
   .health-tip { padding: 30px; }
   .health-tip h3 { font-size: 1.65rem; }
@@ -276,9 +289,10 @@ a:hover { text-decoration-thickness: 2px; }
 }
 @media (max-width: 650px) {
   .container-clinic { width: calc(100% - 36px); }
-  .wordmark__name { font-size: 1.7rem; }
-  .wordmark__descriptor { max-width: 265px; font-size: .78rem; }
-  .wordmark__rule { width: 24px; }
+  .wordmark { gap: 10px; }
+  .wordmark__seal { width: 54px; height: 56px; }
+  .wordmark__name { font-size: 1.48rem; }
+  .wordmark__descriptor { margin-top: 5px; font-size: .78rem; }
   .header-main { column-gap: 12px; }
   .header-contact { gap: 12px; }
   .header-phone { gap: 8px; }
@@ -288,6 +302,8 @@ a:hover { text-decoration-thickness: 2px; }
   .desktop-only { display: none; }
   .mobile-only { display: inline; }
   .hero-layout, .consultant-layout, .approach-layout, .health-layout, .section-intro, .location-layout { grid-template-columns: 1fr; }
+  .care-overview { grid-template-columns: 1fr; gap: 30px; margin-bottom: 30px; }
+  .care-overview__copy h2 { max-width: 13em; }
   .hero-layout { gap: 34px; }
   .hero-copy { padding-block: 0; }
   h1 { font-size: clamp(2.3rem, 9.5vw, 3.25rem); }
@@ -311,7 +327,6 @@ a:hover { text-decoration-thickness: 2px; }
   .professional-background { margin-block: 24px; }
   .credential-list { margin-top: 8px; }
   .reception-photo { max-width: 440px; justify-self: center; }
-  .reception-photo img { aspect-ratio: .95; }
   .heart-guide { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .heart-guide__item { min-height: 112px; padding: 14px; align-items: flex-start; gap: 8px; }
   .heart-guide__item > svg { display: none; }
@@ -330,9 +345,9 @@ a:hover { text-decoration-thickness: 2px; }
 }
 @media (max-width: 375px) {
   .container-clinic { width: calc(100% - 28px); }
-  .wordmark__name { font-size: 1.48rem; }
-  .wordmark__descriptor { max-width: 220px; }
-  .wordmark__rule { width: 18px; }
+  .wordmark { gap: 8px; }
+  .wordmark__seal { width: 44px; height: 46px; }
+  .wordmark__name { font-size: 1.28rem; }
   .header-phone strong { font-size: .88rem; }
   .urgent-link { font-size: .8rem; padding-inline: 8px; }
   .urgent-link svg { display: none; }

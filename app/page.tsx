@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import AppointmentForm from '@/components/appointment-form';
 import { clinic } from '@/lib/clinic';
 import {
@@ -146,11 +146,30 @@ const tips = [
 ];
 
 
+function ClinicSeal() {
+  const clipId = useId();
+
+  return (
+    <svg viewBox="0 0 1045 1080" aria-hidden="true" focusable="false" className="clinic-seal">
+      <defs>
+        <clipPath id={clipId}>
+          {/* Follow the original crest's edge, preserving all lettering and artwork. */}
+          <path d="M 552 15 C 652 6 757 45 841 102 C 931 169 995 290 1016 405 C 1037 522 1018 650 983 731 C 943 842 848 950 730 1003 C 630 1055 525 1079 420 1065 C 270 1045 160 953 96 862 C 34 776 1 660 8 551 C 12 399 84 272 197 159 C 291 62 429 13 552 15 Z" />
+        </clipPath>
+      </defs>
+      <image href="/olumaro-clinic-logo.jpg" width="1045" height="1080" clipPath={`url(#${clipId})`} />
+    </svg>
+  );
+}
+
 function Wordmark({ inverse = false }: { inverse?: boolean }) {
   return (
-    <a href="#top" className={'wordmark' + (inverse ? ' wordmark--inverse' : '')} aria-label={clinic.name + ' home'} data-testid="link-logo-home">
-      <span className="wordmark__name">Oluwarotimi<span className="wordmark__rule" aria-hidden="true" /></span>
-      <span className="wordmark__descriptor">Specialist Clinic &amp; Diagnostic Centre</span>
+    <a href="#top" className={'wordmark' + (inverse ? ' wordmark--inverse' : '')} aria-label={clinic.name + ' home'} data-testid={inverse ? 'link-footer-home' : 'link-logo-home'}>
+      <span className="wordmark__seal" data-testid={inverse ? 'img-footer-clinic-logo' : 'img-header-clinic-logo'}><ClinicSeal /></span>
+      <span className="wordmark__copy">
+        <span className="wordmark__name">Oluwarotimi</span>
+        <span className="wordmark__descriptor"><span>Specialist Clinic</span><span>&amp; Diagnostic Centre</span></span>
+      </span>
     </a>
   );
 }
@@ -241,9 +260,17 @@ export default function App() {
 
         <section id="care" className="section" aria-labelledby="care-heading">
           <div className="container-clinic">
-            <div className="section-intro">
-              <div><p className="eyebrow">Our care</p><h2 id="care-heading">Understand your heart health.</h2></div>
-              <p>Whether you are following up on a blood pressure reading or need a heart test, we help you understand the next step.</p>
+            <div className="care-overview">
+              <div className="care-overview__copy">
+                <p className="eyebrow">Our care</p><h2 id="care-heading">Understand your heart health.</h2>
+                <p>Whether you are following up on a blood pressure reading or need a heart test, we help you understand the next step.</p>
+                <p className="small-copy">Please call ahead to confirm the test you need and any preparation before your visit.</p>
+                <a href="#request" className="text-link">Ask about a test <ArrowRight aria-hidden="true" /></a>
+              </div>
+              <figure className="equipment-photo">
+                <img src="/clinic-equipment.jpeg" alt="Equipment, monitors and an examination table inside the clinic" width={1448} height={1086} loading="lazy" decoding="async" data-testid="img-clinic-equipment" />
+                <figcaption><span>Inside our clinic</span>Equipment at Oluwarotimi Specialist Clinic.</figcaption>
+              </figure>
             </div>
             <div className="service-grid">
               {services.map((service) => {
@@ -295,7 +322,7 @@ export default function App() {
             </div>
             <figure className="reception-photo">
               <img src="/clinic-reception.jpeg" alt="The clinic reception and waiting area, viewed through the entrance" width={780} height={1040} loading="lazy" decoding="async" data-testid="img-clinic-reception" />
-              <figcaption>The reception team is your first point of contact when you arrive.</figcaption>
+              <figcaption><span>Reception &amp; waiting area</span>The reception team is your first point of contact when you arrive.</figcaption>
             </figure>
           </div>
         </section>

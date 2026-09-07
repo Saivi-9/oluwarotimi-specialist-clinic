@@ -10,7 +10,8 @@ Website source for **Oluwarotimi Specialist Clinic**, a cardiology-focused clini
 - WhatsApp visit-request form with contact details and preferred visit time
 - Optional server-side appointment email integration (off until configured)
 - Readable heart-health guidance, emergency guidance and click-to-load map
-- Custom typographic wordmark and matching vector favicon
+- Original circular clinic crest with a compact, bold wordmark
+- The supplied consultant, equipment and reception photographs
 
 See [appointment email setup](docs/appointment-email-setup.md) for configuration,
 privacy and delivery checks before activating email. The website does not save
