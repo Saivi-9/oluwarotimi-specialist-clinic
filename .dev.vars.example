@@ -1,0 +1,5 @@
+# Copy to ignored .dev.vars only when ready to configure local email delivery.
+# Do not commit credentials or enable this in a shared preview before testing.
+APPOINTMENTS_ENABLED="false"
+RESEND_API_KEY=""
+APPOINTMENT_FROM=""
