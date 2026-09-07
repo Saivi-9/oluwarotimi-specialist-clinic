@@ -214,7 +214,7 @@ function App() {
       </div>
 
       <header className={`site-header sticky top-0 z-40 ${scrolled ? 'is-scrolled' : 'bg-[#f7f2e7]'}`} data-testid="header-site-navigation">
-        <div className="container-clinic flex min-h-[96px] items-center justify-between gap-5 py-3">
+        <div className="container-clinic flex min-h-[88px] items-center justify-between gap-5 py-3">
           <Logo />
           <nav className="hidden shrink-0 items-center gap-5 lg:flex" aria-label="Main navigation">
             <a href="#care" className="text-sm text-[#526b6e] transition-colors hover:text-[#214348]" data-testid="link-nav-care">Our care</a>
@@ -243,25 +243,26 @@ function App() {
       </header>
 
       <main>
-        <section className="relative bg-[#f7f2e7] pb-20 pt-10 md:pb-28 md:pt-14" aria-labelledby="hero-heading">
-          <div className="container-clinic clinic-identity reveal">
-            <span className="clinic-identity__seal"><ClinicSeal label="Oluwarotimi Specialist Clinic seal" /></span>
-            <div className="clinic-identity__wordmark">
-              <h1 id="hero-heading" className="clinic-identity__heading">
-                <span className="clinic-identity__name">Oluwarotimi</span>{' '}
-                <span className="clinic-identity__descriptor"><span>Specialist Clinic</span>{' '}<span>&amp; Diagnostic Centre</span></span>
-              </h1>
-              <div className="clinic-identity__details">
-                <p className="clinic-identity__location">Akure, Ondo State</p>
-                <span aria-hidden="true" />
-                <p className="clinic-identity__motto">Health is Wealth</p>
-              </div>
-            </div>
-          </div>
-          <div className="container-clinic mt-10 grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr] lg:gap-20 md:mt-12">
+        <section className="relative bg-[#f7f2e7] pb-20 pt-12 md:pb-24 md:pt-16" aria-labelledby="hero-heading">
+          <div className="container-clinic grid items-center gap-12 lg:grid-cols-[1.05fr_.95fr] lg:gap-20">
             <div className="reveal">
-              <h2 className="max-w-[540px] font-display text-[clamp(2.5rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-.035em] text-[#214348]">Care for the heart,<br />close to home.</h2>
-              <p className="mt-5 max-w-[510px] text-[17px] leading-8 text-[#5d7071]">
+              <div className="clinic-identity">
+                <div className="clinic-identity__signature">
+                  <span className="clinic-identity__seal"><ClinicSeal label="Oluwarotimi Specialist Clinic seal" /></span>
+                  <div className="clinic-identity__details">
+                    <p className="clinic-identity__location">Akure, Ondo State</p>
+                    <p className="clinic-identity__motto">Health is Wealth</p>
+                  </div>
+                </div>
+                <div className="clinic-identity__wordmark">
+                  <h1 id="hero-heading" className="clinic-identity__heading">
+                    <span className="clinic-identity__name">Oluwarotimi</span>{' '}
+                    <span className="clinic-identity__descriptor"><span>Specialist Clinic</span>{' '}<span>&amp; Diagnostic Centre</span></span>
+                  </h1>
+                </div>
+              </div>
+              <p className="mt-6 font-display text-2xl leading-snug text-[#865440]">Care for the heart, close to home.</p>
+              <p className="mt-4 max-w-[510px] text-[17px] leading-8 text-[#5d7071]">
                 Consultant-led cardiovascular care and diagnostic support in Akure, with a focus on careful assessment and clear next steps.
               </p>
               <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
