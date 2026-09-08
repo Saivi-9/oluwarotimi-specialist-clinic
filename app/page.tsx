@@ -150,14 +150,14 @@ function ClinicSeal() {
   const clipId = useId();
 
   return (
-    <svg viewBox="0 0 1045 1080" aria-hidden="true" focusable="false" className="clinic-seal">
+    <svg viewBox="29 25 1194 1208" aria-hidden="true" focusable="false" className="clinic-seal">
       <defs>
         <clipPath id={clipId}>
-          {/* Follow the original crest's edge, preserving all lettering and artwork. */}
-          <path d="M 552 15 C 652 6 757 45 841 102 C 931 169 995 290 1016 405 C 1037 522 1018 650 983 731 C 943 842 848 950 730 1003 C 630 1055 525 1079 420 1065 C 270 1045 160 953 96 862 C 34 776 1 660 8 551 C 12 399 84 272 197 159 C 291 62 429 13 552 15 Z" />
+          {/* Hide the proof's white exterior without changing the approved artwork. */}
+          <ellipse cx="626" cy="629" rx="595" ry="602" />
         </clipPath>
       </defs>
-      <image href="/olumaro-clinic-logo.jpg" width="1045" height="1080" clipPath={`url(#${clipId})`} />
+      <image href="/oluwarotimi-crest-restored.png" width="1254" height="1254" clipPath={`url(#${clipId})`} />
     </svg>
   );
 }

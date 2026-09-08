@@ -56,7 +56,7 @@ a:hover { text-decoration-thickness: 2px; }
 .skip-link:focus { top: 12px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 
-/* The original seal anchors the identity; only its photographed outer edge is shown. */
+/* The restored seal keeps the original identity; its white proof exterior is masked. */
 .wordmark { display: inline-flex; align-items: center; gap: 15px; width: fit-content; max-width: 100%; min-width: 0; text-decoration: none; }
 .wordmark__seal { display: block; flex: 0 0 auto; width: 70px; height: 72px; filter: drop-shadow(0 2px 3px #173b3a18); }
 .clinic-seal { display: block; width: 100%; height: 100%; overflow: visible; }

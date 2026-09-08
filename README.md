@@ -10,8 +10,13 @@ Website source for **Oluwarotimi Specialist Clinic**, a cardiology-focused clini
 - WhatsApp visit-request form with contact details and preferred visit time
 - Optional server-side appointment email integration (off until configured)
 - Readable heart-health guidance, emergency guidance and click-to-load map
-- Original circular clinic crest with a compact, bold wordmark
+- Approved recreation of the original clinic crest with a compact, bold wordmark
 - The supplied consultant, equipment and reception photographs
+
+The restored crest is displayed through an SVG mask so its white proof background
+does not appear in the header or footer. The source PNG is not a transparent or
+vector master. The original photograph remains at `public/olumaro-clinic-logo.jpg`
+as a backup; existing social-preview metadata is unchanged.
 
 See [appointment email setup](docs/appointment-email-setup.md) for configuration,
 privacy and delivery checks before activating email. The website does not save
