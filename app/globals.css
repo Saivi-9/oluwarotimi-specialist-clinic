@@ -423,3 +423,54 @@ a:hover { text-decoration-thickness: 2px; }
 .service-card:first-child:hover { background: linear-gradient(145deg, #dcebe0, #eff7f0); }
 @media (max-width: 900px) { .header-main { min-height: 88px; } .hero { padding-top: 46px; } .hero-copy::after { left: -14px; height: 150px; } }
 @media (max-width: 650px) { .wordmark__seal { width: 68px; height: 70px; padding: 5px; } .wordmark__name { font-size: 1.42rem; } .hero { padding-top: 40px; } .hero-copy { padding-block: 0; } .hero-copy::after { display: none; } .doctor-hero { box-shadow: 0 20px 44px #173b3a16, 0 0 0 5px #f3eee4; } }
+
+/* Lower-page refinement: turn supporting content into composed, breathable editorial panels. */
+.consultant-layout { padding: 48px 52px; border: 1px solid #c6d8cb; border-radius: 24px; background: linear-gradient(135deg, #f5faf5 0%, #e5f0e8 100%); box-shadow: 0 18px 44px #173b3a0b; }
+.consultant-layout > div:first-child { max-width: 35rem; }
+.consultant-layout .professional-title { color: var(--accent); letter-spacing: .01em; }
+.professional-background { padding: 24px; border: 1px solid #c9d9cc; border-radius: 16px; background: #fcfaf5b8; }
+.professional-background p + p { margin-top: 14px; }
+.credential-list { padding: 6px 0; border: 1px solid #bfd2c3; border-radius: 16px; background: #fcfaf599; overflow: hidden; }
+.credential-list > div { padding: 22px 26px; border-color: #c9d9cc; transition: background-color .2s, padding-left .2s; }
+.credential-list > div:hover { padding-left: 30px; background: #ffffffa8; }
+.approach-layout { padding: 48px 52px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(135deg, #fffdf9 0%, #f6f0e6 100%); box-shadow: 0 18px 44px #173b3a08; }
+.approach-layout > div:first-child { max-width: 38rem; }
+.visit-steps li { transition: padding-left .2s, background-color .2s; border-color: #d1d9d0; }
+.visit-steps li:hover { padding-left: 10px; background: #ffffff80; }
+.visit-steps li > span { background: #e5f0e8; color: var(--ink); box-shadow: 0 0 0 5px #f6f0e6; }
+.reception-photo { border-radius: 18px; box-shadow: 0 14px 32px #173b3a12; }
+.health-layout { gap: 24px; }
+.urgent-layout > div { padding: 30px; border: 1px solid #e6bcae; border-radius: 18px; background: #fff6f0a8; }
+.urgent-layout > div + div { background: #fffaf7cc; }
+.faq-list { padding-inline: 18px; border: 1px solid var(--line); border-radius: 18px; background: #fffdf9; box-shadow: 0 12px 28px #173b3a08; }
+.faq-list summary { padding-inline: 10px; transition: color .2s, padding-left .2s; }
+.faq-list summary:hover { padding-left: 16px; color: var(--accent); }
+.location-details { display: grid; gap: 14px; align-content: start; }
+.location-details > div { margin: 0 !important; padding: 24px 24px 24px 62px; border: 1px solid #bfd2c3; border-radius: 16px; background: #f8fbf7; }
+.clinic-map { border-radius: 18px; box-shadow: 0 14px 32px #173b3a0b; }
+.fees-panel { padding: 28px 30px; border: 1px solid #bfd2c3; border-radius: 18px; background: #f8fbf7; }
+.request-layout { padding: 48px 52px; border: 1px solid #e2d8c9; border-radius: 24px; background: linear-gradient(135deg, #fffdf9 0%, #f3efe3 60%, #edf3ee 100%); box-shadow: 0 18px 44px #173b3a08; }
+@media (max-width: 900px) { .consultant-layout, .approach-layout, .request-layout { padding: 36px; } .urgent-layout > div { padding: 24px; } }
+@media (max-width: 650px) {
+  html { font-size: 16px; scroll-padding-top: 10rem; }
+  .container-clinic { width: calc(100% - 32px); }
+  .section { padding-block: 56px; }
+  .hero-copy .actions { flex-direction: column; align-items: stretch; gap: 10px; }
+  .hero-copy .actions .action { width: 100%; flex: none; }
+  .service-grid { grid-template-columns: 1fr; gap: 12px; border: 0; overflow: visible; }
+  .service-card { padding: 24px 22px; border: 1px solid var(--line); border-radius: 16px; }
+  .consultant-layout, .approach-layout, .request-layout { padding: 26px 20px; border-radius: 20px; gap: 30px; }
+  .professional-background { padding: 20px; margin-block: 20px; }
+  .credential-list { display: grid; gap: 10px; padding: 0; border: 0; background: transparent; overflow: visible; }
+  .credential-list > div, .credential-list > div:hover { padding: 18px; border: 1px solid #bfd2c3; border-radius: 14px; background: #ffffff9e; }
+  .visit-steps { margin-top: 22px; }
+  .visit-steps li, .visit-steps li:hover { padding: 18px 0; }
+  .urgent-layout > div, .urgent-layout > div + div { padding: 22px 20px; border-radius: 16px; }
+  .faq-list { padding-inline: 10px; border-radius: 16px; }
+  .faq-list summary { min-height: 68px; padding-inline: 8px; font-size: .98rem; }
+  .location-details > div { padding: 22px 20px 22px 58px; border-radius: 14px; }
+  .clinic-map, .clinic-map iframe, .map-placeholder { min-height: 320px; }
+  .fees-panel { padding: 22px 20px; border-radius: 16px; margin-top: 28px; }
+  .request-layout { gap: 26px; }
+  .appointment-form { padding: 22px 18px; border-radius: 18px; }
+}
