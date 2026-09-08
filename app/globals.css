@@ -242,7 +242,36 @@ a:hover { text-decoration-thickness: 2px; }
 .footer-bottom a { min-height: 44px; display: flex; align-items: center; }
 .clinic-footer :focus-visible { outline-color: #efb893; }
 
-@media (min-width: 1400px) { .hero { padding-top: 66px; } }
+/* Branch polish: calm graphical accents and interaction states. */
+    .site { overflow: clip; }
+    .clinic-header { box-shadow: 0 10px 30px #173b3a08; transition: box-shadow .25s, background-color .25s; }
+    .main-navigation { background: #fcfaf5b8; }
+    .wordmark__seal { padding: 4px; border: 1px solid var(--line); border-radius: 50%; background: var(--sage); }
+    .hero { position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(circle at 8% 18%, #ecd2b844, transparent 30%), linear-gradient(135deg, transparent 0 62%, #edf3ee 62% 100%); }
+    .hero::before { content: ''; position: absolute; z-index: -1; width: 360px; height: 360px; right: 9%; top: -170px; border: 1px solid #c6d3ca88; border-radius: 50%; box-shadow: 0 0 0 22px #fcfaf51a, 0 0 0 48px #fcfaf50e; pointer-events: none; }
+    .hero::after { content: ''; position: absolute; z-index: -1; width: 220px; height: 220px; left: -92px; bottom: 28px; border-radius: 46% 54% 60% 40%; background: #ecd2b84a; transform: rotate(22deg); pointer-events: none; }
+    .hero-layout, .visit-facts { position: relative; z-index: 1; }
+    .hero-copy { animation: clinic-rise-in .72s cubic-bezier(.2,.7,.2,1) both; }
+    .doctor-hero { position: relative; animation: clinic-rise-in .72s .12s cubic-bezier(.2,.7,.2,1) both; transition: transform .3s, box-shadow .3s; }
+    .doctor-hero:hover { transform: translateY(-4px); box-shadow: 0 28px 54px #173b3a1c, 0 5px 10px #173b3a0c; }
+    .doctor-hero img { transition: transform .55s cubic-bezier(.2,.7,.2,1); }
+    .doctor-hero:hover img { transform: scale(1.025); }
+    .visit-facts { animation: clinic-rise-in .72s .22s cubic-bezier(.2,.7,.2,1) both; }
+    .visit-facts > div { transition: background-color .2s, transform .2s; }
+    .visit-facts > div:hover { background: #f6faf6; transform: translateY(-3px); }
+    .service-card { position: relative; transition: background-color .2s, box-shadow .2s, transform .2s; }
+    .service-card::before { content: ''; position: absolute; inset: 0 auto auto 0; width: 100%; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+    .service-card:hover { background: #f6faf6; box-shadow: inset 0 0 0 1px #b5c6b9, 0 8px 20px #173b3a0c; transform: translateY(-3px); }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-card > svg { transition: color .2s, transform .2s; }
+    .service-card:hover > svg { color: var(--accent); transform: translateY(-2px); }
+    .health-tip { background: linear-gradient(145deg, var(--paper), #f7efe5); box-shadow: 0 14px 34px #173b3a08; }
+    .urgent-section { background-image: radial-gradient(circle at 86% 22%, #e3bdad66 0 2px, transparent 3px), radial-gradient(circle at 86% 22%, #e3bdad22 0 12px, transparent 13px); background-size: 28px 28px, 28px 28px; }
+    .request-section { background: linear-gradient(120deg, #fcfaf5 0%, #f3efe3 52%, #edf3ee 100%); }
+    .appointment-form { box-shadow: 0 24px 60px #173b3a12, 0 3px 10px #173b3a08; }
+    @keyframes clinic-rise-in { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (min-width: 1400px) { .hero { padding-top: 66px; } }
 @media (max-width: 1100px) {
   .nav-links { gap: 18px; }
   .header-contact { gap: 20px; }

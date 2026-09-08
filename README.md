@@ -32,6 +32,10 @@ pnpm dev
 
 Then open the local address shown in the terminal.
 
+    ## Published site metadata
+
+    Set `NEXT_PUBLIC_SITE_URL` to the final public origin before publishing. The layout uses this value for absolute Open Graph and social-preview URLs; it intentionally does not hardcode a development or preview domain.
+    
 ## Check changes
 
 ```bash

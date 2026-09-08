@@ -1,8 +1,16 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://cardiocare-clinic-preview.skylietimm39.chatgpt.site'),
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+    let metadataBase: URL | undefined;
+    try {
+    metadataBase = siteUrl ? new URL(siteUrl) : undefined;
+    } catch {
+    metadataBase = undefined;
+    }
+
+    export const metadata: Metadata = {
+    ...(metadataBase ? { metadataBase } : {}),
   title: 'Oluwarotimi Specialist Clinic | Heart & Diagnostic Care in Akure',
   description: 'Thoughtful cardiology consultations, diagnostic testing and clear appointment guidance from Oluwarotimi Specialist Clinic in Akure, Ondo State.',
   openGraph: {
