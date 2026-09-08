@@ -401,3 +401,25 @@ a:hover { text-decoration-thickness: 2px; }
   .container-clinic { width: 100%; }
   .clinic-footer { background: white; color: #111; }
 }
+
+/* Final visual refinement: tighter hierarchy, stronger editorial framing, and a clearer care entry point. */
+.clinic-header { box-shadow: 0 12px 34px #173b3a0b; }
+.header-main { min-height: 98px; }
+.nav-inner { min-height: 66px; }
+.wordmark__seal { width: 80px; height: 82px; padding: 6px; box-shadow: 0 7px 18px #173b3a14; }
+.wordmark__name { font-size: 1.72rem; }
+.hero { padding-top: 68px; }
+.hero-layout { gap: 84px; }
+.hero-copy { position: relative; padding-block: 30px 22px; }
+.hero-copy::after { content: ''; position: absolute; left: -22px; top: 10px; width: 1px; height: 190px; background: linear-gradient(to bottom, var(--accent), transparent); opacity: .62; }
+.doctor-hero { border-radius: 94px 18px 18px 18px; box-shadow: 0 24px 56px #173b3a18, 0 0 0 8px #f3eee4, 0 3px 8px #173b3a0b; }
+.doctor-hero figcaption { background: linear-gradient(145deg, #fff 0%, #f8fbf7 100%); }
+.visit-facts { border-radius: 16px; box-shadow: 0 14px 34px #173b3a0a; }
+.visit-facts > div { padding-block: 28px; }
+.service-card { background: #fcfaf5; }
+.service-card:first-child { background: linear-gradient(145deg, #e5f0e8, #f2f7f1); }
+.service-card:first-child > svg { color: var(--accent); }
+.service-card:hover { background: #f7fbf7; }
+.service-card:first-child:hover { background: linear-gradient(145deg, #dcebe0, #eff7f0); }
+@media (max-width: 900px) { .header-main { min-height: 88px; } .hero { padding-top: 46px; } .hero-copy::after { left: -14px; height: 150px; } }
+@media (max-width: 650px) { .wordmark__seal { width: 68px; height: 70px; padding: 5px; } .wordmark__name { font-size: 1.42rem; } .hero { padding-top: 40px; } .hero-copy { padding-block: 0; } .hero-copy::after { display: none; } .doctor-hero { box-shadow: 0 20px 44px #173b3a16, 0 0 0 5px #f3eee4; } }
