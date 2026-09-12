@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import AppointmentForm from '@/components/appointment-form';
 import { clinic } from '@/lib/clinic';
+import { installClinicMotion } from '@/lib/clinic-motion';
 import {
   Activity,
   ArrowRight,
@@ -183,6 +184,29 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeTip, setActiveTip] = useState(0);
   const [mapOpen, setMapOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const siteRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (siteRef.current) return installClinicMotion(siteRef.current);
+  }, []);
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    // Keep anchored sections clear of the header, including when text is enlarged.
+    const updateOffset = () => {
+      if (header.querySelector('.main-navigation.is-open')) return;
+      document.documentElement.style.setProperty('--clinic-header-offset', `${Math.ceil(header.getBoundingClientRect().height) + 20}px`);
+    };
+    const observer = new ResizeObserver(updateOffset);
+    observer.observe(header);
+    updateOffset();
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty('--clinic-header-offset');
+    };
+  }, []);
 
   useEffect(() => {
     function dismiss(event: KeyboardEvent) {
@@ -196,9 +220,9 @@ export default function App() {
   }, [menuOpen]);
 
   return (
-    <div id="top" className="site">
+    <div id="top" className="site" ref={siteRef}>
       <a href="#main-content" className="skip-link">Skip to content</a>
-      <header className="clinic-header" data-testid="header-site-navigation">
+      <header ref={headerRef} className="clinic-header" data-testid="header-site-navigation">
         <div className="container-clinic header-main">
           <Wordmark />
           <div className="header-contact">
@@ -224,7 +248,7 @@ export default function App() {
         </nav>
       </header>
 
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <section className="hero section" aria-labelledby="hero-heading">
           <div className="container-clinic hero-layout">
             <div className="hero-copy">
@@ -242,7 +266,7 @@ export default function App() {
               <a href="#urgent" className="text-link urgent-text">Need urgent help? Read this first <ArrowRight aria-hidden="true" /></a>
             </div>
             <figure className="doctor-hero">
-              <img src="/folorunso-oluwarotimi.jpeg" alt="Folorunso Timothy Oluwarotimi, Consultant Physician and Cardiologist" width={1122} height={1402} fetchPriority="high" data-testid="img-hero-consultant" />
+              <div className="clinic-photo-frame"><img src="/folorunso-oluwarotimi.jpeg" alt="Folorunso Timothy Oluwarotimi, Consultant Physician and Cardiologist" width={1122} height={1402} fetchPriority="high" data-testid="img-hero-consultant" /></div>
               <figcaption>
                 <span className="eyebrow">Meet your medical director</span>
                 <strong>Folorunso Timothy Oluwarotimi</strong>
@@ -261,21 +285,21 @@ export default function App() {
         <section id="care" className="section" aria-labelledby="care-heading">
           <div className="container-clinic">
             <div className="care-overview">
-              <div className="care-overview__copy">
+              <div className="care-overview__copy" data-motion-reveal>
                 <p className="eyebrow">Our care</p><h2 id="care-heading">Understand your heart health.</h2>
                 <p>Whether you are following up on a blood pressure reading or need a heart test, we help you understand the next step.</p>
                 <p className="small-copy">Please call ahead to confirm the test you need and any preparation before your visit.</p>
                 <a href="#request" className="text-link">Ask about a test <ArrowRight aria-hidden="true" /></a>
               </div>
-              <figure className="equipment-photo">
-                <img src="/clinic-equipment.jpeg" alt="Equipment, monitors and an examination table inside the clinic" width={1448} height={1086} loading="lazy" decoding="async" data-testid="img-clinic-equipment" />
+              <figure className="equipment-photo" data-motion-reveal data-motion-order="1">
+                <div className="clinic-photo-frame"><img src="/clinic-equipment.jpeg" alt="Equipment, monitors and an examination table inside the clinic" width={1448} height={1086} loading="lazy" decoding="async" data-testid="img-clinic-equipment" /></div>
                 <figcaption><span>Inside our clinic</span>Equipment at Oluwarotimi Specialist Clinic.</figcaption>
               </figure>
             </div>
             <div className="service-grid">
-              {services.map((service) => {
+              {services.map((service, index) => {
                 const Icon = service.icon;
-                return <article className="service-card" key={service.id} data-testid={'card-service-' + service.id}>
+                return <article className="service-card" key={service.id} data-motion-reveal data-motion-order={index % 3} data-testid={'card-service-' + service.id}>
                   <Icon aria-hidden="true" /><h3>{service.title}</h3><p>{service.description}</p>
                 </article>;
               })}
@@ -297,7 +321,7 @@ export default function App() {
               </div>
               <a href="#request" className="action action--outline">Arrange a consultation <ArrowRight aria-hidden="true" /></a>
             </div>
-            <dl className="credential-list">
+            <dl className="credential-list" data-motion-reveal>
               <div><dt>Qualifications and further training</dt><dd>MB ChB, FMCP, MBA<br />Interventional Cardiology</dd></div>
               <div><dt>Clinical focus</dt><dd>Hypertension, diabetes, heart failure and other heart conditions</dd></div>
               <div><dt>Professional membership</dt><dd>Nigerian Cardiac Society and PASCAR</dd></div>
@@ -320,8 +344,8 @@ export default function App() {
               </ol>
               <a href="#fees" className="text-link">Registration, fees and insurance <ArrowRight aria-hidden="true" /></a>
             </div>
-            <figure className="reception-photo">
-              <img src="/clinic-reception.jpeg" alt="The clinic reception and waiting area, viewed through the entrance" width={780} height={1040} loading="lazy" decoding="async" data-testid="img-clinic-reception" />
+            <figure className="reception-photo" data-motion-reveal>
+              <div className="clinic-photo-frame"><img src="/clinic-reception.jpeg" alt="The clinic reception and waiting area, viewed through the entrance" width={780} height={1040} loading="lazy" decoding="async" data-testid="img-clinic-reception" /></div>
               <figcaption><span>Reception &amp; waiting area</span>The reception team is your first point of contact when you arrive.</figcaption>
             </figure>
           </div>
@@ -337,7 +361,8 @@ export default function App() {
                 </button>)}
               </div>
               <article id="health-tip-content" className="health-tip" aria-live="polite" aria-atomic="true" data-testid="content-heart-health-tip">
-                <HeartPulse aria-hidden="true" /><p className="eyebrow">{tips[activeTip].label}</p><h3>{tips[activeTip].title}</h3><p>{tips[activeTip].body}</p>
+                <HeartPulse aria-hidden="true" />
+                <div key={activeTip} className="health-tip__content"><p className="eyebrow">{tips[activeTip].label}</p><h3>{tips[activeTip].title}</h3><p>{tips[activeTip].body}</p></div>
               </article>
             </div>
             <p className="education-note"><strong>General education only.</strong> These tips do not diagnose a condition or replace a consultation. Read more from the <a href="https://www.heart.org/en/healthy-living/healthy-lifestyle/lifes-essential-8" target="_blank" rel="noreferrer">American Heart Association</a>, <a href="https://www.who.int/news-room/fact-sheets/detail/physical-activity" target="_blank" rel="noreferrer">WHO</a> and <a href="https://www.nhs.uk/better-health/quit-smoking/ready-to-quit-smoking/quit-with-nicotine-replacement-therapies-nrt/" target="_blank" rel="noreferrer">NHS</a>.</p>
@@ -376,8 +401,18 @@ export default function App() {
             <div className="section-intro"><div><p className="eyebrow">Plan your visit</p><h2 id="find-us-heading">Find us in Akure.</h2></div><p>Call ahead to confirm your visit time and any preparation needed for your test.</p></div>
             <div className="location-layout">
               <div className="location-details">
-                <div><MapPin aria-hidden="true" /><h3>Clinic address</h3><address>{clinic.address}.</address><a href={clinic.maps} target="_blank" rel="noreferrer" className="text-link" data-testid="link-request-maps">Get directions <ArrowRight aria-hidden="true" /></a></div>
-                <div><Clock3 aria-hidden="true" /><h3>Opening hours</h3><p>{clinic.hours}. No routine Sunday consultations.</p><p className="small-copy">Closing times and consultation availability are confirmed by the clinic.</p></div>
+                <div className="location-card" data-motion-reveal data-testid="card-clinic-address">
+                  <span className="location-card__icon"><MapPin aria-hidden="true" /></span>
+                  <h3>Clinic address</h3>
+                  <address>{clinic.address}.</address>
+                  <a href={clinic.maps} target="_blank" rel="noreferrer" className="text-link" data-testid="link-request-maps">Get directions <ArrowRight aria-hidden="true" /></a>
+                </div>
+                <div className="location-card" data-motion-reveal data-motion-order="1" data-testid="card-clinic-hours">
+                  <span className="location-card__icon"><Clock3 aria-hidden="true" /></span>
+                  <h3>Opening hours</h3>
+                  <p>{clinic.hours}. No routine Sunday consultations.</p>
+                  <p className="small-copy">Closing times and consultation availability are confirmed by the clinic.</p>
+                </div>
               </div>
               <div className="clinic-map">
                 {mapOpen ? <iframe title="Map showing Oluwarotimi Specialist Clinic in Akure" src={clinic.mapEmbed} loading="lazy" referrerPolicy="no-referrer" allowFullScreen /> : <div className="map-placeholder"><MapPin aria-hidden="true" /><h3>See the clinic on the map</h3><p>Alagbaka Extension 2, behind SIB Police Headquarters.</p><button type="button" className="action action--outline" onClick={() => setMapOpen(true)} data-testid="button-load-map">Show interactive map <ArrowRight aria-hidden="true" /></button><small>Loads a map from Google Maps.</small></div>}
