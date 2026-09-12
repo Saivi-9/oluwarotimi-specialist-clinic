@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "oluwarotimi-specialist-clinic",
+  "main": "./node_modules/vinext/dist/server/app-router-entry.js",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": false,
+  "assets": {
+    "not_found_handling": "none",
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "APPOINTMENTS_ENABLED": "false"
+  },
+  "observability": {
+    "enabled": false
+  }
+}

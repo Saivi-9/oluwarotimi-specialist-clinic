@@ -10,6 +10,12 @@
     "typecheck": "tsc --noEmit --incremental false",
     "dev": "vinext dev",
     "build": "vinext build",
+    "dev:cloudflare": "vite --config vite.cloudflare.config.ts",
+    "build:cloudflare": "vite build --app --config vite.cloudflare.config.ts",
+    "preview:cloudflare": "node scripts/cloudflare.mjs dev --local --config dist-cloudflare/server/wrangler.json",
+    "check:cloudflare": "node scripts/cloudflare.mjs deploy --dry-run --config dist-cloudflare/server/wrangler.json",
+    "test:cloudflare-preview": "node scripts/check-cloudflare-preview.mjs",
+    "deploy:cloudflare": "node scripts/cloudflare.mjs deploy --config dist-cloudflare/server/wrangler.json",
     "start": "vinext start",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next"
   },

@@ -32,10 +32,19 @@ pnpm dev
 
 Then open the local address shown in the terminal.
 
-    ## Published site metadata
+## Cloudflare hosting
 
-    Set `NEXT_PUBLIC_SITE_URL` to the final public origin before publishing. The layout uses this value for absolute Open Graph and social-preview URLs; it intentionally does not hardcode a development or preview domain.
-    
+The independent Cloudflare deployment is prepared separately from the existing
+host. See [Cloudflare migration](docs/cloudflare-migration.md) for build, account,
+domain and rollback steps. No DNS changes happen when building or testing.
+
+## Published site metadata
+
+The Cloudflare build sets `NEXT_PUBLIC_SITE_URL` to
+`https://oluwarotimiclinic.com` unless a build-time override is provided.
+The layout uses this value for absolute social-preview URLs. The existing
+hosting build continues to use its own environment setting.
+
 ## Check changes
 
 ```bash
