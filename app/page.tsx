@@ -83,7 +83,7 @@ const faqs = [
   },
   {
     question: 'Where is the clinic located?',
-    answer: 'Oluwarotimi Specialist Clinic & Diagnostic Centre is at Promised Land Estate, Alagbaka Extension 2, behind SIB Police Headquarters, Akure, Ondo State.',
+    answer: 'Oluwarotimi Specialist Clinic & Diagnostic Centre is in Akure, Ondo State. Use the Get directions link on this page for the current clinic location.',
   },
   {
     question: 'Do you attend to children or pregnant patients?',
@@ -277,7 +277,7 @@ export default function App() {
           </div>
           <div className="container-clinic visit-facts">
             <div><Clock3 aria-hidden="true" /><p><strong>{clinic.hours}</strong><span>Call to confirm a suitable visit time.</span></p></div>
-            <div><MapPin aria-hidden="true" /><p><strong>Alagbaka Extension 2, Akure</strong><a href="#find-us">Address and directions</a></p></div>
+            <div><MapPin aria-hidden="true" /><p><strong>Akure, Ondo State</strong><a href="#find-us">Current location and directions</a></p></div>
             <div><MessageCircle aria-hidden="true" /><p><strong>No referral needed</strong><span>Call, message, walk in or bring a referral.</span></p></div>
           </div>
         </section>
@@ -415,7 +415,7 @@ export default function App() {
                 </div>
               </div>
               <div className="clinic-map">
-                {mapOpen ? <iframe title="Map showing Oluwarotimi Specialist Clinic in Akure" src={clinic.mapEmbed} loading="lazy" referrerPolicy="no-referrer" allowFullScreen /> : <div className="map-placeholder"><MapPin aria-hidden="true" /><h3>See the clinic on the map</h3><p>Alagbaka Extension 2, behind SIB Police Headquarters.</p><button type="button" className="action action--outline" onClick={() => setMapOpen(true)} data-testid="button-load-map">Show interactive map <ArrowRight aria-hidden="true" /></button><small>Loads a map from Google Maps.</small></div>}
+                {mapOpen ? <iframe title="Map showing Oluwarotimi Specialist Clinic in Akure" src={clinic.mapEmbed} loading="lazy" referrerPolicy="no-referrer" allowFullScreen /> : <div className="map-placeholder"><MapPin aria-hidden="true" /><h3>See the clinic on the map</h3><p>Use the map for the clinic’s current location in Akure, Ondo State.</p><button type="button" className="action action--outline" onClick={() => setMapOpen(true)} data-testid="button-load-map">Show interactive map <ArrowRight aria-hidden="true" /></button><small>Loads a map from Google Maps.</small></div>}
               </div>
             </div>
             <aside id="fees" className="fees-panel" aria-labelledby="fees-heading">

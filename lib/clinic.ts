@@ -6,8 +6,8 @@ export const clinic = {
   telephone: 'tel:+2348034106928',
   email: 'folorunsooluwarotimi@gmail.com',
   whatsapp: 'https://wa.me/2348034106928',
-  address: 'Promised Land Estate, Alagbaka Extension 2, behind SIB Police Headquarters, Akure, Ondo State',
+  address: 'Akure, Ondo State — use Get directions for the current clinic location',
   hours: 'Monday–Saturday, from 8:00 AM',
-  maps: 'https://www.google.com/maps/search/?api=1&query=7.2818404%2C5.2253575',
-  mapEmbed: 'https://maps.google.com/maps?q=7.2818404,5.2253575&z=15&output=embed',
+  maps: 'https://www.google.com/maps/search/?api=1&query=7.2360036%2C5.2581759',
+  mapEmbed: 'https://maps.google.com/maps?q=7.2360036,5.2581759&z=16&output=embed',
 } as const;
