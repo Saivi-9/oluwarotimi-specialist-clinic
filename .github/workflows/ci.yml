@@ -1,0 +1,18 @@
+name: Clinic Appointment & Build CI
+
+on:
+  push:
+    branches: [ ui/clinic-experience-refresh, main, 'feature/**' ]
+  pull_request:
+    branches: [ ui/clinic-experience-refresh, main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+    - name: Run Node appointment validation & security test suite
+      run: node --experimental-strip-types --test tests/appointments.test.mjs
