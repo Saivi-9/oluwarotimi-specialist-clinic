@@ -30,8 +30,11 @@ test('unconfigured delivery fails closed without contacting the provider', async
 });
 
 test('validates and trims the same required fields for email and WhatsApp', () => {
-  assert.equal(validateAppointment({ ...details, name: '  Preview   Test  ' }).details.name, 'Preview Test');
-  for (const bad of [{ name: ' ' }, { phone: 'letters' }, { phone: '123456' }, { phone: '1'.repeat(16) }, { email: 'bad@' }, { reason: ' ' }, { reason: 'a'.repeat(501) }, { preferredTime: '' }, { name: 'A\nB' }, { name: 'A\x00B' }, { preferredTime: 'Monday\x0710am' }, { reason: 'Checkup\x00' }]) {
+  const normalized = validateAppointment({ ...details, name: '  Preview   Test  ', email: '  Preview@Example.COM ', reason: 'Line 1\r\n\r\n\r\n\r\nLine 2' });
+  assert.equal(normalized.details.name, 'Preview Test');
+  assert.equal(normalized.details.email, 'preview@example.com');
+  assert.equal(normalized.details.reason, 'Line 1\n\nLine 2');
+  for (const bad of [{ name: ' ' }, { phone: 'letters' }, { phone: '123456' }, { phone: '1'.repeat(16) }, { email: 'bad@' }, { email: 'user..name@example.com' }, { email: '.user@example.com' }, { reason: ' ' }, { reason: 'a'.repeat(501) }, { preferredTime: '' }, { name: 'A\nB' }, { name: 'A\x00B' }, { preferredTime: 'Monday\x0710am' }, { reason: 'Checkup\x00' }]) {
     assert.equal(validateAppointment({ ...details, ...bad }).ok, false, JSON.stringify(bad));
   }
   assert.equal(validateAppointment({ ...details, email: '' }).ok, true);
