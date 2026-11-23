@@ -27,7 +27,20 @@ export function validateAppointment(input: unknown): { ok: true; details: Appoin
   const digits = details.phone.replace(/\D/g, '');
   const plusCount = (details.phone.match(/\+/g) || []).length;
   const validPlusPlacement = plusCount === 0 || (plusCount === 1 && details.phone.startsWith('+'));
-  if (!/^[+\d() .-]+$/.test(details.phone) || !validPlusPlacement || digits.length < 7 || digits.length > 15 || details.phone.length > 30) return { ok: false, error: 'Enter a valid contact number with 7–15 digits.' };
+  let parenDepth = 0;
+  let balancedParens = true;
+  for (const ch of details.phone) {
+    if (ch === '(') parenDepth++;
+    else if (ch === ')') {
+      parenDepth--;
+      if (parenDepth < 0) {
+        balancedParens = false;
+        break;
+      }
+    }
+  }
+  if (parenDepth !== 0) balancedParens = false;
+  if (!/^[+\d() .-]+$/.test(details.phone) || !validPlusPlacement || !balancedParens || digits.length < 7 || digits.length > 15 || details.phone.length > 30) return { ok: false, error: 'Enter a valid contact number with 7–15 digits.' };
   if (details.email && (details.email.length > 254 || details.email.includes('..') || SINGLE_LINE_CONTROL_CHARS.test(details.email) || !/^[^\s@.][^\s@]*@[^\s@.][^\s@]*\.[^\s@.]+$/.test(details.email))) return { ok: false, error: 'Check your email address, or leave it blank.' };
   if (details.reason.length < 3 || details.reason.length > 500 || MULTILINE_DISALLOWED_CONTROL_CHARS.test(details.reason)) return { ok: false, error: 'Add a brief reason for your visit (3–500 characters).' };
   if (details.preferredTime.length < 3 || details.preferredTime.length > 120 || SINGLE_LINE_CONTROL_CHARS.test(details.preferredTime)) return { ok: false, error: 'Add your preferred day and time (3–120 characters).' };
