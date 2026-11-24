@@ -28,10 +28,15 @@ export function validateAppointment(input: unknown): { ok: true; details: Appoin
   const plusCount = (details.phone.match(/\+/g) || []).length;
   const validPlusPlacement = plusCount === 0 || (plusCount === 1 && details.phone.startsWith('+'));
   let parenDepth = 0;
-  let balancedParens = true;
+  let balancedParens = !details.phone.includes('()');
   for (const ch of details.phone) {
-    if (ch === '(') parenDepth++;
-    else if (ch === ')') {
+    if (ch === '(') {
+      parenDepth++;
+      if (parenDepth > 1) {
+        balancedParens = false;
+        break;
+      }
+    } else if (ch === ')') {
       parenDepth--;
       if (parenDepth < 0) {
         balancedParens = false;
