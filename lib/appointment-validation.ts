@@ -45,7 +45,8 @@ export function validateAppointment(input: unknown): { ok: true; details: Appoin
     }
   }
   if (parenDepth !== 0) balancedParens = false;
-  if (!/^[+\d() .-]+$/.test(details.phone) || !validPlusPlacement || !balancedParens || digits.length < 7 || digits.length > 15 || details.phone.length > 30) return { ok: false, error: 'Enter a valid contact number with 7–15 digits.' };
+  const hasRepeatedSeparators = /--|\.\./.test(details.phone);
+  if (!/^[+\d() .-]+$/.test(details.phone) || !validPlusPlacement || !balancedParens || hasRepeatedSeparators || digits.length < 7 || digits.length > 15 || details.phone.length > 30) return { ok: false, error: 'Enter a valid contact number with 7–15 digits.' };
   const [emailLocal = '', emailDomain = ''] = details.email.split('@');
   const domainLabels = emailDomain ? emailDomain.split('.') : [];
   const tldLabel = domainLabels[domainLabels.length - 1] ?? '';
